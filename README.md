@@ -1,4 +1,4 @@
-# Agent Skills Lifecycle
+# Matt Skills with To-Goal
 
 一套面向 AI coding agent 的工程技能包：把「模糊想法」推进到「可验证交付」。
 
@@ -12,12 +12,12 @@
   ├─ 普通规模 ──► /grill-me（或 /grill-with-docs）
   │                    │
   │                    ▼
-  │               /to-spec ──► /to-tickets ──► /to-goal ──► 新会话 /implement
+  │               /to-spec ──► /to-tickets ──► /to-goal ──► 新会话直接跑 goal
   │                                                              │
   │                                                              ▼
   │                                                         /code-review
   │
-  └─ 超大/看不清路线 ──► /wayfinder ──►（路线清晰后）汇入 /to-spec 或直接 /implement
+  └─ 超大/看不清路线 ──► /wayfinder ──►（路线清晰后）汇入 /to-spec 或直接实现
 ```
 
 支撑技能：`/research`、`/prototype`、`/tdd`、`/handoff`、`/triage`。
@@ -43,8 +43,10 @@
    `/to-goal`：只读取证，输出一份可粘贴的 verifiable goal（当前状态、完成标准、约束）。  
    默认一次只处理一个 frontier ticket；`--all` 仅在明确要求跨 ticket 时使用。
 
-6. **新会话实现**  
-   清上下文后 `/implement`，尽量走 `/tdd`，结束前 `/code-review`，再提交。
+6. **新会话直接跑 goal**  
+   开一个新会话，把 `/to-goal` 产出的 goal 整段贴进去执行（或交给 goal loop / harness）。  
+   尽量走 `/tdd`；完成标准满足后跑 `/code-review`，再提交。  
+   不要再走一遍 `/implement` 重新访谈或重述 ticket——goal 已经是执行契约。
 
 7. **超大任务走 wayfinder**  
    一次会话装不下、路线还在雾里时用 `/wayfinder`：在 tracker 上画调查地图，逐个做决策（不是交付物），雾散后再进主流程。
@@ -65,7 +67,7 @@
 | `to-tickets` | spec/计划 → 带阻塞边的 tickets |
 | `to-goal` | ticket/frontier → 可验证执行 goal |
 | `goal-crafter` | goal 格式与完成标准规则（`to-goal` 依赖） |
-| `implement` | 按 spec/ticket 实现 |
+| `implement` | 按 spec/ticket 实现（无 goal 时的备选入口） |
 | `code-review` | Standards + Spec 双轴评审 |
 | `tdd` | 测试驱动实现 |
 | `research` | 高可信源调研 |
@@ -88,7 +90,7 @@
 复制到你的 agent skills 目录，或用 skills CLI（若已配置）：
 
 ```bash
-npx skills@latest add tt-a1i/agent-skills-lifecycle
+npx skills@latest add tt-a1i/matt-skills-with-to-goal
 ```
 
 本仓库技能位于 `skills/`。若你使用统一目录（如 `~/.agents_skills/`），可直接把需要的子目录拷过去。
@@ -112,4 +114,4 @@ npx skills@latest add tt-a1i/agent-skills-lifecycle
 - `to-prd` → `to-spec`
 - `to-issues` → `to-tickets`
 - 新增 `wayfinder`
-- 本仓库在 `to-tickets` 与 `implement` 之间插入 `to-goal`
+- 本仓库在 `to-tickets` 之后插入 `to-goal`：产出 goal 后，新会话直接执行该 goal
