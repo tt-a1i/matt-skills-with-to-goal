@@ -1,0 +1,4 @@
+interface:
+  display_name: "To Goal"
+  short_description: "Turn a ready ticket or frontier into a verifiable execution goal"
+  default_prompt: "Use $to-goal to turn the current ready ticket or frontier into a verifiable goal for a fresh implementation session."
