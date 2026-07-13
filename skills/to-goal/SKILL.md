@@ -54,6 +54,26 @@ For `--all`:
 - warn that the goal requires a persistent harness capable of context renewal;
 - never present `--all` as the normal Matt workflow.
 
+## Recommend execution capacity
+
+Classify the implementation session by required capability, not by a hard-coded model name. The recommendation must remain portable across Claude Code, Codex, Pi, and other coding agents.
+
+Choose exactly one capability tier:
+
+- **Lightweight**: bounded search, inventory, formatting, mechanical edits, or a small change following an established pattern with low failure cost.
+- **Standard**: normal feature work, focused bug fixes, tests, or moderate multi-file changes with clear repository patterns. This is the default.
+- **Advanced**: difficult root-cause analysis, cross-module design, security or authorization changes, schema/data migrations, concurrency, long-context synthesis, or work where a plausible mistake has high cost.
+
+Choose exactly one reasoning intensity:
+
+- **Low**: deterministic work with little ambiguity and cheap verification.
+- **Medium**: some design judgment, multiple affected files, or non-trivial tests. This is the default.
+- **High**: ambiguous behavior, interacting invariants, risky migrations, concurrency, security boundaries, or expensive failure modes.
+
+Recommend the lowest tier and intensity that can reliably complete the ticket. Include one short evidence-based reason. Do not recommend a stronger tier merely because the ticket is large; prefer splitting work when it cannot fit one fresh context window.
+
+Only name a concrete model when the target harness and its available model choices are known from current context. When naming one, present it as an optional mapping after the portable recommendation, not as the recommendation itself. Never assume a fixed set such as Luna, Terra, or Sol.
+
 ## Draft the goal
 
 Use the harness format selected by `goal-crafter`. When the harness is not explicit, infer it from the invocation context; if that is impossible, emit a generic goal block that can be pasted into a fresh coding-agent session.
@@ -85,8 +105,13 @@ Output only:
 
 1. a short readiness note;
 2. one copy-pasteable goal block;
-3. a session recommendation.
+3. a session recommendation containing:
+   - fresh session or persistent goal loop;
+   - capability tier: Lightweight, Standard, or Advanced;
+   - reasoning intensity: Low, Medium, or High;
+   - one sentence explaining the choice from observed task risk and complexity;
+   - an optional concrete model mapping only when the execution environment is known.
 
 Recommend a fresh session for ticket implementation after to-tickets or triage. The ticket, spec, branch, and HEAD carry the context; do not create a handoff document unless essential context exists only in the conversation and was never published.
 
-For `--all`, explicitly label the goal as cross-context and recommend a persistent goal loop. For a single frontier ticket, recommend a normal fresh `/implement` or goal-loop session.
+For `--all`, explicitly label the goal as cross-context and recommend a persistent goal loop. For a single frontier ticket, recommend a normal fresh `/implement` or goal-loop session. Keep the recommendation portable: for example, say `Advanced + High` for an authorization migration with concurrency invariants, not `use Model X` unless Model X is known to be available.
