@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/to-goal-hero.png" alt="从模糊想法到可验证 Goal，再到新会话实现的编译式工作流" width="100%">
+</p>
+
 <div align="center">
 
 # Matt Skills with To-Goal
