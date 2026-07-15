@@ -16,6 +16,8 @@
 
 `grill → spec → tickets → goal → fresh session → review`
 
+[**▶ 在线故事版：别让一个线程从需求聊到代码写完**](https://verifiable-goal-weekly-share-public.pages.dev)
+
 </div>
 
 ## 它解决什么问题
