@@ -10,7 +10,7 @@ Compile existing planning and repository evidence into an execution goal. Do not
 
 ## Source of truth
 
-Read and follow `../goal-crafter/SKILL.md` before drafting. It owns the rules for verifiable goals and target-harness formatting. This skill owns only context gathering, frontier selection, and execution handoff. Do not duplicate or weaken `goal-crafter`'s completion-standard rules here.
+Read and follow `../goal-crafter/SKILL.md` in **compiled-handoff mode** before drafting. It owns the rules for verifiable goals and target-harness formatting; its standalone interview phase does not run here. This skill owns context gathering, frontier selection, readiness checks, and execution handoff. Do not duplicate or weaken `goal-crafter`'s completion-standard rules, and do not re-interview decisions already made by `to-spec`, `to-tickets`, or `triage`.
 
 ## Accepted inputs
 
@@ -34,7 +34,7 @@ Before drafting:
 
 1. Read the complete source spec and selected ticket, including acceptance criteria and comments.
 2. Inspect the repository instructions and relevant design vocabulary.
-3. Inspect the current branch, HEAD, worktree status, recent commits, and diff.
+3. Inspect the current branch, HEAD, worktree status, recent commits, and diff. Record the pre-implementation HEAD as the code-review fixed point.
 4. Compare current behavior and tests with every acceptance criterion.
 5. Classify criteria as evidenced complete, demonstrably incomplete, or unverified. A commit message is not evidence.
 6. Discover validation commands from the repository's own scripts, CI, documentation, and existing tests.
@@ -83,7 +83,7 @@ Include these sections:
 - **Goal**: one ticket-scoped outcome;
 - **Current state**: branch, HEAD, relevant dirty files, evidenced completed work, known gaps, and existing failures;
 - **Execution order**: the shortest dependency-respecting path through the selected ticket;
-- **Completion criteria**: inherit every ticket criterion without changing product decisions, split into independently checkable statements, and add tests, review, commit, and workspace-cleanliness gates;
+- **Completion criteria**: inherit every ticket criterion without changing product decisions, split into independently checkable statements, and add risk-appropriate validation, review against the recorded fixed point, authorized commit, and workspace-cleanliness gates;
 - **Constraints**: scope exclusions, permissions, unrelated dirty-file protection, dependency policy, and external-action limits;
 - **Context**: source ticket/spec, relevant design documents, agreed test seam, and commands or files to inspect first.
 
@@ -93,9 +93,11 @@ Default constraints unless the source context explicitly overrides them:
 - do not modify unrelated dirty or untracked files;
 - do not implement downstream tickets early;
 - use the pre-agreed test seam and test behavior rather than implementation details;
-- run focused tests during development and the repository's broad validation at the end;
-- run the applicable code-review flow before committing;
-- commit only after all selected-ticket criteria pass.
+- always run the smallest applicable validation during development;
+- require broad or full validation only when repository gates demand it, the user explicitly requests it, or the change affects core logic, security, data consistency, concurrency, or a known bug regression;
+- for low-risk non-behavioral work, allow tests to be skipped only when there is no relevant test seam or non-test validation is sufficient; still require the smallest applicable validation, and require the execution report to state why tests were skipped and identify any residual risk;
+- run the applicable code-review flow against the recorded pre-implementation fixed point before committing;
+- commit only after all selected-ticket criteria pass and the source context or user authorizes a commit.
 
 If current implementation is partial, put verified finished work in **Current state** and every remaining gap in **Completion criteria**. Never hide a known gap or tell the next Agent to redo verified work.
 
@@ -112,6 +114,6 @@ Output only:
    - one sentence explaining the choice from observed task risk and complexity;
    - an optional concrete model mapping only when the execution environment is known.
 
-Recommend a fresh session for ticket implementation after to-tickets or triage. The ticket, spec, branch, and HEAD carry the context; do not create a handoff document unless essential context exists only in the conversation and was never published.
+Recommend a fresh session that directly executes the goal after `to-tickets` or `triage`. The ticket, spec, branch, and recorded fixed point carry the context; do not send the fresh session back through an interview or create a handoff document unless essential context exists only in the conversation and was never published.
 
-For `--all`, explicitly label the goal as cross-context and recommend a persistent goal loop. For a single frontier ticket, recommend a normal fresh `/implement` or goal-loop session. Keep the recommendation portable: for example, say `Advanced + High` for an authorization migration with concurrency invariants, not `use Model X` unless Model X is known to be available.
+For `--all`, explicitly label the goal as cross-context and recommend a persistent goal loop. For a single frontier ticket, recommend a normal fresh implementation or goal-loop session. If the harness automatically invokes `/implement`, the goal remains the execution contract and `/implement` must not re-interview or restate it. Keep the recommendation portable: for example, say `Advanced + High` for an authorization migration with concurrency invariants, not `use Model X` unless Model X is known to be available.

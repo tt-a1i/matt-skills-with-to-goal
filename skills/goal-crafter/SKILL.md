@@ -1,7 +1,7 @@
 ---
 name: goal-crafter
 description: >
-  Craft verifiable, tight goal prompts for AI coding agents (Claude Code /goal, Codex Automations, Pi).
+  Craft verifiable, tight goal prompts for AI coding agents (Claude Code /goal, Codex Automations, Pi), either from a standalone task interview or from an already-approved to-goal handoff.
   Use when the user says "给我一个 goal 提示词", "帮我写个 goal", "设置一个自动化任务",
   "我想让 agent 自动做 X", or asks to turn a task into a self-running loop.
   Ensures every goal has a checkable completion criterion so the agent knows when it's done.
@@ -13,9 +13,20 @@ Turn a vague task into a **verifiable goal** that an AI agent can run unattended
 
 **Leading principle**: A goal without a checkable completion criterion is just a wish. The agent must be able to answer "Am I done?" without asking a human.
 
+## Invocation modes
+
+Choose the mode before following the process:
+
+- **Standalone mode**: the user brings a vague task or directly asks for a goal. Run Phase 1 and clarify the task one question at a time.
+- **Compiled-handoff mode**: an upstream skill such as `to-goal` invokes this skill after `to-spec`, `to-tickets`, or `triage`. The approved spec, selected ticket, tracker evidence, and repository state supply the answers. **Do not interview the user again.** Apply only this skill's verifiability rules and target-harness formatting.
+
+In compiled-handoff mode, if a required product decision or completion condition is genuinely absent from the sources, report that the source is not agent-ready and name the missing evidence. Do not reopen the planning interview from inside goal compilation.
+
 ## Process
 
 ### Phase 1 — Clarify the task
+
+Run this phase only in standalone mode. In compiled-handoff mode, extract the five answers from the upstream evidence without asking questions.
 
 Ask the user, **one question at a time**:
 
@@ -94,13 +105,15 @@ Before presenting the final goal, **self-check**:
 - [ ] Are the constraints specific enough to prevent scope creep?
 - [ ] Is the context sufficient for the agent to start working without asking "where" or "how"?
 
-If any check fails, go back to Phase 1 and ask the user to clarify that specific point.
+If any check fails in standalone mode, go back to Phase 1 and ask the user to clarify that specific point. In compiled-handoff mode, report the source as not agent-ready and name the missing evidence instead of asking a new planning question.
 
 ### Phase 4 — Deliver
 
-Present the final goal. End with:
+In standalone mode, present the final goal and end with:
 
 > "把这个 goal 粘贴到 [agent 名称] 里，它就会自己跑到完成。如果中途卡住，告诉我哪条完成标准没达到，我帮你调。"
+
+In compiled-handoff mode, the upstream skill owns the delivery wrapper. Return the goal in the requested harness format without adding this standalone closing line.
 
 ---
 
@@ -173,7 +186,8 @@ Context:
 
 ## Special Rules
 
-- **Never skip Phase 1 question #3.** If the user can't define "done", the goal will fail. Help them brainstorm.
+- **Never skip Phase 1 question #3 in standalone mode.** If the user can't define "done", the goal will fail. Help them brainstorm.
+- **Never re-interview in compiled-handoff mode.** `to-spec`, `to-tickets`, or `triage` already owns clarification and product decisions; missing evidence means the source is not agent-ready.
 - **One verifiable condition per checkbox.** Don't combine multiple conditions into one line.
 - **Constraints are your friend.** They prevent the agent from "optimizing" unrelated files or introducing breaking changes.
 - **If the task is too large for one goal**, suggest breaking it into 2-3 smaller goals with clear handoffs.
