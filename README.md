@@ -146,14 +146,14 @@ Goal
 
 | Skill | 作用 |
 |---|---|
-| `implement` | 按 spec、ticket 或 goal 实现；goal 存在时直接执行契约 |
+| `implement` | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
 | `tdd` | 在预先确认的 seam 上进行测试驱动实现 |
-| `code-review` | Standards + Spec 双轴评审，支持已提交分支和 WIP worktree |
-| `prototype` | 用一次性逻辑或 UI 原型回答设计问题 |
+| `code-review` | Standards + Spec 双轴评审 |
+| `prototype` | 用一次性逻辑或 UI 原型回答设计问题，并保留为 primary source |
 | `research` | 使用高可信来源完成技术调研 |
 | `triage` | 将外来 issue / PR 推进到明确状态 |
 
-### 工程理解
+### 工程理解与其他
 
 | Skill | 作用 |
 |---|---|
@@ -162,6 +162,8 @@ Goal
 | `domain-modeling` | 维护领域语言、CONTEXT 和 ADR |
 | `improve-codebase-architecture` | 识别并推进架构深化机会 |
 | `resolving-merge-conflicts` | 处理合并冲突并保护双方意图 |
+| `teach` | 多会话教学，目录作为有状态学习空间 |
+| `writing-great-skills` | 编写与编辑 skill 的参考原则 |
 
 ## 设计边界
 
@@ -173,7 +175,7 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **v1.1 + main（同步至 2026-07-16）**，并增加 `to-goal`、`goal-crafter` 以及 goal handoff / WIP review 相关适配。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **正式 promoted skill（同步至 2026-07-16）**，并只叠加 `to-goal` / `goal-crafter`。
 
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
@@ -181,6 +183,7 @@ Goal
 
 ### 与上游的差异
 
-- 在 `to-tickets` 之后增加 `to-goal` / `goal-crafter`
-- 保留本地增强的 `implement`（goal 执行契约）与 `code-review`（WIP / untracked review surface）
-- Local tracker 与上游一致：一 ticket 一文件（`.scratch/<feature>/issues/<NN>-<slug>.md`），spec 为 `spec.md`
+- **本地核心**：在 `to-tickets` 之后增加 `to-goal` / `goal-crafter`；`ask-matt` 推荐路径为 `tickets → to-goal → 新会话 implement`
+- **其余正式 skill** 与上游一致（含 `teach`、`writing-great-skills`）
+- **不同步**：上游的 `in-progress/`、`misc/`、`personal/`、`deprecated/`，以及 Claude Code plugin 包装
+- 目录为扁平 `skills/<name>/`（上游为 `engineering/` / `productivity/` 分类）
