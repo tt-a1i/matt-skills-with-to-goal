@@ -10,7 +10,7 @@
 
 让规划线程专注于把事情想清楚，让执行线程专注于把事情做完。
 
-[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20v1.1-171717?style=flat-square)](https://github.com/mattpocock/skills)
+[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20main-171717?style=flat-square)](https://github.com/mattpocock/skills)
 [![Install](https://img.shields.io/badge/install-npx%20skills-F35B2A?style=flat-square)](#安装)
 [![License](https://img.shields.io/badge/license-MIT-DCF23E?style=flat-square&labelColor=171717)](LICENSE)
 
@@ -173,15 +173,14 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **v1.1**，并增加 `to-goal`、`goal-crafter` 以及 goal handoff / WIP review 相关适配。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **v1.1 + main（同步至 2026-07-16）**，并增加 `to-goal`、`goal-crafter` 以及 goal handoff / WIP review 相关适配。
 
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
 - 完整许可见 [`LICENSE`](LICENSE)
 
-### 与上游命名的对应关系
+### 与上游的差异
 
-- `to-prd` → `to-spec`
-- `to-issues` → `to-tickets`
-- 新增 `wayfinder`
-- 在 `to-tickets` 之后增加 `to-goal`
+- 在 `to-tickets` 之后增加 `to-goal` / `goal-crafter`
+- 保留本地增强的 `implement`（goal 执行契约）与 `code-review`（WIP / untracked review surface）
+- Local tracker 与上游一致：一 ticket 一文件（`.scratch/<feature>/issues/<NN>-<slug>.md`），spec 为 `spec.md`

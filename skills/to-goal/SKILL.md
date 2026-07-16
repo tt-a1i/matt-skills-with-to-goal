@@ -19,7 +19,7 @@ Resolve one of:
 - no argument: inspect the configured tracker and select the current unblocked, agent-ready frontier ticket;
 - a ticket number or URL: read that ticket in full;
 - a parent spec issue: read the spec, sub-issues, and blocking graph, then select its current frontier;
-- a local spec or ticket path: read the complete file and any directly referenced local planning document;
+- a local spec or ticket path: read the complete file and any directly referenced local planning document (local tracker: `.scratch/<feature>/spec.md` and one file per ticket under `.scratch/<feature>/issues/<NN>-<slug>.md`);
 - `--all <parent>`: generate one dependency-ordered cross-ticket goal.
 
 Always read ticket comments. For a tracker parent, use native sub-issue and dependency relationships when available; otherwise use explicit blocker text. Do not infer that a ticket is ready merely from its label.
