@@ -10,7 +10,7 @@
 
 让规划线程专注于把事情想清楚，让执行线程专注于把事情做完。
 
-[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20main-171717?style=flat-square)](https://github.com/mattpocock/skills)
+[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20v1.2--pre-171717?style=flat-square)](https://github.com/mattpocock/skills)
 [![Install](https://img.shields.io/badge/install-npx%20skills-F35B2A?style=flat-square)](#安装)
 [![License](https://img.shields.io/badge/license-MIT-DCF23E?style=flat-square&labelColor=171717)](LICENSE)
 
@@ -122,6 +122,7 @@ Goal
 | 已有共识，需要形成 spec | `/to-spec` |
 | 已有 spec，需要拆成可执行切片 | `/to-tickets` |
 | 已有 agent-ready ticket，要开新线程实现 | `/to-goal` |
+| 关键在别人脑子里，需要问卷收集 | `/to-questionnaire` |
 | 外部 issue / PR 需要评估和分流 | `/triage` |
 | 正在定位复杂 bug | `/diagnosing-bugs` |
 | 已完成一段实现，需要双轴评审 | `/code-review` |
@@ -133,13 +134,14 @@ Goal
 | Skill | 作用 |
 |---|---|
 | `ask-matt` | 按当前情况选择入口 |
-| `grill-me` / `grilling` | 通过逐问逐答收敛计划和设计 |
+| `grill-me` / `grilling` | 按轮次烤决策树 frontier，一轮多问直到共识 |
 | `grill-with-docs` | 访谈过程中同步沉淀文档 |
 | `wayfinder` | 为超大任务建立共享调查与决策地图 |
 | `to-spec` | 当前对话 → agent-ready spec |
 | `to-tickets` | spec → 带依赖关系的 tracer-bullet tickets |
 | `to-goal` | frontier ticket → 可粘贴的执行 goal |
 | `goal-crafter` | 负责 goal 的可验证性与 harness 格式 |
+| `to-questionnaire` | 把答不上的决策编成问卷交给他人填写 |
 | `handoff` | 仅在关键上下文尚未沉淀到持久化载体时交接会话 |
 
 ### 实现与质量
@@ -149,7 +151,7 @@ Goal
 | `implement` | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
 | `tdd` | 在预先确认的 seam 上进行测试驱动实现 |
 | `code-review` | Standards + Spec 双轴评审 |
-| `prototype` | 用一次性逻辑或 UI 原型回答设计问题，并保留为 primary source |
+| `prototype` | 逻辑用可分享 HTML / UI 用变体探索，并保留为 primary source |
 | `research` | 使用高可信来源完成技术调研 |
 | `triage` | 将外来 issue / PR 推进到明确状态 |
 
@@ -163,7 +165,7 @@ Goal
 | `improve-codebase-architecture` | 识别并推进架构深化机会 |
 | `resolving-merge-conflicts` | 处理合并冲突并保护双方意图 |
 | `teach` | 多会话教学，目录作为有状态学习空间 |
-| `writing-great-skills` | 编写与编辑 skill 的参考原则 |
+| `writing-for-agents` | 编写给 agent 消费的文档（skills、AGENTS.md 等） |
 
 ## 设计边界
 
@@ -175,7 +177,7 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **正式 promoted skill（同步至 2026-07-16）**，并只叠加 `to-goal` / `goal-crafter`。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`release/v1.2`（同步至 2026-07-29，`14b9223`）**，并只叠加 `to-goal` / `goal-crafter`。
 
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
@@ -184,6 +186,7 @@ Goal
 ### 与上游的差异
 
 - **本地核心**：在 `to-tickets` 之后增加 `to-goal` / `goal-crafter`；`ask-matt` 推荐路径为 `tickets → to-goal → 新会话 implement`
-- **其余正式 skill** 与上游一致（含 `teach`、`writing-great-skills`）
+- **其余正式 skill** 与上游 `release/v1.2` 一致（含 round-by-round `grilling`、`to-questionnaire`、`writing-for-agents`）
 - **不同步**：上游的 `in-progress/`、`misc/`、`personal/`、`deprecated/`，以及 Claude Code plugin 包装
 - 目录为扁平 `skills/<name>/`（上游为 `engineering/` / `productivity/` 分类）
+- 上游 v1.2 尚未合入 `main` / 发版；本仓库提前跟进该分支
