@@ -28,7 +28,16 @@ In compiled-handoff mode, if a required product decision or completion condition
 
 Run this phase only in standalone mode. In compiled-handoff mode, extract the five answers from the upstream evidence without asking questions.
 
-Ask the user, **one question at a time**:
+Ask the user, **one question at a time**, in this shape (standalone interview only — keep compiled-handoff mode emoji-free):
+
+```
+❓ **QN** - **<short title>**
+<body>
+
+💡 <your recommended answer, when you have one>
+```
+
+Walk these five in order:
 
 1. **What exactly should the agent do?**  
    Get the task in one sentence. If it's vague ("优化代码", "改进 UI"), push for specifics.
@@ -111,7 +120,7 @@ If any check fails in standalone mode, go back to Phase 1 and ask the user to cl
 
 In standalone mode, present the final goal and end with:
 
-> "把这个 goal 粘贴到 [agent 名称] 里，它就会自己跑到完成。如果中途卡住，告诉我哪条完成标准没达到，我帮你调。"
+> 🎯 把这个 goal 粘贴到 [agent 名称] 里，它就会自己跑到完成。如果中途卡住，告诉我哪条完成标准没达到，我帮你调。
 
 In compiled-handoff mode, the upstream skill owns the delivery wrapper. Return the goal in the requested harness format without adding this standalone closing line.
 
