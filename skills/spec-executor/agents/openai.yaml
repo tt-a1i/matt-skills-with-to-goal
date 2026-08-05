@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Executor"
+  short_description: "Implement an approved spec in a forked thread"
+  default_prompt: "Use $spec-executor to implement the latest approved SPEC READY from this forked conversation and return a structured execution receipt."

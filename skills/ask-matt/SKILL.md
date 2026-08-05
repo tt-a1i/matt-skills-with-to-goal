@@ -19,17 +19,20 @@ The route most work travels. You have an idea and want it built.
    - **`/handoff`** out, then open a fresh session against that file,
    - **`/prototype`** to answer the question with throwaway code,
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
-3. **Branch — is this a multi-session build?**
-   - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Run **`/to-goal`** for the current frontier ticket, then open a fresh session and kick off **`/implement`** (or paste the goal into a goal loop). Clear context between tickets and regenerate the goal from the new frontier each time. Use `/to-goal --all` only for a persistent harness that can renew context across tickets.
-   - **No** → **`/implement`** right here, in the same context window.
+3. **Branch — how should implementation cross the context boundary?**
+   - **Small, already clear, no durable spec needed** → **`/implement`** right here.
+   - **The approved spec fits one execution session and this thread is coherent** → **`/to-spec`**, fork from its final `SPEC READY` message, and run **`/spec-executor`** in the fork. The fork inherits settled product context while implementation logs stay out of the planning thread; paste its `SPEC EXECUTION RECEIPT` back when done.
+   - **Multi-session, parallel, cross-agent, delayed, or context already noisy** → **`/to-spec`**, then **`/to-tickets`** for tracer-bullet slices. Run **`/to-goal`** for the current frontier ticket and execute that goal in a clean session. Regenerate from the next frontier after each slice. Use `/to-goal --all` only for a persistent harness that can renew context across tickets.
 
-   Either way, **`/implement`** builds each issue by driving **`/tdd`** internally — one red-green slice at a time — then closes out by running **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
+   Both **`/implement`** and **`/spec-executor`** drive **`/tdd`** where practical and close out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff. `/spec-executor` additionally preserves the fork contract, external-action permissions, and the receipt back to the planning thread.
 
 ### Context hygiene
 
-Keep steps 1–3 in **one unbroken context window** — don't compact or clear until after `/to-tickets` and `/to-goal` — so the grilling, spec, tickets, and execution goal build on the same thinking. Each `/implement` then starts fresh, working from the ticket-scoped goal.
+Keep planning in **one unbroken context window** until the final `SPEC READY`, `/to-tickets`, or `/to-goal` boundary. Fork only from the final marker, not from a half-settled draft. The fork inherits a snapshot: later product changes in the planning thread must be sent to the executor explicitly.
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded — `/handoff` and continue in a fresh thread.
+A fork isolates future conversation, not the filesystem. Parallel implementation threads still need separate worktrees, branches, and ownership boundaries. When the inherited history is already noisy or contradictory, prefer `/to-goal` because it compresses the approved evidence into a clean contract.
+
+The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `SPEC READY` or `/to-tickets`, don't push on degraded — `/handoff` and continue in a fresh thread.
 
 ## On-ramps
 
@@ -71,6 +74,7 @@ Off the main flow entirely.
 - **`/prototype`** — a small, throwaway program that answers one design question: does this state model feel right, or what should this UI look like. Throwaway from day one — keep the answer, delete the code. It's the detour in step 2 of the main flow, but reach for it any time a design question is hard to settle on paper.
 - **`/research`** — delegate reading legwork to a **background agent**: it investigates a question against **primary sources**, then leaves a cited Markdown file in the repo. Keep working while it reads. The file it produces is something to take *into* the main flow at `/grill-with-docs` — research feeds the thinking, it doesn't replace it.
 - **`/to-goal`** — compile an agent-ready ticket or frontier into a verifiable execution goal for a fresh implementation session. Use after `/to-tickets` or `/triage`, not as a planning interview.
+- **`/spec-executor`** — in a fork created from `SPEC READY`, implement exactly that approved one-session spec and return an evidence-bearing receipt to the planning thread.
 - **`/to-questionnaire`** — when the thing blocking you isn't in your head or the codebase but in **someone else's**, this writes them a questionnaire to fill in. It's the inverse of `/grill-me`: instead of interviewing you about the subject, it interviews you about the **send** — who it's going to, what you need back — and aims the questions at the gap. What comes back is material for `/grill-with-docs` or `/to-spec`.
 - **`/teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace.
 - **`/writing-for-agents`** — reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
