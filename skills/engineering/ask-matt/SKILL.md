@@ -19,31 +19,44 @@ The route most work travels. You have an idea and want it built.
    - **`/handoff`** out, then open a fresh session against that file,
    - **`/prototype`** to answer the question with throwaway code,
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
-3. **Branch — is this a multi-session build?**
-   - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed — kick off **`/implement`** per ticket, **`/clear`ing context between each one**. Each ticket is self-contained, so the last one's context is disposable.
-   - **No** → **`/implement`** right here, in the same context window.
+3. **Branch — how should implementation cross the context boundary?**
+   - **Small, already clear, no durable spec needed** → **`/implement`** right here, in the same context window.
+   - **The approved spec fits one execution session and this thread is coherent** → **`/to-spec`**, then **fork from its final `SPEC READY` message** and run **`/spec-executor`** in the fork. The fork inherits settled product context while implementation logs stay out of the planning thread; paste its `SPEC EXECUTION RECEIPT` back when done.
+   - **Multi-session, parallel, cross-agent, delayed, or context already noisy** → **`/to-spec`**, then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Run **`/to-goal`** on the current frontier ticket and execute that goal in a clean session, regenerating from the next frontier after each slice. Use `/to-goal --all` only for a persistent harness that must renew context across tickets.
 
-   Either way, **`/implement`** builds each issue by driving **`/tdd`** internally — one red-green slice at a time — then closes out by running **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
+   Both **`/implement`** and **`/spec-executor`** drive **`/tdd`** internally — one red-green slice at a time — then close out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. `/spec-executor` additionally preserves the fork contract, external-action permissions, and the receipt back to the planning thread. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
 
 ### Context hygiene
 
-Keep steps 1–3 in **one unbroken context window** — don't compact or clear until after `/to-tickets` — so the grilling, spec, and tickets all build on the same thinking. Each `/implement` then starts fresh, working from the ticket.
+Keep steps 1–3 in **one unbroken context window** — don't compact or clear until the final `SPEC READY`, `/to-tickets`, or `/to-goal` boundary — so the grilling, spec, and tickets all build on the same thinking. Fork only from the final marker, never from a half-settled draft. Each execution session then starts from the ticket or the goal.
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded — `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
+A fork isolates future conversation, not the filesystem. Parallel implementation threads still need separate worktrees, branches, and ownership boundaries. The fork also inherits a **snapshot**: later product changes in the planning thread must be sent to the executor explicitly. When the inherited history is already noisy or contradictory, prefer **`/to-goal`**, which compresses the approved evidence into a clean contract instead of carrying the mess forward.
+
+The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `SPEC READY` or `/to-tickets`, don't push on degraded — `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
 
 ## On-ramps
 
 A starting situation that generates work, then merges onto the main flow.
 
-- **Bugs and requests piling up** → **`/triage`**. It moves issues through triage roles and produces agent-ready issues, which **`/implement`** later picks up.
+- **Bugs and requests piling up** → **`/triage`**. It moves issues through triage roles and produces agent-ready issues. Run **`/to-goal`** on the selected ready issue, then execute it in a fresh session — or pick it up with **`/implement`** directly when the context is already clean.
 
-  Triage is only for issues **you didn't create** — bug reports, incoming feature requests, anything that arrives raw. Tickets that `/to-tickets` produced are already agent-ready, so **don't triage them**.
+  Triage is only for issues **you didn't create** — bug reports, incoming feature requests, anything that arrives raw. Tickets that `/to-tickets` produced are already agent-ready, so **don't triage them**. `/to-goal` consumes either kind of ready ticket without repeating triage or re-interviewing you.
 
 - **Something's broken** → **`/diagnosing-bugs`**. For the hard ones: the bug that resists a first glance, the intermittent flake, the regression that crept in between two known-good states. It refuses to theorise until it has a **tight feedback loop** — one command that already goes red on *this* bug — then fixes with a regression test. Its post-mortem hands off to **`/improve-codebase-architecture`** when the real finding is that there's no good seam to lock the bug down.
 
 - **A huge, foggy effort — a greenfield project or a huge feature build, too big for one session** → **`/wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time — producing **decisions, not deliverables** — until the fog is pushed back and the way is clear. Where **`/grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't — and it's slower and denser, so save it for exactly that, never a well-scoped feature.
 
-  When the map clears, **it hands off, it doesn't build**: merge onto the main flow at **`/to-spec`**, which collapses the map's linked decisions into a buildable plan, then `/to-tickets` and `/implement` as usual. Looping the map straight into `/implement` skips that collapse and throws the linked detail away — go straight to `/implement` only when the effort turned out genuinely small.
+  When the map clears, **it hands off, it doesn't build**: merge onto the main flow at **`/to-spec`**, which collapses the map's linked decisions into a buildable plan, then `/to-tickets`, `/to-goal`, and a fresh execution session as usual. Looping the map straight into `/implement` skips that collapse and throws the linked detail away — go straight to `/implement` only when the effort turned out genuinely small.
+
+## Crossing the context boundary
+
+Three skills exist only to move settled work from a planning thread into an execution thread without re-deciding anything.
+
+- **`/to-goal`** — compile an approved spec, agent-ready ticket, or tracker frontier into a **verifiable execution goal**: current state, execution order, completion criteria, constraints, context. Read-only — it never implements, mutates the tracker, or creates a branch. Reach for it when the work is cross-day, cross-agent, parallel, or the current history is too noisy to fork from.
+- **`/goal-crafter`** — the vocabulary and rules underneath `/to-goal`: what makes a goal verifiable and how to format it for the target harness. It also runs **standalone** when you just want a goal written from a fresh interview.
+- **`/spec-executor`** — the other side of a fork. It locks onto the inherited `SPEC READY` contract, its fixed point and its external-action permissions, implements, and returns a `SPEC EXECUTION RECEIPT` to paste back into the planning thread.
+
+**Fork compresses nothing and inherits everything; `/to-goal` inherits nothing and compresses everything.** Prefer the fork for continuous work, the goal when the context must be left behind.
 
 ## Codebase health
 

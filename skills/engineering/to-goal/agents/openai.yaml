@@ -1,0 +1,5 @@
+interface:
+  display_name: "To Goal"
+  short_description: "Compile a ready ticket into a verifiable execution goal"
+policy:
+  allow_implicit_invocation: false

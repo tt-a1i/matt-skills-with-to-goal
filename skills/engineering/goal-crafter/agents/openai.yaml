@@ -1,0 +1,3 @@
+interface:
+  display_name: "Goal Crafter"
+  short_description: "Craft a verifiable goal prompt for a coding agent"

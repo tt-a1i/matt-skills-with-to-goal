@@ -41,17 +41,27 @@ Give each ticket its **blocking edges** — the other tickets that must complete
 
 ### 4. Quiz the user
 
-Present the proposed breakdown as a numbered list. For each ticket, show:
+Present the proposed breakdown as a numbered list with fixed emoji anchors so the user can scan titles and edges:
 
-- **Title**: short descriptive name
-- **Blocked by**: which other tickets (if any) must complete first
-- **What it delivers**: the end-to-end behaviour this ticket makes work
+```
+🎫 **Proposed tickets** · N slices
 
-Ask the user:
+1. 🎫 **<Title>**
+   🔗 Blocked by: <titles or "None — can start immediately">
+   ✨ Delivers: <end-to-end behaviour>
 
-- Does the granularity feel right? (too coarse / too fine)
-- Are the blocking edges correct — does each ticket only depend on tickets that genuinely gate it?
-- Should any tickets be merged or split further?
+2. 🎫 **<Title>**
+   ...
+```
+
+Then ask three checks (keep them short; one block is fine):
+
+```
+👇 Before I publish:
+1) Granularity — too coarse / too fine / about right?
+2) Blocking edges — does each ticket only wait on what genuinely gates it?
+3) Merge or split any?
+```
 
 Iterate until the user approves the breakdown.
 

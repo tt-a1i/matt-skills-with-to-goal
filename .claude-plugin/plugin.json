@@ -1,7 +1,7 @@
 {
   "name": "mattpocock-skills",
   "version": "1.2.3",
-  "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and forked spec execution.",
   "author": {
     "name": "Matt Pocock",
     "url": "https://www.aihero.dev"
@@ -28,12 +28,15 @@
     "./skills/engineering/tdd",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
+    "./skills/engineering/to-goal",
     "./skills/engineering/wayfinder",
     "./skills/engineering/implement",
+    "./skills/engineering/spec-executor",
     "./skills/engineering/prototype",
     "./skills/engineering/research",
     "./skills/engineering/domain-modeling",
     "./skills/engineering/codebase-design",
+    "./skills/engineering/goal-crafter",
     "./skills/engineering/code-review",
     "./skills/engineering/resolving-merge-conflicts",
     "./skills/engineering/wizard",

@@ -4,19 +4,21 @@
     "name": "Matt Pocock",
     "url": "https://www.aihero.dev"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and forked spec execution.",
   "plugins": [
     {
       "name": "mattpocock-skills",
       "source": "./",
-      "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more.",
+      "description": "Engineering skills with grilling, specs, verifiable goal handoffs, forked execution, TDD, and code review.",
       "category": "engineering",
       "keywords": [
         "engineering",
         "skills",
         "tdd",
         "code-review",
-        "grilling"
+        "grilling",
+        "goals",
+        "spec-execution"
       ]
     }
   ]
