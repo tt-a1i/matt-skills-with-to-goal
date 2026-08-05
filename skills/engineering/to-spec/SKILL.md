@@ -73,3 +73,26 @@ A description of the things that are out of scope for this spec.
 Any further notes about the feature.
 
 </spec-template>
+
+4. Choose the execution route after publishing:
+
+- If the complete spec fits one implementation context and the current conversation is coherent enough to fork, mark it for `fork → /spec-executor`.
+- If it needs several tracer-bullet slices, parallel work, cross-agent transfer, or context compression, mark it for `/to-tickets` instead. Do not pretend a large spec is fork-ready.
+- If a product decision or test seam is still unresolved, emit `SPEC NOT READY` with the missing decision. Do not launch implementation.
+
+5. End a ready result with this compact launch block so a forked thread can find the final contract without guessing between drafts:
+
+```text
+SPEC READY
+
+- Status: ready for implementation
+- Source: <published spec URL or path>
+- Repository: <implementation repository>
+- Baseline: <current commit, branch, or explicit source baseline>
+- Test seam: <highest agreed behavior seam>
+- Non-goals: <explicit exclusions>
+- External authority: <commit, push, review, deploy, tracker, data, and real-service permissions; default ungranted>
+- Next route: fork + /spec-executor | /to-tickets
+```
+
+The launch block is an index into the approved spec, not a replacement for it. Do not repeat the full spec inside the block.

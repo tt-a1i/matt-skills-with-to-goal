@@ -55,15 +55,15 @@ The maintainer invokes `/triage` and describes what they want in natural languag
 
 ## Show what needs attention
 
-Query the issue tracker and present three buckets, oldest first:
+Query the issue tracker and present three buckets, oldest first. Lead each bucket with a fixed emoji so the maintainer can scan:
 
-1. **Unlabeled**: never triaged.
-2. **`needs-triage`**: evaluation in progress.
-3. **`needs-info` with reporter activity since the last triage notes**: needs re-evaluation.
+1. **📭 Unlabeled** — never triaged.
+2. **🔄 `needs-triage`** — evaluation in progress.
+3. **💬 `needs-info` with reporter activity since the last triage notes** — needs re-evaluation.
 
 When PRs are in scope, include external PRs in these buckets and tag each line `[PR]` or `[issue]`. Discovery surfaces only *external* PRs (the tracker config defines who counts as external), so a collaborator's in-flight PR is not triage work. This filter is discovery-only; an explicitly named PR is always triaged regardless of author.
 
-Show counts and a one-line summary per item. Let the maintainer pick.
+Show counts and a one-line summary per item. Close with `👇` and let the maintainer pick (by number or id).
 
 ## Triage a specific issue or PR
 
@@ -75,15 +75,15 @@ Show counts and a one-line summary per item. Let the maintainer pick.
 
 4. **Grill (if needed).** If the request needs fleshing out, call the Skill tool twice, for "grilling" and "domain-modeling", and grill it into shape a round of questions at a time, sharpening domain terms and updating `CONTEXT.md`/ADRs inline as decisions land.
 
-5. **Apply the outcome:**
-   - `ready-for-agent`: post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)).
-   - `ready-for-human`: same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
-   - `needs-info`: post triage notes (template below).
-   - For `wontfix`, close the issue, with the comment depending on *why*:
-     - **Already implemented**: the change already exists in the codebase. Point to where it lives; do **not** write to `.out-of-scope/` (that KB is for *rejected* requests, not built ones).
-     - **Rejected (bug)**: give a polite explanation, then close.
-     - **Rejected (enhancement)**: write to `.out-of-scope/`, link to it from a comment, then close ([OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)).
-   - `needs-triage`: apply the role. Optional comment if there's partial progress.
+5. **Apply the outcome** (lead the chat confirmation with the matching emoji; tracker comments stay plain aside from the required AI disclaimer):
+   - `✅ ready-for-agent` — post an agent brief comment ([AGENT-BRIEF.md](AGENT-BRIEF.md)).
+   - `🧑 ready-for-human` — same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).
+   - `💬 needs-info` — post triage notes (template below).
+   - `🚫 wontfix` — close, with the comment depending on *why*:
+     - **Already implemented** — the change already exists in the codebase. Point to where it lives; do **not** write to `.out-of-scope/` (that KB is for *rejected* requests, not built ones).
+     - **Rejected (bug)** — polite explanation, then close.
+     - **Rejected (enhancement)** — write to `.out-of-scope/`, link to it from a comment, then close ([OUT-OF-SCOPE.md](OUT-OF-SCOPE.md)).
+   - `🔄 needs-triage` — apply the role. Optional comment if there's partial progress.
 
 ## Quick state override
 
