@@ -146,6 +146,8 @@ Goal
 
 ## 技能地图
 
+当前发行版包含 **28 个 promoted Skills**：25 个随上游同步的工程与生产力 Skill，以及本 fork 新增的 `to-goal`、`goal-crafter`、`spec-executor`。
+
 ### 规划与交接
 
 | Skill | 作用 |
@@ -201,6 +203,8 @@ Goal
 
 本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.2.3（同步至 2026-08-10，`84fdeff`）**，并叠加 fork execution 与 to-goal 两条上下文边界流程。
 
+当前 fork 发行版为 **`1.2.3-to-goal.1`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
+
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
 - 完整许可见 [`LICENSE`](LICENSE)
@@ -210,5 +214,10 @@ Goal
 - **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`（均位于 `skills/engineering/`）
 - **路由适配**：`ask-matt` 增加 fork + `/spec-executor` 与 `/to-goal` 两条分支及「Crossing the context boundary」章节；`to-spec` 追加 `SPEC READY` launch block
 - **表达层**：`grilling`、`to-tickets`、`triage`、`setup-matt-pocock-skills` 使用固定 emoji 锚点，便于扫读与按编号回复
+- **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
+- **本地分发**：`npm run sync:local` 先备份并同步 28 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
+- **上游维护**：`npm run sync:upstream` 在干净工作树上创建备份分支，并把 fork overlay rebase 到最新 `upstream/main`；脚本不会自动 push
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
-- **保持同步**：其余 skill、`docs/`、`scripts/`、changeset 与 Claude Code plugin 包装均与上游 `main` 一致
+- **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护
+
+完整的同步、备份和远端发布约定见 [`docs/maintaining-fork.md`](docs/maintaining-fork.md)。
