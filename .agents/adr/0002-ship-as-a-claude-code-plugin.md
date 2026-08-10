@@ -39,3 +39,14 @@ Verified 2026-08-05, on Claude Code 2.1.222, against the live listing:
 - `claude plugin details mattpocock-skills` then reports version 1.2.0 and loads the promoted skills.
 - The listing's `source` is `{"source": "url", "url": "https://github.com/mattpocock/skills.git", "sha": …}` — the **sha is pinned**, so a release reaches installed users when that pin moves, not the moment we tag. At the time of writing the pin sits two commits behind `main`, which is why it lists 22 skills rather than the 24 in `plugin.json`.
 - The in-session `/plugin install mattpocock-skills` was **not** exercised — `/plugin` is unavailable in headless (`claude -p`) sessions. It runs the same resolver as the CLI, and the documented example form is `/plugin install <name>@claude-plugins-official`.
+
+## Fork update, 2026-08-10
+
+The upstream official-marketplace facts above apply only to `mattpocock/skills`. This fork ships a distinct plugin named `matt-skills-with-to-goal`, sourced from `tt-a1i/matt-skills-with-to-goal`, so it cannot claim the upstream official listing or its automatic update channel.
+
+Fork users choose one of two routes:
+
+- Claude Code: add this repository as marketplace `tt-a1i`, then install `matt-skills-with-to-goal@tt-a1i`.
+- Codex and other Agent Skills harnesses: install the fork with `npx skills@latest add tt-a1i/matt-skills-with-to-goal`.
+
+The fork version uses an upstream-derived prerelease form such as `1.2.3-to-goal.1`: `1.2.3` identifies the synchronized upstream release and the suffix identifies this distribution. Package and plugin versions remain identical.

@@ -1,13 +1,13 @@
 {
-  "name": "mattpocock-skills",
-  "version": "1.2.3",
+  "name": "matt-skills-with-to-goal",
+  "version": "1.2.3-to-goal.1",
   "description": "Matt Pocock's engineering skills with verifiable goal handoffs and forked spec execution.",
   "author": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "tt-a1i",
+    "url": "https://github.com/tt-a1i"
   },
-  "homepage": "https://www.aihero.dev/s/skills-newsletter",
-  "repository": "https://github.com/mattpocock/skills",
+  "homepage": "https://github.com/tt-a1i/matt-skills-with-to-goal",
+  "repository": "https://github.com/tt-a1i/matt-skills-with-to-goal",
   "license": "MIT",
   "keywords": [
     "engineering",
@@ -16,7 +16,9 @@
     "code-review",
     "grilling",
     "domain-modeling",
-    "productivity"
+    "productivity",
+    "goals",
+    "spec-execution"
   ],
   "skills": [
     "./skills/engineering/ask-matt",
