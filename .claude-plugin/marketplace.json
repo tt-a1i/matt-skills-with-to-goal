@@ -4,12 +4,12 @@
     "name": "tt-a1i",
     "url": "https://github.com/tt-a1i"
   },
-  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and forked spec execution.",
+  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and automated forked spec execution.",
   "plugins": [
     {
       "name": "matt-skills-with-to-goal",
       "source": "./",
-      "description": "Engineering skills with grilling, specs, verifiable goal handoffs, forked execution, TDD, and code review.",
+      "description": "Engineering skills with grilling, specs, verifiable goal handoffs, automated forked execution, TDD, and code review.",
       "category": "engineering",
       "keywords": [
         "engineering",
