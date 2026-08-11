@@ -1,7 +1,7 @@
 {
   "name": "matt-skills-with-to-goal",
   "version": "1.2.3-to-goal.1",
-  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and forked spec execution.",
+  "description": "Matt Pocock's engineering skills with verifiable goal handoffs and automated forked spec execution.",
   "author": {
     "name": "tt-a1i",
     "url": "https://github.com/tt-a1i"
@@ -33,6 +33,7 @@
     "./skills/engineering/to-goal",
     "./skills/engineering/wayfinder",
     "./skills/engineering/implement",
+    "./skills/engineering/execute-spec-in-fork",
     "./skills/engineering/spec-executor",
     "./skills/engineering/prototype",
     "./skills/engineering/research",

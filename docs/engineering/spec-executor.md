@@ -10,7 +10,8 @@ Type `/spec-executor`, or the agent reaches for it automatically when a forked c
 
 | Situation | Route |
 |---|---|
-| Approved spec fits one implementation session | Fork and run `spec-executor` |
+| Approved spec fits one implementation session in Codex App | Run [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) |
+| Same contract without Codex task orchestration | Fork manually and run `spec-executor` |
 | Spec requires several dependency-ordered slices | Use [to-tickets](https://aihero.dev/skills-to-tickets) |
 | Context is noisy or must cross agents without history | Compile a `to-goal` handoff |
 | Product decisions or the test seam remain open | Return to [to-spec](https://aihero.dev/skills-to-spec) |
@@ -31,6 +32,10 @@ The closing `SPEC EXECUTION RECEIPT` reports each acceptance criterion with evid
 
 `implement` is the general build path. `spec-executor` adds the fork contract, fixed-point review, explicit external authority, and a receipt designed to flow back to the planning thread.
 
+**Does it create and archive the fork itself?**
+
+No. In Codex App, [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) owns the task lifecycle and uses `spec-executor` inside the child. Other harnesses can keep using the manual fork-and-receipt route.
+
 **Does invoking it authorize a commit, push, or deployment?**
 
 No. It authorizes in-scope local implementation and validation only. Every external action needs authority from the final spec or a later user instruction.
@@ -49,4 +54,4 @@ The executor preserves the worktree, returns a partial receipt, and routes the r
 
 ## Where it fits
 
-`spec-executor` is the forked implementation step after [to-spec](https://aihero.dev/skills-to-spec), alongside the ticketed `to-goal` route for noisier or longer work. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.
+`spec-executor` is the forked implementation step after [to-spec](https://aihero.dev/skills-to-spec). [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) automates that step in Codex App, while `to-goal` remains the portable route for noisier or longer work. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.

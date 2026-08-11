@@ -14,7 +14,6 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[to-spec](./to-spec/SKILL.md)** — Turn the current conversation into a spec and publish it to the issue tracker.
 - **[to-tickets](./to-tickets/SKILL.md)** — Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges — text in a local file, or native blocking links on a real tracker.
 - **[to-goal](./to-goal/SKILL.md)** — *(fork addition)* Compile an approved spec, agent-ready ticket, or tracker frontier into a verifiable execution goal for a fresh session. Read-only: it never implements, mutates the tracker, or creates a branch.
-- **[spec-executor](./spec-executor/SKILL.md)** — *(fork addition)* Execute the latest approved `SPEC READY` in a forked thread against its fixed point and permission boundary, then return a `SPEC EXECUTION RECEIPT` to the planning thread.
 - **[implement](./implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
 - **[wayfinder](./wayfinder/SKILL.md)** — Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
 
@@ -23,7 +22,8 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 Model- or user-reachable (rich trigger phrasing so the model can reach for them).
 
 - **[prototype](./prototype/SKILL.md)** — Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic, or several toggleable UI variations.
-
+- **[execute-spec-in-fork](./execute-spec-in-fork/SKILL.md)** — *(fork addition)* Orchestrate an approved `SPEC READY` through a same-directory Codex App fork, return decisions and evidence, then archive a valid completion.
+- **[spec-executor](./spec-executor/SKILL.md)** — *(fork addition)* Execute the latest approved `SPEC READY` in a forked thread against its fixed point and permission boundary, then return a `SPEC EXECUTION RECEIPT` to the planning thread.
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.md)** — Disciplined diagnosis loop for hard bugs and performance regressions: build a feedback loop that goes red on this bug → minimise → hypothesise → instrument → fix → regression-test.
 - **[research](./research/SKILL.md)** — Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.

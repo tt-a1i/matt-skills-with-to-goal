@@ -1,6 +1,6 @@
 # Writing docs pages
 
-Every skill in `engineering/` and `productivity/` has a human-facing **docs page** at `docs/<bucket>/<skill-name>.md` — the docs tree mirrors those two bucket folders under `skills/`. It is published at `https://aihero.dev/skills-<skill-name>`; the URL is always `skills-<skill-name>` regardless of bucket, so the docs path is repo organisation only. The page is not the skill and not a copy of `SKILL.md`. Only these two buckets are promoted; the rest (`misc/`, `in-progress/`, `deprecated/`) ship no docs page.
+Every skill in `engineering/` and `productivity/` has a human-facing **docs page** at `docs/<bucket>/<skill-name>.md` — the docs tree mirrors those two bucket folders under `skills/`. Upstream-published pages live at `https://aihero.dev/skills-<skill-name>`; pages owned only by this fork live in `tt-a1i/matt-skills-with-to-goal` until the fork controls a docs host of its own. The page is not the skill and not a copy of `SKILL.md`. Only these two buckets are promoted; the rest (`misc/`, `in-progress/`, `deprecated/`) ship no docs page.
 
 Most of these skills are **user-invoked**: the agent will never fire them for you, so *you* are the index that has to remember they exist and when to reach for them. That memory is **cognitive load**. The job of a docs page is to relieve it — to orient one reader around one skill so they can hold it in their head, know when to reach for it, and see where it sits in the system. The pages are collectively a distributed router; each is a node.
 
@@ -94,3 +94,4 @@ Always present. Situate the skill in the system in a sentence or two:
 - Every `## It's working if` bullet is checkable without opening `SKILL.md`.
 - The sections appear in the template's order.
 - Every link is absolute, and every one resolves.
+- Every cross-skill link owned only by this fork uses the full `tt-a1i/matt-skills-with-to-goal` GitHub URL until the fork controls a published docs host; `aihero.dev` is reserved for upstream-published skills.

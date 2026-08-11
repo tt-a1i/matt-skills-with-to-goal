@@ -15,7 +15,7 @@
 [![Install](https://img.shields.io/badge/install-npx%20skills-F35B2A?style=flat-square)](#安装)
 [![License](https://img.shields.io/badge/license-MIT-DCF23E?style=flat-square&labelColor=171717)](LICENSE)
 
-`grill → spec ready → fork → execute → receipt`
+`grill → spec ready → execute in fork → receipt returns`
 
 [**▶ 在线故事版：别让一个线程从需求聊到代码写完**](https://verifiable-goal-weekly-share-public.pages.dev)
 
@@ -31,6 +31,7 @@ AI coding 任务常常从需求讨论一路聊到代码实现。线程越长，�
 |---|---|
 | 方案讨论和代码实现挤在一个长线程里 | 规划线程停在 `SPEC READY`，fork 线程承担代码和测试日志 |
 | Fork 后又重新分析和改写一遍 Goal | `spec-executor` 直接执行继承的最终 Spec，并回传结构化 receipt |
+| Fork、启动和回传仍要手工串起来 | `execute-spec-in-fork` 自动创建执行任务、发送 Ask、接回结果并条件归档 |
 | 当前上下文太脏、无法可靠继承 | `to-goal` 把 ticket 和仓库证据压成干净的执行契约 |
 | 不同任务都使用同一档模型和推理强度 | goal 按风险推荐 Lightweight / Standard / Advanced 与推理强度 |
 | “做完了”依赖人的主观判断 | Goal 带完成标准，executor 回传逐项证据和外部操作状态 |
@@ -43,7 +44,8 @@ AI coding 任务常常从需求讨论一路聊到代码实现。线程越长，�
 flowchart LR
     idea["模糊想法"] --> grill["聊清楚<br/>/grill-me"]
     grill --> spec["封版共识<br/>/to-spec"]
-    spec --> fork["Fork<br/>继承 SPEC READY"]
+    spec --> orchestrate["一键编排<br/>/execute-spec-in-fork"]
+    orchestrate --> fork["Fork<br/>继承 SPEC READY"]
     fork --> execute["实施<br/>/spec-executor"]
     execute --> receipt["摘要回流<br/>EXECUTION RECEIPT"]
     spec -. "多分片 / 跨上下文" .-> goal["压缩契约<br/>/to-tickets + /to-goal"]
@@ -56,7 +58,7 @@ flowchart LR
 
     class idea source;
     class grill,spec plan;
-    class fork,goal contract;
+    class orchestrate,fork,goal contract;
     class execute,receipt action;
 ```
 
@@ -81,6 +83,8 @@ npx skills@latest add tt-a1i/matt-skills-with-to-goal
 
 两种方式选一种，避免同一个 Skill 被重复加载。本仓库维护者可运行 `npm run sync:local`，把工作树安全同步到统一的 `~/.agents_skills/` 并刷新 Hermes。
 
+Codex App 中的自动 Fork 闭环还需要单独安装 [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger)。其他 harness 仍可手动 Fork 后运行 `spec-executor`，不影响核心执行能力。
+
 ### 2. 初始化项目
 
 每个项目首次使用时运行：
@@ -96,15 +100,14 @@ npx skills@latest add tt-a1i/matt-skills-with-to-goal
 ```text
 /grill-me
 /to-spec
-从 SPEC READY 处 fork
-/spec-executor
+/execute-spec-in-fork
 ```
 
-执行线程完成后，把 `SPEC EXECUTION RECEIPT` 复制回规划线程。若 Spec 无法在一个执行会话完成，则改走 `/to-tickets` → `/to-goal`。
+Codex App 会自动 Fork、启动 `/spec-executor`、回传 `SPEC EXECUTION RECEIPT`，并在验证完成后归档执行任务。若缺少原生任务工具，则手动 Fork 后运行 `/spec-executor`；若 Spec 无法在一个执行会话完成，则改走 `/to-tickets` → `/to-goal`。
 
 ## Fork 与 `to-goal` 如何分工
 
-- **Fork + `spec-executor`**：当前线程已经把需求谈清楚，Spec 能在一个执行会话完成；复用继承上下文，避免重复查 Spec 和重写 Goal。
+- **`execute-spec-in-fork` + `spec-executor`**：当前线程已经把需求谈清楚，Spec 能在一个执行会话完成；自动建立同目录执行任务和回传通道，避免重复查 Spec、重写 Goal 和手工复制 receipt。
 - **`to-goal`**：需要跨人、跨天、并行、独立 Agent，或者当前历史过长、存在多版冲突；用压缩后的执行合同换取干净上下文。
 - **同线程 `/implement`**：小而明确、不值得建立持久 Spec 的改动。
 
@@ -137,6 +140,7 @@ Goal
 | 想边聊边沉淀文档 | `/grill-with-docs` |
 | 工作很大，连路线都还不清楚 | `/wayfinder` |
 | 已有共识，需要形成 spec | `/to-spec` |
+| 已有最终 `SPEC READY`，要在 Codex Fork 中直接执行 | `/execute-spec-in-fork` |
 | 已有 spec，需要拆成可执行切片 | `/to-tickets` |
 | 已有 agent-ready ticket，要开新线程实现 | `/to-goal` |
 | 关键在别人脑子里，需要问卷收集 | `/to-questionnaire` |
@@ -146,7 +150,7 @@ Goal
 
 ## 技能地图
 
-当前发行版包含 **28 个 promoted Skills**：25 个随上游同步的工程与生产力 Skill，以及本 fork 新增的 `to-goal`、`goal-crafter`、`spec-executor`。
+当前发行版包含 **29 个 promoted Skills**：25 个随上游同步的工程与生产力 Skill，以及本 fork 新增的 `to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`。
 
 ### 规划与交接
 
@@ -168,6 +172,7 @@ Goal
 | Skill | 作用 |
 |---|---|
 | [`implement`](./skills/engineering/implement/SKILL.md) | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
+| [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | Codex App 中自动 Fork、启动 executor、处理决策回路、验证回传并归档 |
 | [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 在 fork 线程锁定 `SPEC READY`、权限和 fixed point，完成实现并输出 receipt |
 | [`tdd`](./skills/engineering/tdd/SKILL.md) | 在预先确认的 seam 上进行测试驱动实现 |
 | [`code-review`](./skills/engineering/code-review/SKILL.md) | Standards + Spec 双轴评审 |
@@ -193,6 +198,7 @@ Goal
 
 - 默认一个 goal 只覆盖一个 frontier ticket；`--all` 仅用于明确要求的跨 ticket 持久化执行。
 - `spec-executor` 只执行一个已封版、单会话可完成的 Spec；需求未定或体量溢出时停止并重新路由。
+- `execute-spec-in-fork` 是 Codex App 的事件驱动适配器，依赖原生任务工具与 Codex Task Messenger；不会启动 daemon、自动重试或跨 Worktree 通信。
 - `to-goal` 只读 spec、tracker 和仓库证据，不实现、不改 issue 状态、不创建分支。
 - Fork 只隔离对话，不隔离文件系统；并行实现仍需独立 worktree、分支和文件所有权。
 - goal 不会默认授权 push、PR、merge、关闭 issue 或修改 tracker。
@@ -201,7 +207,7 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.2.3（同步至 2026-08-10，`84fdeff`）**，并叠加 fork execution 与 to-goal 两条上下文边界流程。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.2.3（同步至 2026-08-10，`84fdeff`）**，并叠加自动 fork execution 与 to-goal 两条上下文边界流程。
 
 当前 fork 发行版为 **`1.2.3-to-goal.1`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
 
@@ -211,11 +217,11 @@ Goal
 
 ### 与上游的差异
 
-- **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`（均位于 `skills/engineering/`）
-- **路由适配**：`ask-matt` 增加 fork + `/spec-executor` 与 `/to-goal` 两条分支及「Crossing the context boundary」章节；`to-spec` 追加 `SPEC READY` launch block
+- **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`（均位于 `skills/engineering/`）
+- **路由适配**：`ask-matt` 增加自动 `/execute-spec-in-fork`、手动 fork + `/spec-executor` 与 `/to-goal` 分支及「Crossing the context boundary」章节；`to-spec` 追加 `SPEC READY` launch block
 - **表达层**：`grilling`、`to-tickets`、`triage`、`setup-matt-pocock-skills` 使用固定 emoji 锚点，便于扫读与按编号回复
 - **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
-- **本地分发**：`npm run sync:local` 先备份并同步 28 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
+- **本地分发**：`npm run sync:local` 先备份并同步 29 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
 - **上游维护**：`npm run sync:upstream` 在干净工作树上创建备份分支，并把 fork overlay rebase 到最新 `upstream/main`；脚本不会自动 push
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
 - **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护

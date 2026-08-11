@@ -21,10 +21,10 @@ The route most work travels. You have an idea and want it built.
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
 3. **Branch — how should implementation cross the context boundary?**
    - **Small, already clear, no durable spec needed** → **`/implement`** right here, in the same context window.
-   - **The approved spec fits one execution session and this thread is coherent** → **`/to-spec`**, then **fork from its final `SPEC READY` message** and run **`/spec-executor`** in the fork. The fork inherits settled product context while implementation logs stay out of the planning thread; paste its `SPEC EXECUTION RECEIPT` back when done.
+   - **The approved spec fits one execution session and this thread is coherent** → **`/to-spec`**, then run **`/execute-spec-in-fork`** in Codex App. It creates a same-directory fork, launches `/spec-executor`, routes decisions back here, validates the returned receipt, and archives a clean completion. Without Codex App task tools or Codex Task Messenger, fork manually from the final `SPEC READY`, run `/spec-executor`, and paste its receipt back.
    - **Multi-session, parallel, cross-agent, delayed, or context already noisy** → **`/to-spec`**, then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Run **`/to-goal`** on the current frontier ticket and execute that goal in a clean session, regenerating from the next frontier after each slice. Use `/to-goal --all` only for a persistent harness that must renew context across tickets.
 
-   Both **`/implement`** and **`/spec-executor`** drive **`/tdd`** internally — one red-green slice at a time — then close out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. `/spec-executor` additionally preserves the fork contract, external-action permissions, and the receipt back to the planning thread. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
+   Both **`/implement`** and **`/spec-executor`** drive **`/tdd`** internally — one red-green slice at a time — then close out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff, before committing. `/spec-executor` preserves the fork contract and receipt; `/execute-spec-in-fork` owns the Codex task lifecycle around it. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
 
 ### Context hygiene
 
@@ -50,11 +50,12 @@ A starting situation that generates work, then merges onto the main flow.
 
 ## Crossing the context boundary
 
-Three skills exist only to move settled work from a planning thread into an execution thread without re-deciding anything.
+Four skills move settled work from a planning thread into an execution thread without re-deciding anything.
 
 - **`/to-goal`** — compile an approved spec, agent-ready ticket, or tracker frontier into a **verifiable execution goal**: current state, execution order, completion criteria, constraints, context. Read-only — it never implements, mutates the tracker, or creates a branch. Reach for it when the work is cross-day, cross-agent, parallel, or the current history is too noisy to fork from.
 - **`/goal-crafter`** — the vocabulary and rules underneath `/to-goal`: what makes a goal verifiable and how to format it for the target harness. It also runs **standalone** when you just want a goal written from a fresh interview.
-- **`/spec-executor`** — the other side of a fork. It locks onto the inherited `SPEC READY` contract, its fixed point and its external-action permissions, implements, and returns a `SPEC EXECUTION RECEIPT` to paste back into the planning thread.
+- **`/execute-spec-in-fork`** — the Codex App adapter. It creates and names the fork, establishes the Messenger return path, resumes decisions, validates the final receipt, and archives only a correlated clean completion.
+- **`/spec-executor`** — the implementation side of a fork. It locks onto the inherited `SPEC READY` contract, its fixed point and its external-action permissions, implements, and returns a `SPEC EXECUTION RECEIPT`; it stays usable manually and across harnesses.
 
 **Fork compresses nothing and inherits everything; `/to-goal` inherits nothing and compresses everything.** Prefer the fork for continuous work, the goal when the context must be left behind.
 
