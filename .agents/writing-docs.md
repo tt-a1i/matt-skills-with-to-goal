@@ -95,3 +95,15 @@ Always present. Situate the skill in the system in a sentence or two:
 - The sections appear in the template's order.
 - Every link is absolute, and every one resolves.
 - Every cross-skill link owned only by this fork uses the full `tt-a1i/matt-skills-with-to-goal` GitHub URL until the fork controls a published docs host; `aihero.dev` is reserved for upstream-published skills.
+
+## Durability check for a fork-owned skill
+
+Run this over both the `SKILL.md` and its page whenever this fork adds or reworks a skill of its own. Every item asks one question: will the line still be true after the world around it moves?
+
+- **No path belonging to another repository.** Example paths are placeholders, marked as such. A real path from a private project leaks that project and misleads the reader the moment it is refactored.
+- **No line numbers, and no file excerpt presented as a fact.** Describe the behaviour, not where it currently sits.
+- **No tool, model, or product version stated as a bare fact.** Name the capability required. Where a specific version genuinely is the gate, say so and say why.
+- **Harness-specific names collected in one place.** An adapter skill may name its harness's tools — but once, in a single mapping, with the body written in capabilities so a rename is a one-line change.
+- **No UI detail.** Menu paths, button labels, and screen layouts rot faster than anything else in the file.
+
+Where a fragile reference is load-bearing, keep it and mark it deliberate. An annotated dependency is durable knowledge; an unmarked one is a trap.

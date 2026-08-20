@@ -68,6 +68,8 @@ Walk these five in order:
 
 Write the goal in the target agent's format. Follow these rules:
 
+The three shapes below are the formats this skill deliberately maintains for the harnesses it is most often pointed at. They are a snapshot, not a standard: when the target harness documents a different shape, follow the harness and treat the block here as the fallback. Any harness not listed uses the generic block.
+
 **For Claude Code `/goal`**:
 ```
 Goal: [one-line task description]
@@ -128,13 +130,15 @@ In compiled-handoff mode, the upstream skill owns the delivery wrapper. Return t
 
 ## Examples
 
+下面两个示例里的仓库名、目录结构和文件路径都是占位符，不代表任何真实项目的约定。真正产出的 goal 必须写目标仓库**当前**的真实路径，不要照抄这里的形状。
+
 ### Example 1: Code review automation
 
 **User**: "帮我写个 goal，自动审查 PR"
 
 **Clarified**:
 - Task: 审查当前分支相对于 main 的所有改动
-- Where: hive-private 仓库
+- Where: 当前工作仓库
 - Done: 输出一份审查报告，列出所有 P0/P1 问题，每个问题标注文件和行号
 - Constraints: 只读，不改文件
 - Agent: Claude Code
@@ -155,8 +159,8 @@ Constraints:
 - 只关注当前分支的改动，不审查已有代码
 
 Context:
-- 项目背景：Hive 是本地多 Agent 协作 runtime
-- 设计 spec：docs/superpowers/spec.md
+- 项目背景：<一句话说明这个仓库是什么>
+- 设计 spec：<仓库内的设计文档>
 ```
 
 ### Example 2: UI redesign
@@ -164,14 +168,14 @@ Context:
 **User**: "帮我写个 goal，重做这个页面"
 
 **Clarified**:
-- Task: 用 shadcn 组件库重做 OpsView 页面
+- Task: 用 shadcn 组件库重做目标页面
 - Done: 页面在 3 个断点下视觉一致，所有交互有 hover/focus/active 状态，通过 tsc 类型检查
 - Constraints: 不改变现有 API 接口，使用项目已有的 Tailwind 配置
 - Agent: Claude Code
 
 **Output**:
 ```
-Goal: 用 shadcn/ui 组件库重做 OpsView 页面
+Goal: 用 shadcn/ui 组件库重做目标页面
 
 Completion criteria:
 - [ ] 所有组件替换为 shadcn/ui 等价组件
@@ -181,14 +185,14 @@ Completion criteria:
 - [ ] 页面加载后无 console error
 
 Constraints:
-- 不修改 apps/web/src/api-client/ 下的任何文件
+- 不修改 API 客户端目录下的任何文件
 - 使用项目已有的 Tailwind 主题配置
 - 不引入新的 npm 依赖（shadcn 除外）
 
 Context:
-- 当前页面：apps/web/src/views/OpsView.tsx
-- UI 组件：apps/web/src/components/ui/index.tsx
-- 样式：apps/web/src/styles.css
+- 当前页面：<页面组件文件>
+- UI 组件：<组件库入口文件>
+- 样式：<全局样式入口>
 ```
 
 ---
