@@ -1,0 +1,5 @@
+interface:
+  display_name: "Roundtable"
+  short_description: "Sub-agents debate a decision from opposed perspectives, then a chaired verdict"
+policy:
+  allow_implicit_invocation: false
