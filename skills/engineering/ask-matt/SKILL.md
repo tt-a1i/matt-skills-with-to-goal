@@ -76,11 +76,11 @@ Two model-invoked references that run *beneath* the other skills, each the singl
 
 A **phase** is a chunk of work inside a session: the grilling, the implementation, the QA. At the **boundary** between two of them you have five options, and picking between them is the fuzziest decision in this whole map:
 
-- **Continue**: stay put. Costs nothing, loses nothing.
-- **`/clear`**: empty the window, when nothing here matters to what's next.
-- **`/handoff`** writes a portable markdown file. Narrow: only for a **new harness**, a **new directory**, a **colleague**, or forking a side task **mid-phase**. What it buys is portability.
-- **Subagent**: send a tightly-scoped task to its own window and get a report back.
-- **`/compact`** compresses this context and seeds a fresh session with it. The **default**, at the bottom of the tree rather than the first reach.
+- **Continue** — stay put. Costs nothing, loses nothing.
+- **`/clear`** — empty the window, when nothing here matters to what's next.
+- **`/handoff`** — write a portable markdown file. Narrow: only for a **new harness**, a **new directory**, a **colleague**, or forking a side task **mid-phase**. What it buys is portability. When both sides are existing same-directory Codex App tasks, it can also record the source task so `/codex-task-messenger` remains available for targeted clarification without making live coordination a requirement.
+- **Subagent** — send a tightly-scoped task to its own window and get a report back.
+- **`/compact`** — compress this context and seed a fresh session with it. The **default**, at the bottom of the tree rather than the first reach.
 
 Read [PHASE-BOUNDARIES.md](PHASE-BOUNDARIES.md) for the ordered tree: the five questions, the reasoning behind each branch, and why the primary-source cost makes **Continue** the one to rule out first. Make the decision **at** a boundary; mid-phase, continue or split the rest into subagents.
 
