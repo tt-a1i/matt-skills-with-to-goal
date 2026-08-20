@@ -11,7 +11,7 @@
 让规划线程专注于把事情想清楚，让执行线程专注于把事情做完。
 
 [![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20v1.2.3-171717?style=flat-square)](https://github.com/mattpocock/skills)
-[![Fork](https://img.shields.io/badge/fork-v1.2.3--to--goal.1-F35B2A?style=flat-square)](https://github.com/tt-a1i/matt-skills-with-to-goal)
+[![Fork](https://img.shields.io/badge/fork-v1.2.3--to--goal.2-F35B2A?style=flat-square)](https://github.com/tt-a1i/matt-skills-with-to-goal)
 [![Install](https://img.shields.io/badge/install-npx%20skills-F35B2A?style=flat-square)](#安装)
 [![License](https://img.shields.io/badge/license-MIT-DCF23E?style=flat-square&labelColor=171717)](LICENSE)
 
@@ -151,6 +151,7 @@ Goal
 | 有一个想法，需要把需求问清楚 | `/grill-me` |
 | 想边聊边沉淀文档 | `/grill-with-docs` |
 | 工作很大，连路线都还不清楚 | `/wayfinder` |
+| 决策已成形，想让对立视角围攻它 | `/roundtable` |
 | 已有共识，需要形成 spec | `/to-spec` |
 | 已有最终 `SPEC READY`，要在 Codex Fork 中直接执行 | `/execute-spec-in-fork` |
 | 已有 spec，需要拆成可执行切片 | `/to-tickets` |
@@ -162,7 +163,7 @@ Goal
 
 ## 技能地图
 
-当前发行版包含 **29 个 promoted Skills**：25 个随上游同步的工程与生产力 Skill，以及本 fork 新增的 `to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`。
+当前发行版包含 **30 个 promoted Skills**：25 个随上游同步的工程与生产力 Skill，以及本 fork 新增的 `to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`、`roundtable`。
 
 ### 规划与交接
 
@@ -172,6 +173,7 @@ Goal
 | [`grill-me`](./skills/productivity/grill-me/SKILL.md) / [`grilling`](./skills/productivity/grilling/SKILL.md) | 按轮次烤决策树 frontier，一轮多问直到共识 |
 | [`grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) | 访谈过程中同步沉淀文档 |
 | [`wayfinder`](./skills/engineering/wayfinder/SKILL.md) | 为超大任务建立共享调查与决策地图 |
+| [`roundtable`](./skills/engineering/roundtable/SKILL.md) | 多个对立视角的子代理围绕已成形的决策辩论，输出保留异议的圆桌裁决 |
 | [`to-spec`](./skills/engineering/to-spec/SKILL.md) | 当前对话 → agent-ready spec |
 | [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) | spec → 带依赖关系的 tracer-bullet tickets |
 | [`to-goal`](./skills/engineering/to-goal/SKILL.md) | frontier ticket → 可粘贴的执行 goal |
@@ -219,9 +221,9 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.2.3（同步至 2026-08-10，`84fdeff`）**，并叠加自动 fork execution 与 to-goal 两条上下文边界流程。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.2.3（同步至 2026-08-10，`84fdeff`）**，并叠加自动 fork execution、to-goal 两条上下文边界流程与 roundtable 多视角决策辩论。
 
-当前 fork 发行版为 **`1.2.3-to-goal.1`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
+当前 fork 发行版为 **`1.2.3-to-goal.2`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
 
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
@@ -229,11 +231,11 @@ Goal
 
 ### 与上游的差异
 
-- **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`（均位于 `skills/engineering/`）
+- **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`、`roundtable`（均位于 `skills/engineering/`）
 - **路由适配**：`ask-matt` 增加自动 `/execute-spec-in-fork`、手动 fork + `/spec-executor` 与 `/to-goal` 分支及「Crossing the context boundary」章节；`to-spec` 追加 `SPEC READY` launch block
 - **表达层**：`grilling`、`to-tickets`、`triage`、`setup-matt-pocock-skills` 使用固定 emoji 锚点，便于扫读与按编号回复
 - **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
-- **本地分发**：`npm run sync:local` 先备份并同步 29 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
+- **本地分发**：`npm run sync:local` 先备份并同步 30 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
 - **上游维护**：`npm run sync:upstream` 在干净工作树上创建备份分支，并把 fork overlay rebase 到最新 `upstream/main`；脚本不会自动 push
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
 - **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护

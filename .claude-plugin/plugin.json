@@ -1,6 +1,6 @@
 {
   "name": "matt-skills-with-to-goal",
-  "version": "1.2.3-to-goal.1",
+  "version": "1.2.3-to-goal.2",
   "description": "Matt Pocock's engineering skills with verifiable goal handoffs and automated forked spec execution.",
   "author": {
     "name": "tt-a1i",
@@ -41,6 +41,7 @@
     "./skills/engineering/codebase-design",
     "./skills/engineering/goal-crafter",
     "./skills/engineering/code-review",
+    "./skills/engineering/roundtable",
     "./skills/engineering/resolving-merge-conflicts",
     "./skills/engineering/wizard",
     "./skills/productivity/grill-me",

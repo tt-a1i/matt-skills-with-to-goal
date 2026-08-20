@@ -16,6 +16,7 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[to-goal](./to-goal/SKILL.md)** — *(fork addition)* Compile an approved spec, agent-ready ticket, or tracker frontier into a verifiable execution goal for a fresh session. Read-only: it never implements, mutates the tracker, or creates a branch.
 - **[implement](./implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
 - **[wayfinder](./wayfinder/SKILL.md)** — Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
+- **[roundtable](./roundtable/SKILL.md)** — Convene parallel sub-agents that debate a decision from opposed perspectives — independent statements, anonymous cross-review, then a chaired verdict preserving consensus and dissent.
 
 ## Model-invoked
 
