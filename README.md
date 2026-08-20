@@ -6,7 +6,7 @@
 
 # Matt Skills with To-Goal
 
-**把需求留在规划线程，把实现放进继承 Spec 的执行线程**
+**把需求留在规划线程，把实现放进执行线程：能继承就 Fork，要搬运就 Goal**
 
 让规划线程专注于把事情想清楚，让执行线程专注于把事情做完。
 
@@ -36,7 +36,7 @@ AI coding 任务常常从需求讨论一路聊到代码实现。线程越长，�
 | 不同任务都使用同一档模型和推理强度 | goal 按风险推荐 Lightweight / Standard / Advanced 与推理强度 |
 | “做完了”依赖人的主观判断 | Goal 带完成标准，executor 回传逐项证据和外部操作状态 |
 
-> **Fork 负责隔离后续上下文，Goal 负责压缩已有上下文。** 连续开发优先 fork；跨人、跨天、并行或上下文混乱时使用 `to-goal`。
+> **Fork 负责隔离后续上下文，Goal 负责压缩已有上下文。** 连续开发优先 fork；跨人、跨天、跨引擎、并行或上下文混乱时使用 `to-goal`。
 
 ## 30 秒看懂主流程
 
@@ -108,12 +108,22 @@ Codex App 会自动 Fork、启动 `/spec-executor`、回传 `SPEC EXECUTION RECE
 ## Fork 与 `to-goal` 如何分工
 
 - **`execute-spec-in-fork` + `spec-executor`**：当前线程已经把需求谈清楚，Spec 能在一个执行会话完成；自动建立同目录执行任务和回传通道，避免重复查 Spec、重写 Goal 和手工复制 receipt。
-- **`to-goal`**：需要跨人、跨天、并行、独立 Agent，或者当前历史过长、存在多版冲突；用压缩后的执行合同换取干净上下文。
+- **`to-goal`**：需要跨人、跨天、跨引擎、并行，或者当前历史过长、存在多版冲突；用压缩后的执行合同换取干净上下文。
 - **同线程 `/implement`**：小而明确、不值得建立持久 Spec 的改动。
+
+自动 Fork 闭环拆成三层，每一层都可以单独复用：
+
+| 层 | 负责 | 不负责 |
+|---|---|---|
+| 编排 · [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | 创建、命名、启动执行任务，校验 receipt，条件归档 | 写代码；替用户授权 commit / push / 部署 |
+| 执行 · [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 锁定 `SPEC READY`，实现、验证、评审，输出带证据的 receipt | 创建 Fork；在任务之间传话 |
+| 通信 · [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger) | 把 Ask / Reply / Resume 送到这次创建的准确任务 | 批准任何外部动作；消息不等于授权 |
+
+没有 Codex App 任务工具或 Messenger 时，手动 Fork 后仍可运行 `spec-executor`。Executor 不绑死 Codex；Goal 更是一份可粘贴到 Cursor、Claude Code 或其他引擎的合同。
 
 ## `to-goal` 增加了什么
 
-Matt 原版流程擅长把需求烤清楚、写成 spec、拆成 tickets。本仓库在 `to-tickets` 之后增加 `to-goal`，把“已经规划好的任务”进一步编译成“新线程可以直接执行的契约”。
+Matt 原版流程擅长把需求烤清楚、写成 spec、拆成 tickets。本仓库在 `to-tickets` 之后增加 `to-goal`，把“已经规划好的任务”进一步编译成“新线程可以直接执行的契约”。Goal 买的是可移植性：换会话、换人或换引擎之后，仍按同一份标准交付。
 
 ```text
 Goal
@@ -123,6 +133,8 @@ Goal
 ├── Constraints         范围、权限、脏文件与外部操作边界
 └── Context             spec、ticket、设计文档和验证入口
 ```
+
+默认每个 frontier ticket 一份 Goal。互不阻塞的切片可以分别交给不同 Agent，在独立 branch / worktree 里并行；`to-goal` 只生成合同，不创建这些执行环境。
 
 `goal-crafter` 有两种模式：
 
