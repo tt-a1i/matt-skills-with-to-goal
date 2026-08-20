@@ -31,6 +31,8 @@ Three of the five options at a phase boundary preserve different things: `/compa
 
 The document carries the live thread — what's in flight, why, and what's next — plus a **suggested skills** section naming what the next agent should reach for. Secrets are redacted before it's written.
 
+When both sessions are existing same-directory Codex App tasks, it can also carry the source task ID and execution owner. That gives the receiver an optional path back through [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger) for one targeted clarification. The markdown remains complete enough to stand alone: live coordination is a fallback, not a new dependency, and it never expands the authority recorded in the handoff.
+
 What it deliberately does not carry is anything already written down. Specs, plans, ADRs, issues, commits and diffs are referenced by path or URL, never copied. That keeps the file small, and it keeps the settled detail in one place instead of two that drift.
 
 ## Common questions
@@ -49,6 +51,9 @@ Some environments clear temp between sessions — Codex is the reported case —
 
 **How do I actually hand it to the next agent?**
 Open the fresh session and point it at the path: read this file, then continue. Point at the file rather than pasting the summary into a shell command — a summary containing backticks or `$(...)` gets mangled when it's interpolated into `claude "<summary>"`, and the usual failure is silent truncation rather than an error, so the new agent starts with a quietly incomplete brief.
+
+**Can the receiving task ask the original task a follow-up?**
+Only when both are still available as same-directory Codex App tasks. In that case the handoff records the exact source task and suggests Codex Task Messenger, so the receiver can ask one concrete question that the document and its linked artifacts do not settle. If the source task is gone or the destination is another harness, nothing breaks — the receiver continues from the portable file.
 
 **Is this the same as `/branch`, `--fork-session`, or the built-in `/handoff`?**
 Analogous, not identical, and `/branch` isn't a shipped skill here — `/handoff` is the canonical name. A fork inherits an exact copy of the context; this skill produces a *targeted* compression aimed at a stated next task, in a file. Where a fork will do — same machine, same harness, same directory — a fork is less work. The file wins the moment the destination is somewhere the fork can't go.
