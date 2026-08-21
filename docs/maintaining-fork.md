@@ -22,7 +22,7 @@ After the rebase:
 1. Review the complete overlay with `git diff upstream/main...HEAD`.
 2. Update the upstream version and commit in `README.md` when they changed.
 3. Keep `package.json` and `.claude-plugin/plugin.json` on the same fork version.
-4. Run `npm run check-plugin-version` and `claude plugin validate . --strict`.
+4. Run `npm run check-plugin-version`, `npm run lint:skills`, and `claude plugin validate . --strict`.
 5. Run `npm run sync:local` after the repository state is accepted.
 
 ## Sync local agents

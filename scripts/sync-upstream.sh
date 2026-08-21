@@ -35,6 +35,7 @@ echo "backup branch: $backup_branch"
 
 git rebase --onto upstream/main "$base" "$branch"
 npm run check-plugin-version
+npm run lint:skills
 if command -v claude >/dev/null 2>&1; then
   claude plugin validate . --strict
 fi
