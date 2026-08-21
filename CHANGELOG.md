@@ -4,6 +4,22 @@
 
 ### Patch Changes
 
+- [`367c3f6`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/367c3f612276c280320e2d94a5fae1a20f4f9093) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `roundtable`, a user-invoked skill that pressure-tests an already-formed decision, plan, or proposal by convening parallel sub-agents arguing deliberately opposed perspectives — independent statements, anonymous cross-review, then a Chair's synthesis that reports the verdict while preserving consensus and dissent. The complement of grilling: grilling sharpens an idea that isn't formed yet, the roundtable attacks a settled motion. Promoted into `skills/engineering/` with a plugin entry, README and Engineering-bucket listings, an `ask-matt` route, and a docs page at `docs/engineering/roundtable.md`.
+
+- [`ee4052e`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/ee4052eb9ccd3cfe77607aa27695e01aa799a977) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `execute-spec-in-fork`, a Codex App orchestration skill that creates a same-directory execution fork from the final `SPEC READY`, launches `spec-executor` through Codex Task Messenger, routes decisions back to the planning task, validates the returned receipt, and archives only a correlated clean completion.
+
+- [`974c932`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/974c932292f0c7cca6481ea8029c17a7dd91b063) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add an optional `Goal / spec quality` field to `spec-executor`'s `SPEC EXECUTION RECEIPT` so a completed run can record whether the contract was accurate, too vague, wrong, missing a constraint, or over-scoped. `execute-spec-in-fork` asks once before archive; a skip does not block using the receipt or archiving the child. Docs pages follow.
+
+- [`aa585da`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/aa585da04f9b57d3b4eadc6edbdfba1c4f0610fb) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Make `improve-codebase-architecture` present its candidates as markdown by default and write the self-contained HTML report only on request, so a run stays useful offline or behind a script blocker. Give two absolute rules an explicit boundary without loosening the default: `to-spec` now defaults to one seam per spec unless a genuine external boundary forces another, and `resolving-merge-conflicts` treats `--abort` as a last resort for irreconcilable intents rather than an option it never has. Docs pages and the fork's upstream-difference list follow.
+
+- [`81adbcc`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/81adbcc24ba1bce84503ac13efbb83f6143ed0a9) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Let portable handoffs record their source Codex task and execution owner so compatible same-directory tasks can ask one targeted follow-up through Codex Task Messenger.
+
+- [`f83f160`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/f83f160e2b151e192d096c67ff45711ca2f2749e) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Rewrite `to-goal`'s compiler output from a six-section prose brief into a readiness checklist plus a required fill-in template, so every compiled handoff carries independently checkable criteria, the default constraints, and a session recommendation. The compiler now stops on an incomplete readiness list instead of inventing a goal, and keeps skip-test lines out of the paste block unless tests were actually skipped.
+
+## 1.2.3
+
+### Patch Changes
+
 - [#779](https://github.com/mattpocock/skills/pull/779) [`efce423`](https://github.com/mattpocock/skills/commit/efce423018fc6468a3239621f1c1bcaacc723801) Thanks [@mattpocock](https://github.com/mattpocock)! - Make `diagnosing-bugs` redact secrets.
 
   - Add a **Redact** section to `SKILL.md`. The skill has the agent show commands, outputs and captured artifacts; the section makes redaction the first move on each — write `<REDACTED>`, build loops against env vars so the credential stays in the environment, and quote only the signal-carrying lines of a captured artifact.

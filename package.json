@@ -1,6 +1,6 @@
 {
   "name": "matt-skills-with-to-goal",
-  "version": "1.2.3-to-goal.2",
+  "version": "1.2.3",
   "private": true,
   "description": "Matt Pocock's engineering skills with verifiable goal handoffs and automated forked spec execution",
   "repository": {
