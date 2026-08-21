@@ -20,7 +20,7 @@ If a prerequisite is missing, do not create a plain new task or simulate the tra
 
 ## Harness capability map
 
-This workflow is a Codex App adapter, so it depends on that harness's task tools by name. The names live here and nowhere else; everything below this section is written in capabilities. When a tool is renamed or reshaped, change this table only.
+This workflow is a Codex App adapter, so it depends on that harness's task tools by name. The names live here and nowhere else; everything below this section is written in capabilities. When a tool is renamed or reshaped, change this table only. The decision and its consequences live in [ADR 0003](../../../.agents/adr/0003-codex-app-fork-loop-is-an-adapter.md).
 
 | Capability | Codex App tool (harness-specific) |
 |---|---|
