@@ -19,6 +19,10 @@ Type `/execute-spec-in-fork` when the current Codex App task has an approved spe
 
 The current task needs a final `SPEC READY`, Codex App's native task tools, and the separately installed [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger). The execution uses a same-directory fork, so the planning and execution tasks share one checkout.
 
+## Harness dependency and fallback
+
+The automatic loop is a Codex App adapter. Missing the native task tools or Messenger v2+, the skill refuses to simulate the transport and points at the manual fork plus [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) route. Task-API churn is paid in the capability map and, if needed, a rewrite of this adapter — not a cross-harness layer. Recorded in [ADR 0003](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/.agents/adr/0003-codex-app-fork-loop-is-an-adapter.md).
+
 ## One command, two tasks
 
 The leading idea is the **execution channel**. One direct command establishes both ends before implementation starts:
