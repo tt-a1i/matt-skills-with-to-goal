@@ -24,7 +24,7 @@ The thread needs a final `SPEC READY` block or an explicitly identified approved
 
 The leading idea is the **execution lock**: before editing, the executor states the outcome, source, scope, validation seam, and external authority. It then implements against that fixed contract and reviews the final diff from the recorded baseline.
 
-The closing `SPEC EXECUTION RECEIPT` reports each acceptance criterion with evidence, changed files, validation, review findings, remaining risks, final worktree state, and every external effect.
+The closing `SPEC EXECUTION RECEIPT` reports each acceptance criterion with evidence, changed files, validation, review findings, remaining risks, final worktree state, and every external effect. It can also carry an optional `Goal / spec quality` label. The executor may leave that field blank; the planning thread or the user fills it after comparing the receipt with the actual diff. A blank label is not a failed completion.
 
 ## Common questions
 
@@ -43,6 +43,10 @@ No. It authorizes in-scope local implementation and validation only. Every exter
 **What if the work no longer fits one session?**
 
 The executor preserves the worktree, returns a partial receipt, and routes the remaining work through tickets or a compiled goal instead of silently losing context.
+
+**Does the executor have to grade the spec?**
+
+No. `Goal / spec quality` is a retrospective label, not a completion condition. The executor may leave it blank; someone comparing the receipt with the actual diff fills it later.
 
 ## It's working if
 

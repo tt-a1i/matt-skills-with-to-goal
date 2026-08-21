@@ -16,7 +16,7 @@ Before creating anything:
 3. Require the current harness to expose native Codex App task tools for forking, messaging, reading, naming, pinning, and archiving.
 4. Require `/codex-task-messenger` to be installed with its Ask, Reply, and Resume card protocol (v2 or later) available.
 
-If a prerequisite is missing, do not create a plain new task or simulate the transport. Explain the missing capability and give the manual fallback: fork from the final `SPEC READY`, run `/spec-executor` there, and paste its receipt back.
+If a prerequisite is missing, do not create a plain new task or simulate the transport. Explain the missing capability and give the manual fallback: fork from the final `SPEC READY`, run `/spec-executor` there, and paste its receipt back. After the receipt is pasted, ask once for `Goal / spec quality`; a skipped answer does not block using the receipt.
 
 ## Harness capability map
 
@@ -80,7 +80,9 @@ Require all of the following before archiving:
 5. `Planning-thread decision needed` is empty or explicitly none;
 6. final worktree state and external effects are reported.
 
-Present the receipt, unpin the exact child if necessary, and archive it. Archive only after validating the result; delivery acceptance is never completion. Archiving is recoverable and must not delete history.
+Those six gates are the archive bar. After they pass, present the receipt and ask the planning thread or the user to fill `Goal / spec quality` (`accurate` / `criteria-too-vague` / `criteria-wrong` / `missing-constraint` / `over-scoped`, plus one sentence) by comparing the receipt with the actual diff. Fill it when they answer; leave it blank if they skip. A missing or empty quality field must not block archive.
+
+Then unpin the exact child if necessary, and archive it. Archive only after validating the result; delivery acceptance is never completion. Archiving is recoverable and must not delete history.
 
 If the Reply claims completion but the receipt is missing or inconsistent, keep the child unarchived and report the validation failure.
 
