@@ -1,6 +1,6 @@
 # The Codex App fork loop is an adapter, not a portable orchestration layer
 
-`execute-spec-in-fork` is this fork's automatic closed loop: one approved `SPEC READY` becomes a disposable same-directory execution task, decisions travel through Codex Task Messenger, and a validated receipt archives the child. That loop is **Codex App only**. Other harnesses get the manual fallback — fork from the final spec, run `/spec-executor` there, paste the receipt back.
+`execute-spec-in-fork` is this fork's automatic closed loop: an approved single-session `SPEC READY` becomes a disposable same-directory execution task, while an explicitly requested cross-ticket contract becomes one persistent task. Decisions travel through Codex Task Messenger, and a validated terminal receipt archives the child. The loop is **Codex App only**. Other harnesses get the manual fallback — open the approved contract in an execution task, run `/spec-executor` for a Spec or execute a persistent Goal directly, then paste the receipt back.
 
 The loop has two hard dependencies:
 

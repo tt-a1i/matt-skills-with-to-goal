@@ -13,7 +13,7 @@ You invoke this by typing `/to-goal` — the agent will not reach for it on its 
 | One approved spec fits a coherent inherited conversation | Fork at `SPEC READY` and use `spec-executor` |
 | Work crosses days, people, agents, or parallel sessions | Use `to-goal` on the current frontier |
 | The conversation contains noisy or conflicting drafts | Use `to-goal` to compile only approved evidence |
-| Several tickets must run in one renewing [harness](https://www.aihero.dev/ai-coding-dictionary/harness) | Use `/to-goal --all` explicitly |
+| Several tickets need one portable contract for a renewing [harness](https://www.aihero.dev/ai-coding-dictionary/harness) | Use `/to-goal --all` explicitly |
 
 ## Prerequisites
 
@@ -34,6 +34,10 @@ No. It preserves the agreed test seam and scope. The execution session still lea
 **Why not put every ticket in one goal?**
 
 One-ticket-per-context keeps the contract small enough to verify. `--all` is reserved for a persistent harness that can renew context while preserving dependency order.
+
+**Do I need `/to-goal --all` before one Codex fork executes the complete graph?**
+
+Only when the cross-ticket Goal must also be portable outside the inherited Codex task. With an approved parent spec and dependency-ordered agent-ready tickets, an explicit [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) complete-goal request can compile the same launch fields and start the persistent task directly.
 
 **Does generating the goal authorize a push or deployment?**
 
