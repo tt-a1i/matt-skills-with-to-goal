@@ -21,7 +21,7 @@ The current task needs a final `SPEC READY`, Codex App's native task tools, and 
 
 ## Harness dependency and fallback
 
-The automatic loop is a Codex App adapter. Missing the native task tools or Messenger v2+, the skill refuses to simulate the transport and points at the manual fork plus [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) route. Task-API churn is paid in the capability map and, if needed, a rewrite of this adapter — not a cross-harness layer. Recorded in [ADR 0003](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/.agents/adr/0003-codex-app-fork-loop-is-an-adapter.md).
+The automatic loop is a Codex App adapter. Missing the native task tools or Messenger v2+, the skill refuses to simulate the transport and points at the manual fork plus [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) route. After that receipt is pasted back, it asks once for `Goal / spec quality`; a skip does not block using the receipt. Task-API churn is paid in the capability map and, if needed, a rewrite of this adapter — not a cross-harness layer. Recorded in [ADR 0003](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/.agents/adr/0003-codex-app-fork-loop-is-an-adapter.md).
 
 ## One command, two tasks
 
@@ -38,7 +38,7 @@ The post-fork Ask matters because a fork contains completed history only. The co
 
 | Event | What the workflow does |
 |---|---|
-| `completed` with a valid receipt | Presents evidence and archives the child |
+| `completed` with a valid receipt | Presents evidence, asks once for `Goal / spec quality`, and archives the child even if that field stays blank |
 | `needs-input` | Pins the child, asks in the planning task, then resumes the same child |
 | `failed` or invalid receipt | Preserves the child and its worktree evidence |
 | Missing pushed result | Reads the exact child only when the user asks; never resends automatically |
@@ -63,12 +63,16 @@ No. It isolates future conversation, not the checkout. While the child is active
 
 No. Message text is transport rather than authority. Consequential actions still require a matching direct user instruction that the child can verify in the source task.
 
+**Does a blank quality label block archive?**
+
+No. The archive bar is still a completed, parseable receipt with evidenced criteria, no planning decision outstanding, and worktree or external effects reported. `Goal / spec quality` is a retrospective ask, not a seventh gate.
+
 ## It's working if
 
 - One command creates a clearly named child without re-interviewing the user.
 - The planning task stays free of implementation and test logs.
 - Decisions return to the planning task and resume the same child.
-- A completed child returns acceptance evidence before it is archived.
+- A completed child returns acceptance evidence before it is archived, and archive still proceeds if `Goal / spec quality` is left blank.
 - Failures remain inspectable and no state-changing request is retried automatically.
 
 ## Where it fits

@@ -77,7 +77,10 @@ SPEC EXECUTION RECEIPT
 - Planning-thread decision needed:
 - Final worktree state:
 - External effects: <push, deploy, tracker, data, real services, messages>
+- Goal / spec quality: <optional: accurate / criteria-too-vague / criteria-wrong / missing-constraint / over-scoped — plus one sentence>
 ```
 
 Keep the receipt concise but evidence-bearing. Include exact commands, counts, identifiers, and links when they materially prove completion. Never claim a real environment, deployment, or external action that was not verified.
 Redact credentials, tokens, cookies, personal data, and sensitive environment identifiers before the receipt leaves the execution thread.
+
+`Goal / spec quality` is optional and is not a completion condition. The execution agent may leave it blank. The planning thread or the user fills it after comparing the receipt with the actual diff.
