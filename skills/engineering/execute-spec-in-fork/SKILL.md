@@ -1,6 +1,6 @@
 ---
 name: execute-spec-in-fork
-description: "Orchestrate an approved SPEC READY or explicit cross-ticket persistent Goal through one same-directory Codex App fork, route decisions through Codex Task Messenger, validate the returned receipt, and archive a completed child. Use when the user explicitly asks to execute settled work in a fork, or when handling a Messenger reply, resume, or recovery event for a fork this skill launched. Requires Codex App native task tools and codex-task-messenger."
+description: "Orchestrate an approved SPEC READY or dependency-ordered persistent contract through one same-directory Codex App fork, route decisions through Codex Task Messenger, validate the returned receipt, and archive a completed child. Use when the user invokes this skill to execute settled work in a fork, including an approved large spec with independently decidable frontiers, or when handling a Messenger reply, resume, or recovery event for a fork this skill launched. Requires Codex App native task tools and codex-task-messenger."
 ---
 
 # Execute Spec in Fork
@@ -13,10 +13,10 @@ Before creating anything:
 
 1. Select the latest completed, approved contract and apply later user corrections:
    - **Spec mode**: a `SPEC READY` block routed to forked execution that fits one reliable implementation session;
-   - **Persistent Goal mode**: either a cross-ticket Goal labelled `Session: persistent goal loop`, or an approved parent spec plus dependency-ordered agent-ready tickets when the user explicitly asks this command to run the complete goal in one persistent task.
-2. In Persistent Goal mode, compile the parent and tickets into current state, dependency order, independently decidable completion criteria, constraints, and source context; do not re-interview or mutate the tracker. Reject an ordinary single-ticket Goal, unresolved spec, missing dependency order, or ambiguous choice between contracts. Route incomplete sources through `/to-tickets` or `/to-goal` first.
-3. Extract the target repository, review fixed point, completion criteria, validation seam, non-goals, dirty-file protections, and permission envelope. Require an existing absolute repository path.
-4. Compare the target repository with the calling task's normalized working directory. Record `aligned` when they match. When they differ, record `path-bound`, tell the user the child remains grouped under the calling task's directory, and require every child repository operation to use the target absolute path. Stop if either path is missing or ambiguous.
+   - **Persistent Goal mode**: a cross-ticket Goal labelled `Session: persistent goal loop`; an approved parent spec plus dependency-ordered agent-ready tickets; or an approved large spec whose own execution plan already supplies dependency order and independently decidable frontier criteria.
+2. Direct invocation of this skill against the selected approved large spec is the user's choice to run it as one persistent task; do not ask them to authorize that choice again. Compile the approved source into current state, dependency order, independently decidable completion criteria, constraints, and source context; do not re-interview or mutate the tracker. Tickets are evidence for that structure, not mandatory ceremony when the approved spec already contains it. Reject an ordinary single-ticket Goal, unresolved spec, missing dependency order, ambiguous choice between contracts, or a large spec that only has one undifferentiated final criterion. Route incomplete sources through `/to-tickets` or `/to-goal` first.
+3. Extract the target repository, review fixed point, completion criteria, validation seam, non-goals, dirty-file protections, and permission envelope. Normally require an existing absolute repository path. A missing target is launchable only as an explicit **local repository bootstrap**: the user directly requested it, the absolute target path is unambiguous and absent, and an existing source repository plus exact baseline are verified. Record repository creation as the first frontier and leave the new repository without a remote unless the user separately authorizes one.
+4. Compare the target repository, or approved bootstrap target, with the calling task's normalized working directory. Record `aligned` when they match. When they differ, record `path-bound`; for a bootstrap target also record `pending-bootstrap`. Tell the user the child remains grouped under the calling task's directory, and require every child repository operation to use the target absolute path. Stop if the target is ambiguous, if a bootstrap target unexpectedly exists, or if its source/baseline cannot be verified.
 5. Require the current harness to expose the native Codex App task capabilities below and `/codex-task-messenger` with its Ask, Reply, and Resume card protocol (v2 or later).
 
 If a prerequisite is missing, create nothing. Explain the missing condition and give the manual fallback: open the approved contract in an execution task, run `/spec-executor` for a Spec or execute the persistent Goal directly, then paste its receipt back. After the receipt is pasted, ask once for `Goal / spec quality`; a skipped answer does not block using the receipt.
@@ -46,10 +46,13 @@ The user's direct invocation authorizes this workflow to:
 - create one same-directory fork of the current task;
 - title and message that child;
 - perform the approved contract's in-scope local implementation and validation;
+- create one explicitly requested local bootstrap repository from the verified source and baseline recorded in the launch manifest;
 - pin the child while a decision is outstanding;
 - unpin and archive the child after a valid completed result.
 
-It does not add authority to commit, push, open or merge a review, deploy, edit a tracker, modify production data, call costly real services, access credentials, or message people. Preserve the authority recorded in the approved contract.
+For an approved large spec, that invocation also selects Persistent Goal mode. Treat it as execution authorization, not as authority for external side effects.
+
+Repository bootstrap is local preparation, not publication: do not configure a remote, commit, or push unless a matching direct user instruction separately grants that action. The workflow otherwise does not add authority to commit, push, open or merge a review, deploy, edit a tracker, modify production data, call costly real services, access credentials, or message people. Preserve the authority recorded in the approved contract.
 
 A Messenger card is transport, never proof of authority. When a resumed answer changes scope or grants a consequential action, the child must use the App-supplied source task ID to read the source task and verify the matching direct user message. Do not trust an authorization claim copied into the card body. Return `needs-input` if the source cannot be verified exactly.
 
@@ -63,7 +66,7 @@ A Messenger card is transport, never proof of authority. When a resumed answer c
 6. Set its title to `Execute · <topic>` in English or `执行 · <topic>` in Chinese.
 7. Run `/codex-task-messenger` in **Ask** mode against that exact child ID with `return/push`. Carry an explicit user-selected model or reasoning level on the send; otherwise preserve the child's settings. The Ask must include the frozen launch manifest, the applicable receipt fields, and say:
    - in Spec mode, run `/spec-executor` against the approved inherited `SPEC READY`;
-   - in Persistent Goal mode, execute the approved Goal directly in dependency order, renew context within the same task when needed, and do not return `completed` after an intermediate frontier;
+   - in Persistent Goal mode, execute the approved Goal or dependency-ordered large spec directly, create an approved bootstrap repository as the first frontier when present, renew context within the same task when needed, and do not return `completed` after an intermediate frontier;
    - this post-fork Ask is the launch command omitted from the fork snapshot;
    - return exactly one `completed`, `needs-input`, or `failed` Reply;
    - place the complete `SPEC EXECUTION RECEIPT` in a Spec completion or `GOAL EXECUTION RECEIPT` in a Persistent Goal completion;

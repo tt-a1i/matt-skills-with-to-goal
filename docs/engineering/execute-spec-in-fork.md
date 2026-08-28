@@ -1,6 +1,6 @@
 ## What it does
 
-`execute-spec-in-fork` turns settled work into one Codex execution task: a final `SPEC READY` launches a bounded `spec-executor` run, while an explicitly requested cross-ticket contract launches a persistent Goal run.
+`execute-spec-in-fork` turns settled work into one Codex execution task: a final `SPEC READY` launches a bounded `spec-executor` run, while an explicitly requested dependency-ordered contract launches a persistent Goal run. That persistent source can be ordered tickets or a large approved spec that already names its frontiers and completion criteria.
 
 It is a **verified execution channel**, not a background worker. One typed launch receipt, one exact child ID, and one correlated terminal receipt define the lifecycle; a partially created child remains recoverable instead of being silently replaced.
 
@@ -12,13 +12,15 @@ Type `/execute-spec-in-fork` when the current Codex App task has settled work re
 |---|---|
 | Final spec, coherent conversation, one execution session | Run `execute-spec-in-fork` |
 | Approved parent spec and ordered tickets that must finish in one renewing task | Explicitly request the complete goal with `execute-spec-in-fork`; an existing `/to-goal --all` contract is accepted but not required |
+| Approved large spec already contains dependency-ordered frontiers and separate acceptance criteria | Invoke `execute-spec-in-fork`; that invocation selects one persistent task, and tickets are optional because the spec already carries the execution graph |
+| The approved work starts by deriving a new local repository from an exact source baseline | Name or unambiguously establish the absolute target; the child creates it as its first frontier without adding a remote |
 | Same contract, but the [harness](https://www.aihero.dev/ai-coding-dictionary/harness) cannot fork or message Codex tasks | Open an execution task manually; run [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) for a Spec or execute the persistent Goal directly |
 | Separate sessions, parallel work, delayed execution, or a portable contract | Use [to-tickets](https://aihero.dev/skills-to-tickets) and [to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/to-goal.md) |
 | Decisions remain unresolved | Return to [to-spec](https://aihero.dev/skills-to-spec) |
 
 ## Prerequisites
 
-The current task needs either a final `SPEC READY` or an approved parent spec with dependency-ordered agent-ready tickets, Codex App's native task tools, and the separately installed [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger). The target repository must resolve to an existing absolute path.
+The current task needs a final `SPEC READY`, an approved parent spec with dependency-ordered agent-ready tickets, or an approved large spec that already contains dependency-ordered frontiers and independently decidable criteria. Invoking the skill selects persistent execution for that large spec. It also needs Codex App's native task tools and the separately installed [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger). The target repository normally resolves to an existing absolute path; an explicitly requested local bootstrap may instead name an absent absolute target plus an existing source repository and exact baseline.
 
 ## Harness dependency and fallback
 
@@ -38,6 +40,8 @@ Before forking, the command freezes the approved source, target repository, fixe
 The launch preserves the complete native fork receipt before reading its top-level child ID. It names and messages that exact child, then reads it once to distinguish `started` from merely `delivered`. If naming or delivery fails after creation, the child ID and draft are retained for an explicit retry; another fork is never created automatically.
 
 When the planning task's directory differs from the target repository, the child remains a same-directory App fork but operates **path-bound** against the verified absolute repository path. The mismatch is reported before launch rather than discovered after implementation starts.
+
+For an approved local repository bootstrap, the launch is additionally marked `pending-bootstrap`. Repository creation is the first evidenced frontier. The child derives it from the frozen source baseline and leaves it without a remote, so starting a local experiment never silently becomes publication authority.
 
 ## Lifecycle, not a daemon
 
@@ -69,6 +73,14 @@ No. It isolates future conversation, not the checkout. While the child is active
 
 Yes, when the parent spec and dependency-ordered tickets are already approved and you explicitly request the complete goal. The command compiles the persistent launch manifest without reopening decisions or mutating the tracker. Use `/to-goal --all` first only when you also need a portable Goal outside this inherited Codex task.
 
+**Do I have to create tickets when the approved spec already has an ordered implementation plan?**
+
+No. If each frontier has a dependency position and its own checkable completion criteria, invoking this skill selects one persistent task. It does not ask you to repeat that authorization. Tickets remain the better route for parallel ownership, tracker visibility, or independently scheduled work; they are not a toll paid only to reconstruct structure the spec already has.
+
+**Can the execution start in a new local repository that does not exist yet?**
+
+Yes, when the request fixes an absent absolute target, an existing source repository, and an exact baseline. The child creates that repository as its first frontier and does not configure a remote. An existing or ambiguous target still stops the launch.
+
 **What if the planning task was opened outside the target repository?**
 
 The launch reports the mismatch and uses path-bound execution against the verified absolute repository path. It refuses missing or ambiguous paths; it does not pretend that a same-directory fork changed the App directory.
@@ -83,7 +95,7 @@ No. The archive bar is still a completed, parseable receipt with evidenced crite
 
 ## It's working if
 
-- One command chooses bounded Spec or persistent Goal mode without re-interviewing the user.
+- One command chooses bounded Spec or persistent Goal mode without re-interviewing the user or demanding redundant tickets from an already ordered large spec.
 - The launch reports the exact child ID, target repository, directory alignment, delivery state, and observed startup state.
 - The planning task stays free of implementation and test logs.
 - Decisions return to the planning task and resume the same child.
