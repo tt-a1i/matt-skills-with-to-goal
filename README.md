@@ -103,11 +103,12 @@ Codex App 中的自动 Fork 闭环还需要单独安装 [Codex Task Messenger](h
 /execute-spec-in-fork
 ```
 
-Codex App 会自动 Fork、启动 `/spec-executor`、回传 `SPEC EXECUTION RECEIPT`，并在验证完成后归档执行任务。若缺少原生任务工具，则手动 Fork 后运行 `/spec-executor`；若 Spec 无法在一个执行会话完成，则改走 `/to-tickets` → `/to-goal`。
+Codex App 会自动 Fork、启动执行、回传证据，并在验证完成后归档执行任务。单会话 Spec 运行 `/spec-executor`；用户明确要求完整执行且已有依赖有序的 agent-ready tickets 时，同一命令启动 persistent Goal 模式。若需要跨人、跨引擎或可移植合同，则改走 `/to-tickets` → `/to-goal`。
 
 ## Fork 与 `to-goal` 如何分工
 
 - **`execute-spec-in-fork` + `spec-executor`**：当前线程已经把需求谈清楚，Spec 能在一个执行会话完成；自动建立同目录执行任务和回传通道，避免重复查 Spec、重写 Goal 和手工复制 receipt。
+- **`execute-spec-in-fork` persistent Goal 模式**：已有批准的 parent spec 与依赖有序 tickets，且用户明确要求一个长期 Codex 任务完整推进；同一命令冻结 Launch Manifest、创建准确 Fork，并在所有 frontier 有证据后才接收终态 receipt。
 - **`to-goal`**：需要跨人、跨天、跨引擎、并行，或者当前历史过长、存在多版冲突；用压缩后的执行合同换取干净上下文。
 - **同线程 `/implement`**：小而明确、不值得建立持久 Spec 的改动。
 
@@ -115,7 +116,7 @@ Codex App 会自动 Fork、启动 `/spec-executor`、回传 `SPEC EXECUTION RECE
 
 | 层 | 负责 | 不负责 |
 |---|---|---|
-| 编排 · [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | 创建、命名、启动执行任务，校验 receipt，条件归档 | 写代码；替用户授权 commit / push / 部署 |
+| 编排 · [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | 选择 Spec / persistent Goal 模式，创建、命名、启动准确任务，校验 receipt，条件归档 | 写代码；替用户授权 commit / push / 部署 |
 | 执行 · [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 锁定 `SPEC READY`，实现、验证、评审，输出带证据的 receipt | 创建 Fork；在任务之间传话 |
 | 通信 · [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger) | 把 Ask / Reply / Resume 送到这次创建的准确任务 | 批准任何外部动作；消息不等于授权 |
 
@@ -153,7 +154,7 @@ Goal
 | 工作很大，连路线都还不清楚 | `/wayfinder` |
 | 决策已成形，想让对立视角围攻它 | `/roundtable` |
 | 已有共识，需要形成 spec | `/to-spec` |
-| 已有最终 `SPEC READY`，要在 Codex Fork 中直接执行 | `/execute-spec-in-fork` |
+| 已有最终 `SPEC READY`，或要在一个 Codex Fork 中完整执行批准的依赖图 | `/execute-spec-in-fork` |
 | 已有 spec，需要拆成可执行切片 | `/to-tickets` |
 | 已有 agent-ready ticket，要开新线程实现 | `/to-goal` |
 | 关键在别人脑子里，需要问卷收集 | `/to-questionnaire` |
@@ -186,7 +187,7 @@ Goal
 | Skill | 作用 |
 |---|---|
 | [`implement`](./skills/engineering/implement/SKILL.md) | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
-| [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | Codex App 中自动 Fork、启动 executor、处理决策回路、验证回传并归档 |
+| [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | Codex App 中自动 Fork，执行单 Spec 或显式 persistent Goal，处理决策回路、验证回传并归档 |
 | [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 在 fork 线程锁定 `SPEC READY`、权限和 fixed point，完成实现并输出 receipt |
 | [`tdd`](./skills/engineering/tdd/SKILL.md) | 在预先确认的 seam 上进行测试驱动实现 |
 | [`code-review`](./skills/engineering/code-review/SKILL.md) | Standards + Spec 双轴评审 |
@@ -212,7 +213,7 @@ Goal
 
 - 默认一个 goal 只覆盖一个 frontier ticket；`--all` 仅用于明确要求的跨 ticket 持久化执行。
 - `spec-executor` 只执行一个已封版、单会话可完成的 Spec；需求未定或体量溢出时停止并重新路由。
-- `execute-spec-in-fork` 是 Codex App 的事件驱动适配器，依赖原生任务工具与 Codex Task Messenger；不会启动 daemon、自动重试或跨 Worktree 通信。
+- `execute-spec-in-fork` 是 Codex App 的事件驱动适配器；它默认运行一个 Spec，只有用户明确要求完整执行且来源已有依赖顺序时才运行 persistent Goal。它不会启动 daemon、自动重试或跨 Worktree 通信。
 - `to-goal` 只读 spec、tracker 和仓库证据，不实现、不改 issue 状态、不创建分支。
 - Fork 只隔离对话，不隔离文件系统；并行实现仍需独立 worktree、分支和文件所有权。
 - goal 不会默认授权 push、PR、merge、关闭 issue 或修改 tracker。

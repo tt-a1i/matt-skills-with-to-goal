@@ -58,4 +58,4 @@ No. `Goal / spec quality` is a retrospective label, not a completion condition. 
 
 ## Where it fits
 
-`spec-executor` is the forked implementation step after [to-spec](https://aihero.dev/skills-to-spec). [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) automates that step in Codex App, while `to-goal` remains the portable route for noisier or longer work. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.
+`spec-executor` is the bounded forked implementation step after [to-spec](https://aihero.dev/skills-to-spec). [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) automates that step in Codex App and separately owns explicit persistent Goal runs; [to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/to-goal.md) remains the portable route for noisier or longer work. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.
