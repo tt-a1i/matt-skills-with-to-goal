@@ -1,5 +1,49 @@
 # mattpocock-skills
 
+## 1.3.0
+
+### Minor Changes
+
+- [`61e8263`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/61e8263036c98dab5f4ea255002b413414682d1b) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Make the fork-owned Goal and execution Skills loosely coupled. They now accept approved work from any planning source, choose testing and review methods from available repository capabilities, and no longer require setup or named planning, TDD, or code-review Skills. Document selective installation and preserve only the concrete transport dependency between Codex fork orchestration, Spec Executor, and Codex Task Messenger.
+
+### Patch Changes
+
+- [`84b5ee5`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/84b5ee5afd738b6a3484e62509b84b3b573c5be3) Thanks [@mattpocock](https://github.com/mattpocock)! - Add the `implement-spec` skill (in-progress bucket, user-invoked). It takes a spec and its tickets and drives them to a single PR: the tickets are read as a task graph with blocking edges, so implementer subagents run in background worktrees across the ready frontier for concurrency, a merger subagent folds each one back into the PR branch, and the flow closes with `/code-review` before the PR is marked ready.
+
+- [`f8fb55e`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/f8fb55eab0e8a2990160025fa97aaf68c1ef1b4d) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `roundtable`, a user-invoked skill that pressure-tests an already-formed decision, plan, or proposal by convening parallel sub-agents arguing deliberately opposed perspectives — independent statements, anonymous cross-review, then a Chair's synthesis that reports the verdict while preserving consensus and dissent. The complement of grilling: grilling sharpens an idea that isn't formed yet, the roundtable attacks a settled motion. Promoted into `skills/engineering/` with a plugin entry, README and Engineering-bucket listings, an `ask-matt` route, and a docs page at `docs/engineering/roundtable.md`.
+
+- [`1984de6`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/1984de6f0e45f25bbe84feb5f7547544166db1f0) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `execute-spec-in-fork`, a Codex App orchestration skill that creates a same-directory execution fork from the final `SPEC READY`, launches `spec-executor` through Codex Task Messenger, routes decisions back to the planning task, validates the returned receipt, and archives only a correlated clean completion.
+
+- [`f02e2ed`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/f02e2ed3624d031272f8547742d23bf6bca8b072) Thanks [@claude](https://github.com/claude)! - domain-modeling: trigger on discussing codebase terminology and on writing or editing a CONTEXT.md or an ADR directly, replacing the narrower "pin down domain terminology or a ubiquitous language" / "record an architectural decision" phrasing. Also drops the "another skill needs to maintain the domain model" caveat, since that's the invoking skill's job to state explicitly, not this description's.
+
+- [`4f28947`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/4f289474bad013fe2be8f8769d733f59d9103d6b) Thanks [@claude](https://github.com/claude)! - Quote the `description` front matter in `to-spec`, `code-review`, `setup-matt-pocock-skills`, `writing-fragments`, `writing-shape`, and `wait-what`. An unquoted colon-space left over from the em-dash sweep in [#905](https://github.com/tt-a1i/matt-skills-with-to-goal/issues/905) made each block invalid YAML, so `skills.sh` skipped all six during discovery and they couldn't be listed or installed via `npx skills`.
+
+- [`85f83d3`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/85f83d3fde1d3a90d5c9a657f6998c79a6c37308) - grilling: update the round template so consecutive questions are separated by a horizontal rule (`---`) instead of running together.
+
+- [`faa7579`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/faa7579645fc4fe7bc2fffe3325cb473a6d6753f) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add an optional `Goal / spec quality` field to `spec-executor`'s `SPEC EXECUTION RECEIPT` so a completed run can record whether the contract was accurate, too vague, wrong, missing a constraint, or over-scoped. `execute-spec-in-fork` asks once before archive; a skip does not block using the receipt or archiving the child. Docs pages follow.
+
+- [`ca4ece9`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/ca4ece9a2a4e993c9262a9751b0dd5823bf507ab) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Make `improve-codebase-architecture` present its candidates as markdown by default and write the self-contained HTML report only on request, so a run stays useful offline or behind a script blocker. Give two absolute rules an explicit boundary without loosening the default: `to-spec` now defaults to one seam per spec unless a genuine external boundary forces another, and `resolving-merge-conflicts` treats `--abort` as a last resort for irreconcilable intents rather than an option it never has. Docs pages and the fork's upstream-difference list follow.
+
+- [`83ed78d`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/83ed78d0bbe8976f847d281369a7df1c3fc121b7) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Let portable handoffs record their source Codex task and execution owner so compatible same-directory tasks can ask one targeted follow-up through Codex Task Messenger.
+
+- [`2074cdf`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/2074cdf5046dcacf72c340d839bd97450000bd93) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Rewrite `to-goal`'s compiler output from a six-section prose brief into a readiness checklist plus a required fill-in template, so every compiled handoff carries independently checkable criteria, the default constraints, and a session recommendation. The compiler now stops on an incomplete readiness list instead of inventing a goal, and keeps skip-test lines out of the paste block unless tests were actually skipped.
+
+- [`e3e547b`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/e3e547b57d549110a0aa6ff40fd7b871c01c76c9) Thanks [@claude](https://github.com/claude)! - Standardize cross-skill invocation on an explicit "call the Skill tool" instruction instead of bare `/skill`-style prose, across `code-review`, `diagnosing-bugs`, `grill-with-docs`, `grill-me`, `improve-codebase-architecture`, `tdd`, `to-spec`, `to-tickets`, `triage`, and `wayfinder`.
+
+  - A skill that names another skill in prose ("run the `/grilling` skill") does not reliably cause it to load. This is the documented rough edge behind `grill-with-docs`'s most-reported problem. Naming the tool directly (`Call the Skill tool with "grilling"`) is intended to raise the hit rate. Dropping the leading `/` also makes the instruction harness-neutral rather than less: it no longer assumes Claude Code's trigger syntax.
+  - A step needing more than one skill now says so as multiple calls ("Call the Skill tool twice, for `grilling` and `domain-modeling`"), not one call carrying two names.
+  - Documents the convention in `.agents/invocation.md` for future skills to follow.
+
+- [`1dab982`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/1dab98299c3b81f560026c01b7ebf55ed5d91373) - Stop skills from trying to reach user-invoked skills through the Skill tool: fix cross-skill references that violated the "no other skill can call it" invariant in `.agents/invocation.md`, in `to-spec`, `wayfinder`, `to-tickets`, `triage`, `code-review`, and `diagnosing-bugs`.
+
+  - `to-spec`, `wayfinder`, `to-tickets`, `triage`, and `code-review` each carried a precondition ("...run `/setup-matt-pocock-skills` if not") that PR [#878](https://github.com/tt-a1i/matt-skills-with-to-goal/issues/878) rewrote into a literal `Call the Skill tool with "setup-matt-pocock-skills"` instruction. `setup-matt-pocock-skills` is user-invoked, so none of these skills (user-invoked or model-invoked) can call it. Reworded all five as instructions for the agent to tell the human to run it instead.
+  - `diagnosing-bugs`'s Phase 6 post-mortem hand off to `improve-codebase-architecture` (also user-invoked) the same way, from an autonomous, often-unattended bug-fixing flow with no human in the loop to catch the failed call. Removed the hand-off outright rather than softening it, since it rarely fired in practice. Phase 6 is now "Cleanup" only; the mechanical checklist is untouched.
+  - Added a carve-out paragraph to `.agents/invocation.md`'s "Dependencies between them" section: the `Call the Skill tool with "name"` convention only applies when the named skill is model-invoked. This is the section PR [#878](https://github.com/tt-a1i/matt-skills-with-to-goal/issues/878) introduced without reconciling it against the user-invoked/model-invoked invariant stated eight lines above it; the gap is most of why this bug reached six call sites instead of one.
+
+  Fixes [#453](https://github.com/tt-a1i/matt-skills-with-to-goal/issues/453).
+
+- [`594f0f8`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/594f0f83188921a60d45d63d6cdac509de20df2c) - wait-what: follow `CONTEXT-MAP.md` to the right `CONTEXT.md` when a repo indexes multiple contexts that way instead of keeping a single root `CONTEXT.md`.
+
 ## 1.2.3
 
 ### Patch Changes
