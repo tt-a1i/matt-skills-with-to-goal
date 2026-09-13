@@ -1,23 +1,23 @@
 ## What it does
 
-`execute-spec-in-fork` turns a final `SPEC READY` into a temporary Codex execution task: it forks the planning task, launches `spec-executor`, carries decisions back and forth, validates the returned receipt, and archives a clean completion.
+`execute-spec-in-fork` turns approved, bounded work into a temporary Codex execution task: it forks the planning task, launches `spec-executor`, carries decisions back and forth, validates the returned receipt, and archives a clean completion.
 
 It is an **event-driven execution channel**, not a background worker. The planning conversation remains the [primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source); the fork inherits that source without making the planning task absorb implementation logs.
 
 ## When to reach for it
 
-Type `/execute-spec-in-fork` when the current Codex App task has an approved spec that fits one implementation session. The agent also uses it to finish the lifecycle when that execution fork later returns a correlated Messenger event.
+Type `/execute-spec-in-fork` when the current Codex App task has an approved source that fits one implementation session. A `SPEC READY` block is supported but not required. The agent also uses the Skill to finish the lifecycle when that execution fork later returns a correlated Messenger event.
 
 | Situation | Route |
 |---|---|
-| Final spec, coherent conversation, one execution session | Run `execute-spec-in-fork` |
+| Approved source, coherent conversation, one execution session | Run `execute-spec-in-fork` |
 | Same contract, but the [harness](https://www.aihero.dev/ai-coding-dictionary/harness) cannot fork or message Codex tasks | Fork manually and run [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) |
-| Several slices, parallel work, or delayed execution | Use [to-tickets](https://aihero.dev/skills-to-tickets) and [to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/to-goal.md) |
-| Decisions remain unresolved | Return to [to-spec](https://aihero.dev/skills-to-spec) |
+| Several slices, parallel work, or delayed execution | Split the work or optionally create a portable goal |
+| Decisions remain unresolved | Clarify the source before forking |
 
 ## Prerequisites
 
-The current task needs a final `SPEC READY`, Codex App's native task tools, and the separately installed [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger). The execution uses a same-directory fork, so the planning and execution tasks share one checkout.
+The current task needs approved, bounded work, Codex App's native task tools, and the separately installed [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger). The execution uses a same-directory fork, so the planning and execution tasks share one checkout.
 
 ## Harness dependency and fallback
 
@@ -32,7 +32,7 @@ planning task → fork → Messenger Ask → spec-executor
 planning task ← completed / needs-input / failed Reply
 ```
 
-The post-fork Ask matters because a fork contains completed history only. The command that creates the fork is still running, so the child inherits the approved spec but needs a follow-up message telling it to begin and where to return the result.
+The post-fork Ask matters because a fork contains completed history only. The command that creates the fork is still running, so the child inherits the approved source but needs a follow-up message telling it to begin and where to return the result.
 
 ## Lifecycle, not a daemon
 
@@ -49,7 +49,7 @@ The request ID and exact child ID correlate one run. They provide practical dupl
 
 **Why not just open a new task?**
 
-A new task has to reconstruct the product context. A fork inherits the completed planning history, including the final spec and the decisions that produced it.
+A new task has to reconstruct the product context. A fork inherits the completed planning history, including the approved source and the decisions that produced it.
 
 **Does the planning task wait while implementation runs?**
 
@@ -77,4 +77,4 @@ No. The archive bar is still a completed, parseable receipt with evidenced crite
 
 ## Where it fits
 
-`execute-spec-in-fork` is the Codex App adapter between [to-spec](https://aihero.dev/skills-to-spec) and [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md). [to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/to-goal.md) remains the portable route when context must cross days, agents, or harnesses. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.
+`execute-spec-in-fork` is the Codex App lifecycle adapter around [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md). It accepts approved work from any planning approach; a portable goal remains an optional route when context must cross days, agents, or harnesses without inherited history. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.

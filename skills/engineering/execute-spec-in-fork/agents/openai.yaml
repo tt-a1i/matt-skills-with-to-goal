@@ -1,4 +1,4 @@
 interface:
   display_name: "Execute Spec in Fork"
-  short_description: "Fork an approved spec, execute it, and return evidence"
-  default_prompt: "Use $execute-spec-in-fork to run the latest approved SPEC READY in a Codex fork and return its receipt."
+  short_description: "Fork approved work, execute it, and return evidence"
+  default_prompt: "Use $execute-spec-in-fork to run the approved work in a Codex fork and return its receipt."

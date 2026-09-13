@@ -11,9 +11,11 @@ Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds
 
 Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
-## Dependencies between them
+## Composition and dependencies
 
-Dependencies are expressed as **`/skill`-style prose invocation** ("Run the `/grilling` skill"), not deep `../other-skill/FILE.md` cross-references. Shared reference docs live inside the skill that owns them; other skills reach that material by invoking the skill, not by linking across folders.
+Skills compose through plain artifacts and observable state by default. A spec, goal, issue, receipt, diff, or repository convention should remain usable without the Skill that produced it.
+
+Name another Skill as required only when it implements a concrete capability the current Skill cannot provide, such as a transport protocol. Otherwise describe the needed outcome and let the agent use the repository, its native abilities, or any available specialist Skill. Optional recommendations may use `/skill`-style prose; deep `../other-skill/FILE.md` cross-references remain inappropriate.
 
 ## Passive vs active domain work
 
