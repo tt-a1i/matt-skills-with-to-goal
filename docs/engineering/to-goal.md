@@ -1,8 +1,8 @@
 ## What it does
 
-`to-goal` compiles an approved spec, an agent-ready issue, or the current unblocked frontier into a verifiable execution goal for a fresh [session](https://www.aihero.dev/ai-coding-dictionary/session). It carries the current code state, execution order, completion criteria, constraints, and source context across the boundary.
+`to-goal` compiles approved planning evidence or the current unblocked frontier into a verifiable execution goal for a fresh [session](https://www.aihero.dev/ai-coding-dictionary/session). The source may be a conversation, spec, issue, document, or partially completed repository state.
 
-It is read-only. It does not implement, change the issue tracker, create a branch, or reopen decisions that `to-spec`, `to-tickets`, or `triage` already settled.
+It is read-only. It does not implement, change an issue tracker, create a branch, or reopen settled decisions. No tracker setup or upstream Skill is required.
 
 ## When to reach for it
 
@@ -10,14 +10,14 @@ You invoke this by typing `/to-goal` — the agent will not reach for it on its 
 
 | Situation | Route |
 |---|---|
-| One approved spec fits a coherent inherited conversation | Fork at `SPEC READY` and use `spec-executor` |
+| One approved source fits a coherent inherited conversation | Fork and optionally use `spec-executor` |
 | Work crosses days, people, agents, or parallel sessions | Use `to-goal` on the current frontier |
 | The conversation contains noisy or conflicting drafts | Use `to-goal` to compile only approved evidence |
 | Several tickets must run in one renewing [harness](https://www.aihero.dev/ai-coding-dictionary/harness) | Use `/to-goal --all` explicitly |
 
 ## Prerequisites
 
-The work needs an approved spec or agent-ready issue with observable acceptance criteria. A configured issue tracker from [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) is required when the source is not passed as a local path.
+The work needs an approved source with observable acceptance criteria. That source can live in the current conversation, a local document, an issue tracker, or the repository itself.
 
 ## The execution contract
 
@@ -29,7 +29,7 @@ Capability recommendations stay portable. They describe the lowest reliable tier
 
 **Does this replace TDD or implementation planning?**
 
-No. It preserves the agreed test seam and scope. The execution session still learns through implementation; the goal prevents it from guessing product intent or expanding beyond the issue.
+No. It preserves the agreed validation seam and scope. The execution session still learns through implementation; the goal prevents it from guessing product intent or expanding beyond the source.
 
 **Why not put every ticket in one goal?**
 
@@ -48,4 +48,4 @@ No. Commit, push, pull request, deployment, tracker, production-data, and real-s
 
 ## Where it fits
 
-`to-goal` is a context-boundary chain step after [to-tickets](https://aihero.dev/skills-to-tickets) or [triage](https://aihero.dev/skills-triage), before a fresh implementation session. Use [ask-matt](https://aihero.dev/skills-ask-matt) when the correct route is unclear.
+`to-goal` is a standalone context-boundary tool before a fresh implementation session. Planning and ticketing Skills can produce useful input, but none is required. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog, not an entry gate.

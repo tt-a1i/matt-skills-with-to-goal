@@ -11,7 +11,7 @@ Type `/goal-crafter`, or the agent reaches for it automatically when you ask for
 | Starting point | Mode |
 |---|---|
 | A vague task that needs a goal | Standalone interview |
-| An approved spec or issue passed by `to-goal` | Compiled handoff |
+| Any approved planning evidence | Compiled handoff |
 
 ## Verifiable means observable
 
@@ -42,4 +42,4 @@ Compiled-handoff mode reports the missing decision or evidence as not agent-read
 
 ## Where it fits
 
-`goal-crafter` is both a reach-for-it-anytime standalone and the shared goal vocabulary underneath `to-goal`. See [ask-matt](https://aihero.dev/skills-ask-matt) for the complete workflow map.
+`goal-crafter` is a reach-for-it-anytime standalone. Other workflows may reuse its goal vocabulary, but it does not require or prescribe them. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.
