@@ -1,5 +1,5 @@
 ---
-"mattpocock-skills": patch
+"matt-skills-with-to-goal": patch
 ---
 
 Stop skills from trying to reach user-invoked skills through the Skill tool: fix cross-skill references that violated the "no other skill can call it" invariant in `.agents/invocation.md`, in `to-spec`, `wayfinder`, `to-tickets`, `triage`, `code-review`, and `diagnosing-bugs`.

@@ -17,10 +17,17 @@ Lead each round with a fixed header, then emit every frontier question in one sh
 🔥 **Round N** · K questions
 ```
 
-**Each question** (one type emoji before the number):
+**Questions** (one type emoji before each number, separated by a horizontal rule):
 
 ```
-<type> **QN** - **<question title>**
+<type> **Q1** - **<question title>**
+<body — prose and/or multiple choices>
+
+💡 <your recommended answer>
+
+---
+
+<type> **Q2** - **<question title>**
 <body — prose and/or multiple choices>
 
 💡 <your recommended answer>
