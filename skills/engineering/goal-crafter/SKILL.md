@@ -18,7 +18,7 @@ Turn a vague task into a **verifiable goal** that an AI agent can run unattended
 Choose the mode before following the process:
 
 - **Standalone mode**: the user brings a vague task or directly asks for a goal. Run Phase 1 and clarify the task one question at a time.
-- **Compiled-handoff mode**: an upstream skill such as `to-goal` invokes this skill after `to-spec`, `to-tickets`, or `triage`. The approved spec, selected ticket, tracker evidence, and repository state supply the answers. **Do not interview the user again.** Apply only this skill's verifiability rules and target-harness formatting.
+- **Compiled-handoff mode**: approved planning evidence already supplies the answers. **Do not interview the user again.** Apply only this skill's verifiability rules and target-harness formatting. The evidence may come from a conversation, spec, issue, document, or another skill.
 
 In compiled-handoff mode, if a required product decision or completion condition is genuinely absent from the sources, report that the source is not agent-ready and name the missing evidence. Do not reopen the planning interview from inside goal compilation.
 
@@ -200,7 +200,7 @@ Context:
 ## Special Rules
 
 - **Never skip Phase 1 question #3 in standalone mode.** If the user can't define "done", the goal will fail. Help them brainstorm.
-- **Never re-interview in compiled-handoff mode.** `to-spec`, `to-tickets`, or `triage` already owns clarification and product decisions; missing evidence means the source is not agent-ready.
+- **Never re-interview in compiled-handoff mode.** Approved evidence already owns clarification and product decisions; missing evidence means the source is not agent-ready.
 - **One verifiable condition per checkbox.** Don't combine multiple conditions into one line.
 - **Constraints are your friend.** They prevent the agent from "optimizing" unrelated files or introducing breaking changes.
 - **If the task is too large for one goal**, suggest breaking it into 2-3 smaller goals with clear handoffs.

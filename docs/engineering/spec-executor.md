@@ -1,24 +1,24 @@
 ## What it does
 
-`spec-executor` implements the latest approved `SPEC READY` contract in a forked execution thread, then returns a compact receipt to the planning thread. It preserves the source spec, review fixed point, test seam, non-goals, and external-action permissions inherited at the fork.
+`spec-executor` implements one approved, bounded contract in an isolated execution conversation, then returns a compact receipt. It preserves the source, comparison baseline, validation seam, non-goals, and external-action permissions inherited at the boundary.
 
-It does not rewrite the approved spec into another long goal. The inherited planning conversation remains the [primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source), while implementation logs stay in the execution thread.
+It does not rewrite the approved source into another long goal. The inherited planning evidence remains the [primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source), while implementation logs stay in the execution conversation.
 
 ## When to reach for it
 
-Type `/spec-executor`, or the agent reaches for it automatically when a forked conversation contains a final `SPEC READY` block and asks for implementation.
+Type `/spec-executor`, or the agent reaches for it automatically when an isolated execution conversation contains an approved, bounded source and asks for implementation.
 
 | Situation | Route |
 |---|---|
-| Approved spec fits one implementation session in Codex App | Run [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) |
+| Approved work fits one implementation session in Codex App | Optionally run [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) |
 | Same contract without Codex task orchestration | Fork manually and run `spec-executor` |
-| Spec requires several dependency-ordered slices | Use [to-tickets](https://aihero.dev/skills-to-tickets) |
-| Context is noisy or must cross agents without history | Compile a `to-goal` handoff |
-| Product decisions or the test seam remain open | Return to [to-spec](https://aihero.dev/skills-to-spec) |
+| Work requires several dependency-ordered slices | Split it with any suitable planning method |
+| Context is noisy or must cross agents without history | Optionally compile a portable goal |
+| Product decisions or the validation seam remain open | Clarify the source before execution |
 
 ## Prerequisites
 
-The thread needs a final `SPEC READY` block or an explicitly identified approved spec. The implementation repository and its starting baseline must be available, and the spec must fit one reliable execution context.
+The thread needs one explicitly approved source. The implementation repository and its starting baseline must be available, and the work must fit one reliable execution context.
 
 ## Lock, execute, receipt
 
@@ -38,7 +38,7 @@ No. In Codex App, [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-w
 
 **Does invoking it authorize a commit, push, or deployment?**
 
-No. It authorizes in-scope local implementation and validation only. Every external action needs authority from the final spec or a later user instruction.
+No. It authorizes in-scope local implementation and validation only. Every external action needs authority from the approved source or a later user instruction.
 
 **What if the work no longer fits one session?**
 
@@ -50,7 +50,7 @@ No. `Goal / spec quality` is a retrospective label, not a completion condition. 
 
 ## It's working if
 
-- The executor names one final spec source and one pre-implementation fixed point.
+- The executor names one approved source and one pre-implementation baseline.
 - Every acceptance criterion returns with pass/fail evidence.
 - Unrelated dirty files and downstream work remain untouched.
 - The planning thread receives a concise receipt rather than implementation-log overflow.
@@ -58,4 +58,4 @@ No. `Goal / spec quality` is a retrospective label, not a completion condition. 
 
 ## Where it fits
 
-`spec-executor` is the forked implementation step after [to-spec](https://aihero.dev/skills-to-spec). [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) automates that step in Codex App, while `to-goal` remains the portable route for noisier or longer work. Use [ask-matt](https://aihero.dev/skills-ask-matt) when choosing between them.
+`spec-executor` is a standalone execution-boundary tool. [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) can automate its lifecycle in Codex App; a portable goal is an optional alternative when work must cross contexts without inherited history. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.

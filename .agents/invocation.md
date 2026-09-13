@@ -11,15 +11,15 @@ Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds
 
 Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
-## Dependencies between them
+## Composition and dependencies
 
-Dependencies are expressed as an explicit instruction to **call the Skill tool** with the named skill (`Call the Skill tool with "grilling"`), not deep `../other-skill/FILE.md` cross-references, and not a bare `/skill`-style mention left for the model to interpret. Naming the tool is what gets it fired: most harnesses expose skill invocation as a tool the model calls, and spelling that out gets a higher hit rate than dropping a `/name` into prose and hoping it's read as a command. Dropping the leading `/` also keeps this harness-neutral rather than less: a skill name on its own carries no assumption about which harness's trigger syntax it belongs to. Shared reference docs live inside the skill that owns them; other skills reach that material by calling the Skill tool with it, not by linking across folders.
+Skills compose through plain artifacts and observable state by default. A spec, goal, issue, receipt, diff, or repository convention should remain usable without the Skill that produced it.
 
-This is about **operative** instructions: a skill's own steps telling the agent to go run another skill right now. Router prose that just names skills for a human to pick from (`ask-matt`, bucket `README.md`s) isn't invoking anything, so it keeps `/skill`-style names as plain labels.
+Name another Skill as required only when it implements a concrete capability the current Skill cannot provide, such as a transport protocol. Otherwise describe the needed outcome and let the agent use the repository, its native abilities, or any available specialist Skill. Optional recommendations may use `/skill`-style prose; deep `../other-skill/FILE.md` cross-references remain inappropriate.
 
-The Skill tool takes one skill per call. A step that needs two skills is two calls, not one call with two names: say so (`Call the Skill tool twice, for "grilling" and "domain-modeling"`), not "call it with X and Y," which reads as a single call taking both.
+When a concrete dependency is model-invoked, express the operative instruction as `Call the Skill tool with "<name>"`. The Skill tool takes one Skill per call, so a step requiring two Skills makes two calls. Router prose that merely names choices for a human keeps `/skill`-style labels.
 
-This whole convention only holds when the named skill is **model-invoked**. A user-invoked skill can never be reached this way, full stop: per the invariant above, no other skill can call it, including by naming it to the Skill tool. When a step's precondition is a user-invoked skill (e.g. `setup-matt-pocock-skills`), phrase it as an instruction for the human to act on: "tell the user to run `/setup-matt-pocock-skills`", never as a Skill tool call.
+A user-invoked Skill cannot be called by another Skill. Phrase that prerequisite as an instruction for the human, such as `tell the user to run /setup-matt-pocock-skills`.
 
 ## Passive vs active domain work
 

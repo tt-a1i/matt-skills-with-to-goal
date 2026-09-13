@@ -25,7 +25,7 @@ claude plugin install matt-skills-with-to-goal@tt-a1i
 npx skills@latest add tt-a1i/matt-skills-with-to-goal
 ```
 
-Choose the required Skills and include `setup-matt-pocock-skills` when using the engineering workflow for the first time.
+Choose only the Skills that solve the workflow boundary you need. Each Skill is independently installable; no setup or companion Skill is required unless its own documentation names a concrete tool dependency.
 
 </canonical-block>
 
