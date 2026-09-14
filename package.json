@@ -14,7 +14,8 @@
     "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
     "lint:skills": "node scripts/lint-skills.mjs",
     "sync:local": "bash scripts/sync-local-skills.sh",
-    "sync:upstream": "bash scripts/sync-upstream.sh"
+    "sync:upstream": "bash scripts/sync-upstream.sh",
+    "test:sync-local": "node --test scripts/tests/sync-local-skills.test.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

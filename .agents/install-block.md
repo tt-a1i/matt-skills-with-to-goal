@@ -52,7 +52,8 @@ The Claude plugin is a managed read-only bundle. `skills.sh` installs editable c
 Repository maintainers with the unified `~/.agents_skills` architecture use:
 
 ```bash
+npm run sync:local -- --dry-run
 npm run sync:local
 ```
 
-This is a local maintenance command, not the public install story. It backs up and updates only this repository's promoted Skills, then refreshes the real Hermes copy.
+This is a local maintenance command, not the public install story. It previews changes, preserves local exclusions, and detects installed edits before updating selected promoted Skills and their Hermes copies. See [maintaining the fork](../docs/maintaining-fork.md) for exclusions, conflict resolution, and recovery.

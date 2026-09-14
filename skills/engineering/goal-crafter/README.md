@@ -1,70 +1,14 @@
-# 🎯 Goal Crafter
+# Goal Crafter
 
-<p align="center">
-  <b>把模糊任务变成 Agent 能自己跑到完成的、可验证的 Goal</b>
-</p>
+把复杂自主任务写成范围清楚、完成条件可验证的 Goal。复用已有任务信息，只询问会影响目标或验收的缺失决策。
 
----
+| 你的请求 | 处理方式 |
+| --- | --- |
+| 为复杂任务设计目标和验收条件 | 梳理范围、证据、约束和停止条件，输出 Goal |
+| 从已经确认的方案生成 Goal | 直接提取已有决策，不重新访谈 |
+| 明确的提醒或定时动作 | 直接使用当前环境的原生调度能力 |
+| 只要 Goal 或提醒提示词 | 交付文本；只有同时请求执行或调度时才启动对应操作 |
 
-## 一句话
+入口保留路由和共同约束；实际设计时才读取 `references/goal-design.md` 中的格式、检查要点和示例。
 
-> "帮我写个 goal" → 5 个问题澄清 → 输出一个带**可验证完成条件**的 goal 提示词
-
----
-
-## 为什么需要
-
-你给 Agent 说"优化代码"、"改进 UI"、"修复 bug"——Agent 不知道什么时候算做完。
-
-Goal Crafter 强制你在 goal 里写清楚**机器可检查的完成标准**：
-
-| ❌ 模糊 | ✅ 可验证 |
-|---------|----------|
-| "代码质量提高" | "`tsc --noEmit` 0 errors + `eslint` 0 warnings" |
-| "UI 更好看" | "页面在 375/768/1440px 断点下视觉一致" |
-| "修复所有 bug" | "`npm test` 全部通过" |
-| "优化性能" | "Lighthouse ≥ 90，LCP < 2.5s" |
-
----
-
-## 支持的 Agent
-
-- Claude Code `/goal`
-- Codex Automations
-- Pi / 通用
-
----
-
-## 安装
-
-```
-帮我安装 goal-crafter skill
-```
-
-或手动：
-
-```bash
-git clone git@github.com:awesome-skills/goal-crafter.git ~/.agents_skills/goal-crafter
-bash ~/.agents_skills/agent-skills-manager/scripts/sync-hermes.sh
-```
-
----
-
-## 使用
-
-```
-帮我写个 goal：自动审查当前分支的 PR
-```
-
-Agent 会走 4 个 Phase：
-
-1. **澄清** — 5 个问题，逐个问清楚
-2. **起草** — 按目标 Agent 格式输出
-3. **自检** — 确认每个条件都可验证
-4. **交付** — 粘贴即用
-
----
-
-<p align="center">
-  <sub>Inspired by Loop Engineering — the goal drives the loop</sub>
-</p>
+安装方式见[仓库安装说明](../../../README.md#1-安装)，行为与常见问题见[使用文档](../../../docs/engineering/goal-crafter.md)。

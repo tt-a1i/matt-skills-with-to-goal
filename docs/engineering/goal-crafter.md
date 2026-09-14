@@ -1,45 +1,41 @@
 ## What it does
 
-`goal-crafter` defines what makes an execution goal verifiable and formats that goal for the target [harness](https://www.aihero.dev/ai-coding-dictionary/harness). A goal is ready only when an agent can decide whether it is done from observable completion criteria.
+`goal-crafter` designs a goal and observable completion criteria for complex autonomous work. It reuses decisions from the request and approved sources, asking only for information that materially changes the goal or its acceptance.
 
-It has two invocation modes. A standalone request is clarified with the user; a compiled handoff consumes already-approved evidence and never repeats the planning interview.
+Its entrypoint selects the requested deliverable before loading the detailed design guide. A simple reminder goes straight to the available native scheduler; asking for a prompt produces a prompt.
 
 ## When to reach for it
 
-Type `/goal-crafter`, or the agent reaches for it automatically when you ask for a goal prompt, an unattended task, or a self-running loop.
+Type `/goal-crafter`, or the agent reaches for it when you request goal design for multi-step autonomous work.
 
-| Starting point | Mode |
-|---|---|
-| A vague task that needs a goal | Standalone interview |
-| Any approved planning evidence | Compiled handoff |
-
-## Verifiable means observable
-
-The leading idea is **checkable completion**. “Improve quality” leaves the finish line to judgment; a named command, artifact, behavior, or threshold gives the agent a binary condition it can verify.
-
-Each checkbox carries one condition. Constraints name the protected files, permissions, budget, and scope boundaries that keep the loop from optimizing unrelated work.
+| Request | Route |
+| --- | --- |
+| A task needs scope and completion criteria | Goal design, using known facts first |
+| Approved evidence needs a formatted goal | Compiled handoff without a repeated interview |
+| A reminder has a clear action, target, and time | Native scheduling |
+| Only a goal or reminder prompt is requested | Draft the text |
 
 ## Common questions
 
-**What is the difference between `goal-crafter` and `to-goal`?**
+**Will it ask five questions every time?**
 
-`goal-crafter` owns verifiability and harness formatting. `to-goal` owns repository evidence, frontier selection, readiness checks, and the execution handoff.
+No. Task, workspace, completion, constraints, and execution environment are information to establish. Existing answers are reused; only a missing consequential decision needs a question.
 
-**Why does standalone mode ask what done looks like?**
+**Does receiving a goal mean the automation is running?**
 
-Without an observable finish line, an unattended agent can stop early or continue indefinitely. The completion criteria are the control surface of the loop.
+No. A goal is an execution brief. Scheduling also requires a user request and a successful result from the current native scheduling tool. The brief is not an API schema or proof of execution.
 
-**What happens when an approved source is incomplete?**
+**How is this different from `to-goal`?**
 
-Compiled-handoff mode reports the missing decision or evidence as not agent-ready. It does not quietly invent an answer or restart the interview.
+`goal-crafter` designs completion criteria and the requested format. [to-goal](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/to-goal.md) compiles approved work and repository evidence into a portable execution contract. An incomplete approved source is returned with the missing decision identified.
 
 ## It's working if
 
-- Every checkbox can be evaluated without subjective wording such as “better” or “cleaner.”
-- The goal names its workspace, source context, and protected boundaries.
-- A compiled handoff contains no repeated product interview.
-- Work that cannot fit one goal is split instead of hidden inside a vague objective.
+- Supplied facts and approved decisions are carried forward without another interview.
+- Completion criteria name observable behavior, evidence, or artifacts.
+- A clear reminder reaches scheduling directly.
+- Drafting, scheduling, and actual completion are reported as distinct results.
 
 ## Where it fits
 
-`goal-crafter` is a reach-for-it-anytime standalone. Other workflows may reuse its goal vocabulary, but it does not require or prescribe them. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.
+This is a standalone goal-design capability. [ask-matt](https://aihero.dev/skills-ask-matt) is an optional catalog for choosing related skills.

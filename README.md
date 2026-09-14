@@ -80,7 +80,7 @@ Codex 和其他支持 Agent Skills 的工具使用 `skills.sh`：
 npx skills@latest add tt-a1i/matt-skills-with-to-goal
 ```
 
-两种方式选一种，避免同一个 Skill 被重复加载。本仓库维护者可运行 `npm run sync:local`，把工作树安全同步到统一的 `~/.agents_skills/` 并刷新 Hermes。
+两种方式选一种，避免同一个 Skill 被重复加载。本仓库维护者先运行 `npm run sync:local -- --dry-run` 预览，再同步到统一的 `~/.agents_skills/` 和 Hermes；本机排除项及本地修改按[维护说明](./docs/maintaining-fork.md)保留。
 
 Codex App 中的自动 Fork 闭环还需要单独安装 [Codex Task Messenger](https://github.com/tt-a1i/codex-task-messenger)。其他 harness 仍可手动 Fork 后运行 `spec-executor`，不影响核心执行能力。
 
@@ -139,8 +139,10 @@ Goal
 
 `goal-crafter` 有两种模式：
 
-- **Standalone**：用户直接要求编写 goal，先澄清任务、位置、完成标准、约束和执行环境。
+- **Standalone**：用户要求设计 goal，复用已知任务信息，只询问影响目标或验收的缺失决策。
 - **Compiled handoff**：直接读取任意已批准的规划证据和仓库状态，不重新访谈。
+
+明确的提醒直接使用原生调度能力；仅请求 Goal 提示词时交付文本。实际设计 Goal 时才加载格式、检查要点和示例。
 
 如果上游材料缺少关键产品决策，compiled-handoff 模式会指出 source 尚未 agent-ready，而不是在实现线程里重新开始需求讨论。
 
@@ -187,10 +189,10 @@ Goal
 
 | Skill | 作用 |
 |---|---|
-| [`implement`](./skills/engineering/implement/SKILL.md) | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
+| [`implement`](./skills/engineering/implement/SKILL.md) | 从已确认的对话、spec 或 ticket 实现，按影响验证并修复 |
 | [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | Codex App 中把任意已批准工作 Fork、执行、验证回传并归档 |
 | [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 在隔离线程锁定已批准来源、权限和 baseline，完成实现并输出 receipt |
-| [`tdd`](./skills/engineering/tdd/SKILL.md) | 在预先确认的 seam 上进行测试驱动实现 |
+| [`tdd`](./skills/engineering/tdd/SKILL.md) | 复用已有测试边界，按可观察行为进行测试驱动实现 |
 | [`code-review`](./skills/engineering/code-review/SKILL.md) | Standards + Spec 双轴评审 |
 | [`prototype`](./skills/engineering/prototype/SKILL.md) | 逻辑用可分享 HTML / UI 用变体探索，并保留为 primary source |
 | [`research`](./skills/engineering/research/SKILL.md) | 使用高可信来源完成技术调研 |
@@ -240,7 +242,7 @@ Goal
 - **产出可选性**：`improve-codebase-architecture` 默认以 markdown 呈现候选，HTML 报告改为按需产出（离线与受限环境下不再残废）
 - **绝对化表述加边界**：`to-spec` 的 seam 数量与 `resolving-merge-conflicts` 的 `--abort` 改为「默认…除非…」句式，保留引导力但不在边缘场景误导
 - **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
-- **本地分发**：`npm run sync:local` 先备份并同步 30 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
+- **本地分发**：`npm run sync:local` 支持预览、持久排除和本地修改检测，备份后同步选中的 promoted Skills 及其 Hermes 副本
 - **上游维护**：`npm run sync:upstream` 在干净工作树上创建备份分支，并把 fork overlay rebase 到最新 `upstream/main`；脚本不会自动 push
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
 - **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护
