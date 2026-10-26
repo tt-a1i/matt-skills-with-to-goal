@@ -1,3 +1,5 @@
+> **Archived, 2026-10-26.** Removed from this fork's default set. The source is preserved under `skills/deprecated`; use the agent directly for this work.
+
 ## What it does
 
 `prototype` writes **throwaway code that answers a question**: does this state model feel right, or what should this screen look like. The question comes first and decides what you build. A prototype that answers the wrong question is wasted, however good it looks.

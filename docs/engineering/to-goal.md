@@ -1,51 +1,41 @@
 ## What it does
 
-`to-goal` compiles approved planning evidence or the current unblocked frontier into a verifiable execution goal for a fresh [session](https://www.aihero.dev/ai-coding-dictionary/session). The source may be a conversation, spec, issue, document, or partially completed repository state.
+`to-goal` compiles approved work and current repository evidence into a portable execution contract. It accepts conversation, specs, issues, local documents or partially completed work, without requiring a planning skill or tracker setup.
 
-It is read-only. It does not implement, change an issue tracker, create a branch, or reopen settled decisions. No tracker setup or upstream Skill is required.
+It remains read-only and preserves settled decisions. It does not implement, create a branch, write files or mutate a tracker.
 
 ## When to reach for it
 
-You invoke this by typing `/to-goal` — the agent will not reach for it on its own.
+Invoke `/to-goal` when work crosses sessions, people or agents, or the conversation is too noisy to inherit reliably. Supply an issue, parent spec or local path when the source is outside the current conversation.
 
-| Situation | Route |
-|---|---|
-| One approved source fits a coherent inherited conversation | Fork and optionally use `spec-executor` |
-| Work crosses days, people, agents, or parallel sessions | Use `to-goal` on the current frontier |
-| The conversation contains noisy or conflicting drafts | Use `to-goal` to compile only approved evidence |
-| Several tickets must run in one renewing [harness](https://www.aihero.dev/ai-coding-dictionary/harness) | Use `/to-goal --all` explicitly |
-
-## Prerequisites
-
-The work needs an approved source with observable acceptance criteria. That source can live in the current conversation, a local document, an issue tracker, or the repository itself.
+Use [goal-crafter](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/goal-crafter.md) when the goal itself still needs to be authored from an idea.
 
 ## The execution contract
 
-The leading idea is the **frontier**: the unblocked slice that can finish in one fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) without absorbing downstream work. The goal records a review fixed point and converts every source criterion into a separately checkable completion condition.
+The goal carries the source, intended outcome, current state, review baseline, remaining work, observable completion evidence and permissions. Verified work is preserved and unverified claims stay visible. The output is concise, without a required readiness checklist or model-tier taxonomy.
 
-Capability recommendations stay portable. They describe the lowest reliable tier and reasoning intensity rather than assuming a particular vendor or model name.
+Default to one bounded, unblocked outcome. Explicit `/to-goal --all <parent>` carries dependency-ordered work across contexts and requires an execution harness that can renew its context.
 
 ## Common questions
 
-**Does this replace TDD or implementation planning?**
+**Is this the executor?**
 
-No. It preserves the agreed validation seam and scope. The execution session still learns through implementation; the goal prevents it from guessing product intent or expanding beyond the source.
+No. It writes the handoff. [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md) executes approved work and reports evidence.
 
-**Why not put every ticket in one goal?**
+**What if the task is blocked or partially finished?**
 
-One-ticket-per-context keeps the contract small enough to verify. `--all` is reserved for a persistent harness that can renew context while preserving dependency order.
+Blockers are reported instead of hidden in a runnable goal. Partial work is separated into verified completion, remaining work and unverified claims.
 
-**Does generating the goal authorize a push or deployment?**
+**Does the goal authorize a push or deployment?**
 
-No. Commit, push, pull request, deployment, tracker, production-data, and real-service permissions remain explicit and separate.
+No. It carries existing user authorization and identifies actions still requiring a decision.
 
 ## It's working if
 
-- A fresh agent can start from the goal without asking which spec, branch, or acceptance criteria apply.
-- Every completion criterion has observable evidence and a clear done/not-done answer.
-- Verified finished work is preserved while known gaps remain visible.
-- The goal covers one frontier issue unless `--all` was explicitly requested.
+- The executor can locate the source and compare changes against the recorded baseline.
+- Verified work is not repeated and remaining acceptance criteria are visible.
+- Scope and permissions survive the move to another session.
 
 ## Where it fits
 
-`to-goal` is a standalone context-boundary tool before a fresh implementation session. Planning and ticketing Skills can produce useful input, but none is required. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog, not an entry gate.
+An approved-source compiler before a fresh execution session. It is distinct from both goal authoring and implementation, and needs no companion skill.

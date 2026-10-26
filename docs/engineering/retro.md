@@ -8,7 +8,7 @@ It changes the environment, not the code. Take the bug the agent shipped, the fi
 
 You invoke this by typing `/retro`, and the agent won't reach for it on its own.
 
-Reach for it at the end of a session that was harder than it should have been. For example, the agent searched too long for something, made a mistake a tool could have caught, or needed information it could not get. A smooth session has little to teach, and the findings come from the difficult ones. If you want a verdict on the code the session produced, use [code-review](https://aihero.dev/skills-code-review) instead.
+Reach for it at the end of a session that was harder than it should have been. For example, the agent searched too long for something, made a mistake a tool could have caught, or needed information it could not get. A smooth session has little to teach, and the findings come from the difficult ones. If you want a verdict on the code the session produced, use review against requirements and repository standards instead.
 
 ## Where the findings land
 
@@ -52,7 +52,7 @@ Usually not, and `retro` pushes back on this more than anything else. A line in 
 
 **My setup mentions `CODING_STANDARDS.md` and I don't have one. Where does it come from?**
 
-No skill ships the file. The first time a session finds a judgement-call rule for the reviewer, `retro` proposes to create it. After you accept, [code-review](https://aihero.dev/skills-code-review) reads it. Any other standards doc you already keep, such as `CONTRIBUTING.md`, works the same way.
+No skill ships the file. The first time a session finds a judgement-call rule for the reviewer, `retro` proposes to create it. After you accept, the reviewer can read and apply it. Any other standards doc you already keep, such as `CONTRIBUTING.md`, works the same way.
 
 **How is it different from `improve-codebase-architecture`?**
 
@@ -67,15 +67,4 @@ The input is different. [improve-codebase-architecture](https://aihero.dev/skill
 
 ## Where it fits
 
-`retro` is the last step of the main chain, where you review how the chain went:
-
-```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
-```
-
-Run it after a build worth learning from, in the same session or pointed at that session's log. You can skip it after a smooth build.
-
-- [code-review](https://aihero.dev/skills-code-review) is the reviewer agent that `retro` most often tunes. New coding standards go where its Standards axis reads them.
-- [writing-for-agents](https://aihero.dev/skills-writing-for-agents) sets the writing style for every steering file and skill that `retro` proposes, and `retro` loads it before it starts.
-
-[ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation needs.
+A user-invoked review of a coding session's environment. It uses `writing-for-agents` for instruction design and the repository's existing checks before proposing more tooling.

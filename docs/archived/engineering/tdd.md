@@ -1,3 +1,5 @@
+> **Archived, 2026-10-26.** Removed from this fork's default set. The source is preserved under `skills/deprecated`; use the agent directly for this work.
+
 ## What it does
 
 `tdd` builds a feature or fixes a bug test-first: one failing test, then just enough code to pass it, then the next behaviour. It carries the standards that make that loop produce tests worth keeping: what a good test is, where tests go, what mocks are for, and the three anti-patterns that make a suite worthless.

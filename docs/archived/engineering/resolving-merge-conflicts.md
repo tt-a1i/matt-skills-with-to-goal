@@ -1,4 +1,4 @@
-> Fork-maintained: upstream removed this skill in v1.3; this fork retains it as an independently usable tool.
+> **Archived, 2026-10-26.** Removed from this fork's default set. The source is preserved under `skills/deprecated`; use the agent directly for this work.
 
 ## What it does
 

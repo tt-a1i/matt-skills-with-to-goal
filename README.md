@@ -33,10 +33,9 @@ AI coding 任务常常从需求讨论一路聊到代码实现。线程越长，�
 | Fork 后又重新分析和改写一遍 Goal | `spec-executor` 直接执行继承的合同，并回传结构化 receipt |
 | Fork、启动和回传仍要手工串起来 | `execute-spec-in-fork` 自动创建执行任务、发送 Ask、接回结果并条件归档 |
 | 当前上下文太脏、无法可靠继承 | `to-goal` 把对话、文档、issue 或仓库证据压成干净的执行契约 |
-| 不同任务都使用同一档模型和推理强度 | goal 按风险推荐 Lightweight / Standard / Advanced 与推理强度 |
 | “做完了”依赖人的主观判断 | Goal 带完成标准，executor 回传逐项证据和外部操作状态 |
 
-> **Fork 负责隔离后续上下文，Goal 负责压缩已有上下文。** 两者都是可选能力，不要求先运行 grilling、to-spec、to-tickets、TDD 或 code-review。
+> **Fork 负责隔离后续上下文，Goal 负责压缩已有上下文。** 两者都是可选能力，不要求固定的规划、实现或评审流程。
 
 ## 30 秒看懂组合方式
 
@@ -86,7 +85,7 @@ Codex App 中的自动 Fork 闭环还需要单独安装 [Codex Task Messenger](h
 
 ### 2. 选择需要的能力
 
-整套安装适合希望浏览完整上游目录的用户。更轻的方式是只安装需要的 Skill：
+整套安装提供本 fork 精简后的默认集合。更轻的方式是只安装需要的 Skill：
 
 ```bash
 npx skills@latest add tt-a1i/matt-skills-with-to-goal --skill=to-goal
@@ -135,14 +134,13 @@ Goal
 └── Context             spec、ticket、设计文档和验证入口
 ```
 
-默认每个 frontier ticket 一份 Goal。互不阻塞的切片可以分别交给不同 Agent，在独立 branch / worktree 里并行；`to-goal` 只生成合同，不创建这些执行环境。
+默认每个明确、未阻塞的工作单元一份 Goal，不强制先建 ticket。互不阻塞的切片可以分别交给不同 Agent，在独立 branch / worktree 里并行；`to-goal` 只生成合同，不创建这些执行环境。
 
-`goal-crafter` 有两种模式：
+两个写作入口各有侧重：
 
-- **Standalone**：用户直接要求编写 goal，先澄清任务、位置、完成标准、约束和执行环境。
-- **Compiled handoff**：直接读取任意已批准的规划证据和仓库状态，不重新访谈。
-
-如果上游材料缺少关键产品决策，compiled-handoff 模式会指出 source 尚未 agent-ready，而不是在实现线程里重新开始需求讨论。
+- **`goal-crafter`**：从想法起草 Goal，只澄清真正缺失的目标、范围和完成标准。
+- **`to-goal`**：把已批准的来源和仓库现状编译成可搬运合同，不重新访谈。
+- **`spec-executor`**：实际实现和验证。前两个入口都不执行任务，也不创建自动化。
 
 ## 可选入口
 
@@ -159,63 +157,47 @@ Goal
 | 已有 agent-ready ticket，要开新线程实现 | `/to-goal` |
 | 关键在别人脑子里，需要问卷收集 | `/to-questionnaire` |
 | 外部 issue / PR 需要评估和分流 | `/triage` |
-| 正在定位复杂 bug | `/diagnosing-bugs` |
-| 已完成一段实现，需要双轴评审 | `/code-review` |
 
 ## 技能地图
 
-仓库保留 **33 个 promoted Skills** 作为可选目录，不代表推荐全部安装或按顺序使用。27 个来自上游，另保留 fork 维护的 `resolving-merge-conflicts`；本 fork 新增 `to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`、`roundtable`。fork 自有的 Goal 与执行 Skill 除了明确声明的工具依赖外，都能独立使用；上游 Skill 保留各自原有风格。
+仓库保留 **23 个 promoted Skills** 作为可选目录，不代表推荐全部安装或按顺序使用。18 个来自上游；本 fork 新增 `to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`、`roundtable`。fork 自有的 Goal 与执行 Skill 除了明确声明的工具依赖外，都能独立使用；上游 Skill 保留各自原有风格。
 
-### 规划与交接
-
-| Skill | 作用 |
-|---|---|
-| [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) | 按当前情况选择入口 |
-| [`grill-me`](./skills/productivity/grill-me/SKILL.md) / [`grilling`](./skills/productivity/grilling/SKILL.md) | 按轮次烤决策树 frontier，一轮多问直到共识 |
-| [`grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) | 访谈过程中同步沉淀文档 |
-| [`wayfinder`](./skills/engineering/wayfinder/SKILL.md) | 为超大任务建立共享调查与决策地图 |
-| [`roundtable`](./skills/engineering/roundtable/SKILL.md) | 多个对立视角的子代理围绕已成形的决策辩论，输出保留异议的圆桌裁决 |
-| [`to-spec`](./skills/engineering/to-spec/SKILL.md) | 当前对话 → agent-ready spec |
-| [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) | spec → 带依赖关系的 tracer-bullet tickets |
-| [`to-goal`](./skills/engineering/to-goal/SKILL.md) | 任意已批准来源 → 可粘贴的执行 goal |
-| [`goal-crafter`](./skills/engineering/goal-crafter/SKILL.md) | 独立生成可验证 goal 与 harness 格式 |
-| [`to-questionnaire`](./skills/productivity/to-questionnaire/SKILL.md) | 把答不上的决策编成问卷交给他人填写 |
-| [`handoff`](./skills/productivity/handoff/SKILL.md) | 仅在关键上下文尚未沉淀到持久化载体时交接会话 |
-| [`setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) | 可选：为依赖 tracker 与领域文档的上游工作流配置项目约定 |
-
-### 实现与质量
+### User-invoked
 
 | Skill | 作用 |
 |---|---|
-| [`implement-spec`](./skills/engineering/implement-spec/SKILL.md) | 可选：按依赖图并行实施完整 Spec，在集成分支收尾 |
-| [`retro`](./skills/engineering/retro/SKILL.md) | 可选：复盘会话，改进 Agent 的工具、规范和环境 |
-| [`implement`](./skills/engineering/implement/SKILL.md) | 按 spec 或 tickets 实现，驱动 `/tdd`，收尾跑 `/code-review` |
-| [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | Codex App 中把任意已批准工作 Fork、执行、验证回传并归档 |
-| [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 在隔离线程锁定已批准来源、权限和 baseline，完成实现并输出 receipt |
-| [`tdd`](./skills/engineering/tdd/SKILL.md) | 在预先确认的 seam 上进行测试驱动实现 |
-| [`pr`](./skills/engineering/pr/SKILL.md) | 编写便于评审的 PR 说明，展示改动、证据与合并风险 |
-| [`code-review`](./skills/engineering/code-review/SKILL.md) | Standards + Spec 双轴评审 |
-| [`prototype`](./skills/engineering/prototype/SKILL.md) | 逻辑用可分享 HTML / UI 用变体探索，并保留为 primary source |
-| [`research`](./skills/engineering/research/SKILL.md) | 使用高可信来源完成技术调研 |
-| [`triage`](./skills/engineering/triage/SKILL.md) | 将外来 issue / PR 推进到明确状态 |
+| [`grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) | 访谈时维护领域词汇表和 ADR |
+| [`improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) | 调查架构改进机会，由用户选择下一步 |
+| [`retro`](./skills/engineering/retro/SKILL.md) | 复盘会话，改进 Agent 的环境和检查 |
+| [`roundtable`](./skills/engineering/roundtable/SKILL.md) | 用多个对立视角检验已形成的决策 |
+| [`setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) | 配置需要 tracker 的技能所用的项目约定 |
+| [`to-goal`](./skills/engineering/to-goal/SKILL.md) | 把已批准来源与仓库现状编译成执行合同 |
+| [`to-spec`](./skills/engineering/to-spec/SKILL.md) | 把已达成共识的讨论整理成 Spec |
+| [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) | 拆成带依赖关系的工作切片 |
+| [`triage`](./skills/engineering/triage/SKILL.md) | 评估和分流外部 Issue 或 PR |
+| [`wayfinder`](./skills/engineering/wayfinder/SKILL.md) | 为超大任务建立调查与决策地图 |
+| [`grill-me`](./skills/productivity/grill-me/SKILL.md) | 只通过讨论澄清想法，不要求保存文件 |
+| [`handoff`](./skills/productivity/handoff/SKILL.md) | 生成可移交的会话上下文 |
+| [`teach`](./skills/productivity/teach/SKILL.md) | 以工作目录保存多会话学习进展 |
+| [`to-questionnaire`](./skills/productivity/to-questionnaire/SKILL.md) | 整理需要他人回答的问卷 |
+| [`wait-what`](./skills/productivity/wait-what/SKILL.md) | 补充背景，用容易理解的方式重新解释 |
 
-### 工程理解与其他
+### Model-invoked
 
 | Skill | 作用 |
 |---|---|
-| [`codebase-design`](./skills/engineering/codebase-design/SKILL.md) | 讨论和比较代码结构设计 |
-| [`diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md) | 系统化定位复杂故障 |
-| [`domain-modeling`](./skills/engineering/domain-modeling/SKILL.md) | 维护领域语言、GLOSSARY 和 ADR |
-| [`improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) | 识别并推进架构深化机会 |
-| [`resolving-merge-conflicts`](./skills/engineering/resolving-merge-conflicts/SKILL.md) | 处理合并冲突并保护双方意图 |
-| [`teach`](./skills/productivity/teach/SKILL.md) | 多会话教学，目录作为有状态学习空间 |
-| [`wizard`](./skills/engineering/wizard/SKILL.md) | 生成交互式 bash 向导，处理只有人能完成的步骤（开通基础设施、配置凭证 / CI secret） |
-| [`wait-what`](./skills/productivity/wait-what/SKILL.md) | 对话中途没听懂时，让 agent 用 `GLOSSARY.md` 词汇重新讲一遍 |
-| [`writing-for-agents`](./skills/productivity/writing-for-agents/SKILL.md) | 编写给 agent 消费的文档（skills、AGENTS.md 等） |
+| [`domain-modeling`](./skills/engineering/domain-modeling/SKILL.md) | 维护领域词汇和 ADR |
+| [`execute-spec-in-fork`](./skills/engineering/execute-spec-in-fork/SKILL.md) | 创建执行 Fork，验证回传并处理生命周期 |
+| [`goal-crafter`](./skills/engineering/goal-crafter/SKILL.md) | 从想法起草 Goal，只补齐缺失的决策 |
+| [`pr`](./skills/engineering/pr/SKILL.md) | 用图示、证据和风险说明 PR |
+| [`spec-executor`](./skills/engineering/spec-executor/SKILL.md) | 执行已批准工作并回传证据 |
+| [`wizard`](./skills/engineering/wizard/SKILL.md) | 生成必须由人参与的交互式操作向导 |
+| [`grilling`](./skills/productivity/grilling/SKILL.md) | 按决策依赖分轮提问 |
+| [`writing-for-agents`](./skills/productivity/writing-for-agents/SKILL.md) | 编写 Agent 使用的技能、引导与参考文档 |
 
 ## 设计边界
 
-- 默认一个 goal 只覆盖一个 frontier ticket；`--all` 仅用于明确要求的跨 ticket 持久化执行。
+- 默认一个 goal 覆盖一个明确、未阻塞的工作单元；`--all` 仅用于明确要求的跨 ticket 持久化执行。
 - `spec-executor` 只执行一个已批准、单会话可完成的来源；需求未定或体量溢出时停止并重新路由。
 - `execute-spec-in-fork` 是 Codex App 的事件驱动适配器，依赖原生任务工具与 Codex Task Messenger；不会启动 daemon、自动重试或跨 Worktree 通信。
 - `to-goal` 只读 spec、tracker 和仓库证据，不实现、不改 issue 状态、不创建分支。
@@ -238,12 +220,12 @@ Goal
 
 - **新增 skill**：`to-goal`、`goal-crafter`、`spec-executor`、`execute-spec-in-fork`、`roundtable`（均位于 `skills/engineering/`）
 - **松耦合调用**：Goal 与 Executor 接受任意已批准来源，不要求固定的上游 Skill；测试与评审能力按仓库和风险选择，不再硬编码 Skill 链
-- **路由适配**：`ask-matt` 增加自动 `/execute-spec-in-fork`、手动 fork + `/spec-executor` 与 `/to-goal` 分支及「Crossing the context boundary」章节；`to-spec` 追加 `SPEC READY` launch block
+- **交接入口**：自动 Fork、手动执行与 Goal 编写保留独立入口；`to-spec` 可追加 `SPEC READY` 索引，不要求中央路由
 - **表达层**：`grilling`、`to-tickets`、`triage`、`setup-matt-pocock-skills` 使用固定 emoji 锚点，便于扫读与按编号回复
 - **产出可选性**：`improve-codebase-architecture` 默认以 markdown 呈现候选，HTML 报告改为按需产出（离线与受限环境下不再残废）
 - **绝对化表述加边界**：`to-spec` 的 seam 数量与 `resolving-merge-conflicts` 的 `--abort` 改为「默认…除非…」句式，保留引导力但不在边缘场景误导
 - **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
-- **本地分发**：`npm run sync:local` 先备份并同步 33 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
+- **本地分发**：`npm run sync:local` 先备份并同步 23 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
 - **上游维护**：`npm run sync:upstream` 在包含当前 `origin/main` 的干净评审分支上创建备份，合并上游并保留待审查状态；脚本不会自动提交或推送。PR 检查会运行技能清单、版本、Bash 语法与同步回归验证
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
 - **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护
@@ -252,4 +234,10 @@ Goal
 
 ## 上游同步记录
 
-本次同步至上游 `49dd158`（2026-10-09，基于 v1.3.1）。新增 `implement-spec`、`pr`、`retro`，采用 `GLOSSARY.md` 约定并带入交接、配置向导、诊断与评审修复。保留独立安装和松耦合的 Goal/Fork 合同；上游的工程流程是可选方法。`resolving-merge-conflicts` 由本 fork 继续维护。实验性的 `chief-of-staff` 和上游仓库的 Issue 自动化不随本 fork 引入。
+本次同步至上游 `49dd158`（2026-10-09，基于 v1.3.1）。新增 `implement-spec`、`pr`、`retro`，采用 `GLOSSARY.md` 约定并带入交接、配置向导、诊断与评审修复。保留独立安装和松耦合的 Goal/Fork 合同；上游的工程流程是可选方法。该次同步曾保留 `resolving-merge-conflicts`，后续默认集合精简见下文。实验性的 `chief-of-staff` 和上游仓库的 Issue 自动化不随本 fork 引入。
+
+## 默认集合精简
+
+2026-10-26 起，通用实现、调研、诊断、设计、测试和评审方法移出默认发布；10 个旧技能及文档留在 [归档目录](skills/deprecated/README.md)。`pr`、`retro`、`writing-for-agents` 保留。`grill-me` 与 `grill-with-docs` 继续采用上游的独立入口。两个 Goal 编写入口保留分工，实际执行由 `spec-executor` 负责。
+
+插件和 `sync:local` 只分发默认集合。使用 skills.sh 时选择上面的当前清单；本次没有验证第三方安装器的归档发现行为，归档也不代表历史安装已自动卸载。

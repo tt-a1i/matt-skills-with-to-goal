@@ -11,7 +11,7 @@ Type `/pr`, or the agent reaches for it automatically whenever it is writing a P
 | Your situation | Reach for |
 | --- | --- |
 | A branch is ready and needs a body a reviewer can scan | `pr` |
-| The code is written but nobody has reviewed it yet | [code-review](https://aihero.dev/skills-code-review) first, then `pr` |
+| The code is written but nobody has reviewed it yet | review against requirements and repository standards first, then `pr` |
 | The PR is open and review comments are coming back | Nothing in this set yet; `pr` only writes the body |
 
 ## The template
@@ -32,7 +32,7 @@ Not blindly, and that is the point of stating it. The agent that wrote the chang
 
 **Does it open the PR for me?**
 
-No. `pr` covers only the body. [implement](https://aihero.dev/skills-implement) ends by committing to the current branch. Requests for a skill or option that opens the PR (a `/to-pr`, or `implement` opening a PR instead of committing) are still open proposals. One user's workaround is a one-sentence local override of `implement` that tells it to open a PR. [implement-spec](https://aihero.dev/skills-implement-spec) is the exception: it opens a draft PR when your issue tracker closes work through PRs or when you ask for one. Because `pr` is model-invoked, the agent uses this shape for the body whenever you ask it to open a PR.
+No. `pr` supplies the body format. Creating a PR is an external action performed by an available repository tool when the user authorizes it. The skill adds no commit or publication authority.
 
 **Won't it just produce another wall of text and diagrams?**
 
@@ -71,9 +71,4 @@ Not by itself. One user's approach is a standing instruction in the repo's agent
 
 ## Where it fits
 
-`pr` comes between review and retro when the build ships as a pull request: `to-spec → to-tickets → implement → code-review → pr → retro`. It is model-invoked, so it also fires on its own any time the agent writes a PR body outside that chain.
-
-- [code-review](https://aihero.dev/skills-code-review) runs before it, because a PR body should describe a diff that has already been reviewed.
-- [implement](https://aihero.dev/skills-implement) produces the commits the body describes.
-
-[ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation wants.
+A format reference used when writing a PR body. It is retained independently of how the change was implemented or reviewed.

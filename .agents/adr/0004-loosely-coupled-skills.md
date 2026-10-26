@@ -27,3 +27,9 @@ Fork-owned Skills compose through plain artifacts and observable state:
 The repository can continue carrying the upstream catalog without presenting it as one required workflow. Goal and execution Skills remain useful as models improve because they stabilize boundaries rather than prescribe reasoning.
 
 Some upstream Skills still describe their own opinionated chains. They remain available as independent choices and are not dependencies of the fork-owned core.
+
+## Default-set refinement, 2026-10-26
+
+The fork now distributes a curated subset rather than the complete upstream catalog. Ten generic workflow skills are archived under `skills/deprecated` with historical docs in `docs/archived`; their work can be requested directly from the agent. `pr`, `retro`, and `writing-for-agents` remain promoted references.
+
+`goal-crafter` and `to-goal` keep separate authoring and approved-source compilation entrypoints. Both write a goal; `spec-executor` executes it. Their instructions carry outcomes, evidence and authority rather than fixed interviews, checklists or model tiers. `grill-me` and `grill-with-docs` retain upstream entrypoints, with the latter also invoking domain modeling for persisted glossary/ADR work.

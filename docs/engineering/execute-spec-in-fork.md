@@ -77,4 +77,4 @@ No. The archive bar is still a completed, parseable receipt with evidenced crite
 
 ## Where it fits
 
-`execute-spec-in-fork` is the Codex App lifecycle adapter around [spec-executor](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/spec-executor.md). It accepts approved work from any planning approach; a portable goal remains an optional route when context must cross days, agents, or harnesses without inherited history. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.
+The Codex App lifecycle adapter around `spec-executor`. It transports approved bounded work, returns evidence and decisions, and archives a validated result. A portable goal is a separate option when inherited history is unsuitable.

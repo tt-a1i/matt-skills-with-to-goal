@@ -58,7 +58,7 @@ Into the conversation only. This is the most serious open complaint about the sk
 Yes. This is the right skill for a codebase with no ADRs, no domain language and no design principles: invoke it and say "help me document my repo". Users often pair it with [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) for building or repairing a `GLOSSARY.md`. Expect to steer it. It reads code and asks you about what it finds, and you decide which of the words already in the codebase are the right ones.
 
 **What should I do when the session ends?**
-The skill's closing message is often open-ended, which is a known problem. In the main flow the answer is [to-spec](https://aihero.dev/skills-to-spec), in the same conversation. If the change is small enough to build immediately, go straight to [implement](https://aihero.dev/skills-implement) instead.
+The skill's closing message is often open-ended, which is a known problem. In the main flow the answer is [to-spec](https://aihero.dev/skills-to-spec), in the same conversation. If the change is small enough to build immediately, go straight to implementation directly with the agent instead.
 
 **Why is it called that?**
 Nobody is happy with the name. There is an open suggestion to rename it `grill-domain-model`, which describes the behaviour more accurately. Nothing has moved on it. If a rename ever lands, the docs page moves with it and the URL changes.
@@ -73,10 +73,4 @@ Nobody is happy with the name. There is an open suggestion to rename it `grill-d
 
 ## Where it fits
 
-`grill-with-docs` is the head of the main build chain:
-
-```txt
-grill-with-docs → to-spec → to-tickets → implement → code-review → retro
-```
-
-It comes before anything is written down as a spec. It produces the shared understanding and settled vocabulary that [to-spec](https://aihero.dev/skills-to-spec) then synthesises without interviewing you again. Its close neighbours are [grill-me](https://aihero.dev/skills-grill-me), the same interview with no repo and no files, and [domain-modeling](https://aihero.dev/skills-domain-modeling), the glossary-and-ADR discipline it drives; both use the [grilling](https://aihero.dev/skills-grilling) primitive for the interview. Upstream of it, [wayfinder](https://aihero.dev/skills-wayfinder) charts efforts too large for one session and can hand parts of the map back down to it. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+Before implementation, use this for an interview that also persists vocabulary and durable decisions. `grill-me` runs the interview without requiring files; `domain-modeling` owns the glossary and ADR work; `to-spec` can capture the resulting approved plan.
