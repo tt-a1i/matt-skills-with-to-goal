@@ -14,17 +14,21 @@ if [[ -z "$branch" ]]; then
   echo "error: upstream sync requires a named local branch" >&2
   exit 1
 fi
-
-git fetch --prune upstream main --tags
-
-base="$(git merge-base HEAD upstream/main)"
-if ! git merge-base --is-ancestor "$base" upstream/main; then
-  echo "error: upstream history no longer descends from merge base $base" >&2
+if [[ "$branch" == "main" ]]; then
+  echo "error: create a review branch from origin/main before syncing upstream" >&2
   exit 1
 fi
 
-if [[ "$base" == "$(git rev-parse upstream/main)" ]]; then
-  echo "already based on current upstream/main"
+git fetch origin main
+git fetch upstream main
+
+if ! git merge-base --is-ancestor origin/main HEAD; then
+  echo "error: this branch does not contain current origin/main; start a review branch from origin/main" >&2
+  exit 1
+fi
+
+if git merge-base --is-ancestor upstream/main HEAD; then
+  echo "already includes current upstream/main"
   exit 0
 fi
 
@@ -33,12 +37,12 @@ backup_branch="backup/upstream-sync-$stamp"
 git branch "$backup_branch" HEAD
 echo "backup branch: $backup_branch"
 
-git rebase --onto upstream/main "$base" "$branch"
-npm run check-plugin-version
-npm run lint:skills
-if command -v claude >/dev/null 2>&1; then
-  claude plugin validate . --strict
+if ! git merge --no-ff --no-commit upstream/main; then
+  echo "merge stopped; inspect git status and resolve conflicts by intent" >&2
+  echo "follow docs/maintaining-fork.md, run npm run check, then git commit" >&2
+  exit 1
 fi
 
-echo "rebased $branch onto upstream/main"
-echo "run npm run sync:local after reviewing and committing any conflict-resolution changes"
+echo "upstream merged for review; no commit or push was made"
+echo "inspect git diff --cached --stat, then review files in batches using docs/maintaining-fork.md"
+echo "run npm run check and finish with git commit after resolving fork metadata and behavior"
