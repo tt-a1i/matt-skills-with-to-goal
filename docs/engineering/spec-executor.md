@@ -58,4 +58,4 @@ No. `Goal / spec quality` is a retrospective label, not a completion condition. 
 
 ## Where it fits
 
-`spec-executor` is a standalone execution-boundary tool. [execute-spec-in-fork](https://github.com/tt-a1i/matt-skills-with-to-goal/blob/main/docs/engineering/execute-spec-in-fork.md) can automate its lifecycle in Codex App; a portable goal is an optional alternative when work must cross contexts without inherited history. [ask-matt](https://aihero.dev/skills-ask-matt) remains an optional catalog.
+An execution-boundary tool for approved work. `execute-spec-in-fork` can transport work to it, or it can be used manually after a fork or explicit handoff. It does not require a particular goal-authoring or implementation method.

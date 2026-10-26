@@ -4,7 +4,7 @@ Skills are organized into bucket folders under `skills/`:
 - `productivity/`: daily non-code workflow tools
 - `misc/`: kept around but rarely used, not promoted
 - `in-progress/`: beta: public on purpose, feedback wanted, not shipped in the plugin
-- `deprecated/`: no longer used
+- `deprecated/`: historical source excluded from default distribution; old human docs live under `docs/archived/`
 
 Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in either.
 
@@ -18,7 +18,6 @@ Skills in `engineering/` and `productivity/` also have a human-facing docs page 
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). See [.agents/invocation.md](./.agents/invocation.md).
 
-[`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is an optional catalog for users who want help choosing among the upstream Skills. It must not become a runtime dependency or mandatory entry point. Update it when a promoted Skill is added, renamed, or removed from the catalog; a fork-owned Skill changing its internal behavior does not require a central routing rewrite when its own docs remain accurate.
 
 To (re)link every skill outside `deprecated/` and `misc/` into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
 

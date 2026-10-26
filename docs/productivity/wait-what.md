@@ -33,4 +33,4 @@ If you have no `GLOSSARY.md` (and no `GLOSSARY-MAP.md` pointing to one for the c
 
 ## Where it fits
 
-You can use `wait-what` at any point, in any conversation, inside any other skill. It repairs one message after the fact. The real fix is a shared language agreed upfront, and that is [grill-with-docs](https://aihero.dev/skills-grill-with-docs): a [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) session that runs [domain-modeling](https://aihero.dev/skills-domain-modeling) as it goes, so it records the words you both use in your `GLOSSARY.md`. If you're unsure which skill fits the moment, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+Re-explain a message when the necessary context did not land. `grill-with-docs` and `domain-modeling` can establish shared vocabulary earlier, but are not prerequisites for a clarification.

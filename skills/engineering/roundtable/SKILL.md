@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 Pressure-test a decision, plan, or proposal by dispatching parallel sub-agents that argue it from deliberately opposed perspectives, then synthesising their debate into one verdict that preserves dissent.
 
-Scope: decisions and designs only. Reviewing a diff is `/code-review`'s job — don't point the roundtable at code changes.
+Scope: decisions and designs only. A code diff needs review against its requirements and repository standards; keep this discussion focused on the design decision.
 
 ## Process
 

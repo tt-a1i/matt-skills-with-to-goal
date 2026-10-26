@@ -12,7 +12,7 @@ You invoke this by typing `/roundtable` — the agent won't reach for it on its 
 | --- | --- |
 | A decision or design is already formed and you want it attacked from several sides before committing | `roundtable` |
 | The idea isn't formed yet — you need questions, not opponents | [grilling](https://aihero.dev/skills-grilling), which interviews *you* until the idea is sharp |
-| The thing to judge is a diff or a branch | [code-review](https://aihero.dev/skills-code-review) — the roundtable is never pointed at code changes |
+| The thing to judge is a diff or a branch | review against requirements and repository standards — the roundtable is never pointed at code changes |
 | You want your own thinking stress-tested conversationally | [grill-me](https://aihero.dev/skills-grill-me) |
 
 The input has to survive being framed as a **motion** — a single debatable claim ("We should extract X into its own service"), not an open question. If your ask is still fog, the skill sends you to `/grilling` first rather than convening a table over mush.
@@ -42,4 +42,4 @@ Direction of fire. Grilling interrogates *you* to sharpen an idea that isn't for
 
 ## Where it fits
 
-A reach-for-it-anytime standalone at the decision stage, before any spec or code exists. [grilling](https://aihero.dev/skills-grilling) is the upstream neighbour, because it forges the motion the table needs; [code-review](https://aihero.dev/skills-code-review) is the boundary neighbour, because judging a diff is its job, never the table's. [ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you're unsure which skill the situation wants.
+A standalone discussion of an already-formed design or decision. `grilling` helps form the proposal first. Reviewing a code diff is separate work against requirements and repository standards.

@@ -21,9 +21,9 @@ It sits outside the build loop: it is not a step in the main loop but something 
 
 Where it is confusable with siblings:
 
-- For designing one module you have already chosen, use [codebase-design](https://aihero.dev/skills-codebase-design): that is the bench, this is the survey that finds what to put on it.
+- For designing one module you have already chosen, use module design: that is the bench, this is the survey that finds what to put on it.
 - For a whole effort too big to hold in one session, use [wayfinder](https://aihero.dev/skills-wayfinder).
-- For "this specific thing is broken," use [diagnosing-bugs](https://aihero.dev/skills-diagnosing-bugs). It hands back here when the real finding is that there is no good seam to lock the bug down.
+- For "this specific thing is broken," use diagnosis directly with the agent. It hands back here when the real finding is that there is no good seam to lock the bug down.
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ The report ends with a **Top recommendation** (the one it would tackle first), a
 
 ## What happens after you pick one
 
-Picking a candidate starts a [grilling](https://aihero.dev/skills-grilling) session over it: constraints, what sits behind the seam, which tests survive, what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://aihero.dev/skills-to-spec), then [to-tickets](https://aihero.dev/skills-to-tickets), then [implement](https://aihero.dev/skills-implement).
+Picking a candidate starts a [grilling](https://aihero.dev/skills-grilling) session over it: constraints, what sits behind the seam, which tests survive, what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://aihero.dev/skills-to-spec), then [to-tickets](https://aihero.dev/skills-to-tickets), then implementation directly with the agent.
 
 ## Common questions
 
@@ -71,9 +71,9 @@ With the next thing you are building in mind. Where a big build is coming up, po
 
 Partly. It is strong on big existing codebases lacking consistent structure, and it is the recommended upkeep mechanism after any one-time structural setup. The honest counterweight: users with genuinely out-of-control projects report it "helped a little but still doesn't seem to cut it," and one developer with an eight-year legacy codebase reported the model going in circles where the same skill produces a clean graph on a tidy repo. There is no dedicated `/refactor` skill for that case yet. If the codebase has no shared vocabulary at all, [grill-with-docs](https://aihero.dev/skills-grill-with-docs) to establish one first tends to make this skill's output much better.
 
-**How is this different from `/codebase-design`?**
+**How is this different from module design?**
 
-`/codebase-design` is a reference, not a session driver. It supplies the vocabulary (module, interface, depth, seam, adapter, leverage, locality), and this skill borrows it. Pointing a fresh agent at `/codebase-design` as the thing to "do" is a known failure: with no process of its own to follow, the agent invents one, re-explores code and runs for a very long time before asking you anything. Drive with this skill; consume that one.
+This skill surveys a repository and asks the user to choose a candidate. Once a module is chosen, compare its interfaces and trade-offs directly with the agent, using the repository's own domain vocabulary. No separate module-design skill is required.
 
 **Will it ever tell me the codebase is fine?**
 
@@ -98,4 +98,4 @@ There is no good answer shipped with the skill. The recurring request is for a `
 
 ## Where it fits
 
-`improve-codebase-architecture` is **periodic maintenance**: run it every few days, outside any chain, to queue up work rather than to do it. Its neighbours are [codebase-design](https://aihero.dev/skills-codebase-design), which owns the depth-and-seam vocabulary every candidate is written in, [grilling](https://aihero.dev/skills-grilling), which walks the decision tree once you have chosen a candidate, and [domain-modeling](https://aihero.dev/skills-domain-modeling), which keeps `GLOSSARY.md` and the ADRs current as the decision settles. What it produces is an idea, which re-enters the main build flow at [grill-with-docs](https://aihero.dev/skills-grill-with-docs) or [to-spec](https://aihero.dev/skills-to-spec). For which skill fits a situation, [ask-matt](https://aihero.dev/skills-ask-matt) is the router over the whole set.
+A periodic survey that proposes improvements without implementing them. `grilling` explores a candidate the user chooses, and `domain-modeling` records settled vocabulary and durable decisions. Implementation can proceed directly with the agent once approved.

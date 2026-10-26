@@ -32,7 +32,7 @@ The opposite error is real but rarer: staying in the interview so long you never
 
 Some questions can be answered by talking. Others can't, and no amount of grilling will get you there.
 
-"One long form or three pages?" and "how should this interaction feel?" are **ungrillable**. You need something to react to before you can answer them. When you hit one, stop grilling. Build the throwaway version with [prototype](https://aihero.dev/skills-prototype), look at it, then come back and answer in one line.
+"One long form or three pages?" and "how should this interaction feel?" are **ungrillable**. You need something to react to before you can answer them. When you hit one, stop grilling. Build a throwaway version directly with the agent, look at it, then come back and answer in one line.
 
 Sessions grow too long when you try to talk through an ungrillable question. The agent keeps rephrasing, you keep guessing, and the scope grows with the uncertainty.
 
@@ -69,8 +69,4 @@ More than for most skills. Grilling depends on the [model](https://www.aihero.de
 
 ## Where it fits
 
-`grill-me` is a **standalone you can run anywhere, on anything**. Because it is stateless, it is portable. It needs no repo, workspace, or setup, and does not assume the idea is about software. People use it for business decisions, for writing, and for what to do next: anything they cannot think through clearly on their own.
-
-Portability is the only difference from [grill-with-docs](https://aihero.dev/skills-grill-with-docs). That skill runs the same interview, but reads a codebase to align against and records what it learns as `GLOSSARY.md` and ADRs. Both use the [grilling](https://aihero.dev/skills-grilling) skill underneath. `grill-me` is the user-invoked entry point that keeps no state.
-
-If what you grilled does turn out to be software, you can hand the same conversation to [to-spec](https://aihero.dev/skills-to-spec) and carry on into the build flow (an option, not the point of the skill). When you're unsure which flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+A stateless discussion that can run without a repository. Use `grill-with-docs` when glossary and ADR files should be written during the interview, or `to-spec` when an approved software plan needs a durable spec.
