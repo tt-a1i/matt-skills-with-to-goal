@@ -13,6 +13,9 @@
     "version": "changeset version && node scripts/sync-plugin-version.mjs",
     "check-plugin-version": "node scripts/sync-plugin-version.mjs --check",
     "lint:skills": "node scripts/lint-skills.mjs",
+    "check:shell": "node scripts/check-shell.mjs",
+    "check": "npm run lint:skills && npm run check-plugin-version && npm run check:shell",
+    "test:sync-upstream": "node --test test/sync-upstream.test.mjs",
     "sync:local": "bash scripts/sync-local-skills.sh",
     "sync:upstream": "bash scripts/sync-upstream.sh"
   },

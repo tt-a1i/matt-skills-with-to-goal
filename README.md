@@ -244,7 +244,7 @@ Goal
 - **绝对化表述加边界**：`to-spec` 的 seam 数量与 `resolving-merge-conflicts` 的 `--abort` 改为「默认…除非…」句式，保留引导力但不在边缘场景误导
 - **独立发行**：package、Claude plugin、marketplace、changeset 和仓库链接使用本 fork 的名称、版本与远端
 - **本地分发**：`npm run sync:local` 先备份并同步 33 个 promoted Skills 到统一的 `~/.agents_skills/`，再刷新 Hermes 副本
-- **上游维护**：`npm run sync:upstream` 在干净工作树上创建备份分支，并把 fork overlay rebase 到最新 `upstream/main`；脚本不会自动 push
+- **上游维护**：`npm run sync:upstream` 在包含当前 `origin/main` 的干净评审分支上创建备份，合并上游并保留待审查状态；脚本不会自动提交或推送。PR 检查会运行技能清单、版本、Bash 语法与同步回归验证
 - **目录结构**：跟随上游 `skills/{engineering,productivity,misc,in-progress,deprecated}/` 分类
 - **继承边界**：未被本 fork 修改的 Skill 和文档继续继承上游；发行元数据、维护脚本和本 fork 工作流由本仓库独立维护
 
