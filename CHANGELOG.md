@@ -1,5 +1,35 @@
 # mattpocock-skills
 
+## 1.4.0
+
+### Minor Changes
+
+- [#19](https://github.com/tt-a1i/matt-skills-with-to-goal/pull/19) [`f129f1d`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/f129f1d2e5d08d14bbaf89b86569c82afe8844b5) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Curate the default set from 33 to 23 skills. Archive ask-matt, implement, implement-spec, research, diagnosing-bugs, codebase-design, tdd, code-review, prototype and resolving-merge-conflicts with their historical docs. Remove their active registrations and dependency calls while preserving pr, retro, writing-for-agents and the upstream grill-me/grill-with-docs entrypoints.
+
+  Keep goal-crafter and to-goal separate as goal authoring and approved-source compilation. Shorten both to outcome, evidence, scope and authorization guidance without fixed interviews, readiness ceremonies or model-tier taxonomies. Actual execution remains spec-executor's responsibility. Existing global installations are not automatically removed.
+
+- [`61e8263`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/61e8263036c98dab5f4ea255002b413414682d1b) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Make the fork-owned Goal and execution Skills loosely coupled. They now accept approved work from any planning source, choose testing and review methods from available repository capabilities, and no longer require setup or named planning, TDD, or code-review Skills. Document selective installation and preserve only the concrete transport dependency between Codex fork orchestration, Spec Executor, and Codex Task Messenger.
+
+### Patch Changes
+
+- [`f8fb55e`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/f8fb55eab0e8a2990160025fa97aaf68c1ef1b4d) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `roundtable`, a user-invoked skill that pressure-tests an already-formed decision, plan, or proposal by convening parallel sub-agents arguing deliberately opposed perspectives — independent statements, anonymous cross-review, then a Chair's synthesis that reports the verdict while preserving consensus and dissent. The complement of grilling: grilling sharpens an idea that isn't formed yet, the roundtable attacks a settled motion. Promoted into `skills/engineering/` with a plugin entry, README and Engineering-bucket listings, an `ask-matt` route, and a docs page at `docs/engineering/roundtable.md`.
+
+- [`1984de6`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/1984de6f0e45f25bbe84feb5f7547544166db1f0) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add `execute-spec-in-fork`, a Codex App orchestration skill that creates a same-directory execution fork from the final `SPEC READY`, launches `spec-executor` through Codex Task Messenger, routes decisions back to the planning task, validates the returned receipt, and archives only a correlated clean completion.
+
+- [`faa7579`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/faa7579645fc4fe7bc2fffe3325cb473a6d6753f) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add an optional `Goal / spec quality` field to `spec-executor`'s `SPEC EXECUTION RECEIPT` so a completed run can record whether the contract was accurate, too vague, wrong, missing a constraint, or over-scoped. `execute-spec-in-fork` asks once before archive; a skip does not block using the receipt or archiving the child. Docs pages follow.
+
+- [`ca4ece9`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/ca4ece9a2a4e993c9262a9751b0dd5823bf507ab) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Make `improve-codebase-architecture` present its candidates as markdown by default and write the self-contained HTML report only on request, so a run stays useful offline or behind a script blocker. Give two absolute rules an explicit boundary without loosening the default: `to-spec` now defaults to one seam per spec unless a genuine external boundary forces another, and `resolving-merge-conflicts` treats `--abort` as a last resort for irreconcilable intents rather than an option it never has. Docs pages and the fork's upstream-difference list follow.
+
+- [`83ed78d`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/83ed78d0bbe8976f847d281369a7df1c3fc121b7) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Let portable handoffs record their source Codex task and execution owner so compatible same-directory tasks can ask one targeted follow-up through Codex Task Messenger.
+
+- [`2074cdf`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/2074cdf5046dcacf72c340d839bd97450000bd93) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Rewrite `to-goal`'s compiler output from a six-section prose brief into a readiness checklist plus a required fill-in template, so every compiled handoff carries independently checkable criteria, the default constraints, and a session recommendation. The compiler now stops on an incomplete readiness list instead of inventing a goal, and keeps skip-test lines out of the paste block unless tests were actually skipped.
+
+- [#18](https://github.com/tt-a1i/matt-skills-with-to-goal/pull/18) [`bb725c8`](https://github.com/tt-a1i/matt-skills-with-to-goal/commit/bb725c8c33a1208ca387d01e7177bf7f3f5c55e6) Thanks [@tt-a1i](https://github.com/tt-a1i)! - Add PR checks using existing inventory and version validation, tracked Bash syntax checks, and local Git integration tests. Prepare upstream syncs as uncommitted history-preserving review merges, and document bounded batch review and skill/doc consistency checks.
+
+- Sync upstream through 49dd158 (v1.3.1), retaining loosely coupled fork boundaries and distribution identity. Include wizard, handoff, tracker, diagnosis and review fixes; add implement-spec, pr and retro while keeping experimental and upstream operational automation out of the fork.
+
+- Selectively sync upstream v1.3.2 through a496f55. Bring in setup/tracker fixes, legacy glossary migration guidance, and fresh-context research/exploration subagents for the retained skills. Preserve the 23-skill default set, archived source snapshots, fork package identity, concise Goal authoring/compilation, and intentional execution-fork inheritance. Leave upstream repository intake configuration and excluded skills out of the fork.
+
 ## 1.3.2
 
 ### Patch Changes
