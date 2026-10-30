@@ -10,7 +10,7 @@ It is a prompt-driven skill, not a deterministic script. It reads your `git remo
 
 You invoke this by typing `/setup-matt-pocock-skills`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Its metadata marks it non-invokable on purpose, so no other skill can fire it for you.
 
-Reach for it once per repo, before the first use of any other engineering skill. If [triage](https://aihero.dev/skills-triage), [to-spec](https://aihero.dev/skills-to-spec), [to-tickets](https://aihero.dev/skills-to-tickets) or [wayfinder](https://aihero.dev/skills-wayfinder) start guessing where your issues go, or apply labels your tracker doesn't have, this repo has not been set up yet. You can run it in a repo halfway through a project. The skill reads what is already there, so no earlier work is lost.
+Reach for it once per repo, before using skills that require configured tracker or domain-document conventions. If [triage](https://aihero.dev/skills-triage), [to-spec](https://aihero.dev/skills-to-spec), [to-tickets](https://aihero.dev/skills-to-tickets) or [wayfinder](https://aihero.dev/skills-wayfinder) start guessing where your issues go, or apply labels your tracker doesn't have, this repo has not been set up yet. You can run it in a repo halfway through a project. The skill reads what is already there, so no earlier work is lost.
 
 ## Prerequisites
 
@@ -47,6 +47,14 @@ The tracker options:
 The first three ship as templates in the skill and work out of the box. Local markdown is a full option, not a fallback. The skill supports a solo project with no remote. One caveat: don't use local markdown if you use GitHub. They are alternatives, so pick one.
 
 "Other" is a full option too. It is how Jira, Linear, Azure DevOps and Beads all work. You describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. Users have already built this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
+
+## Existing repositories and tracker repairs
+
+A GitHub or GitLab tracker needs a reachable project. If no remote points to the chosen host, setup asks for the project URL, wires the remote, and verifies it with the host CLI before writing tracker configuration. A local tracker needs no remote.
+
+Setup also offers to rename legacy `CONTEXT.md` / `CONTEXT-MAP.md` to their `GLOSSARY` names and update `docs/agents/domain.md`. The migration is offered, not performed merely because this fork was updated.
+
+Refreshed tracker templates read PR bodies as well as comments, post the explanation before closing a GitHub issue, count open blockers, and use corrected GitLab MR/child-link commands. GitHub templates also check which repository an issue would target, particularly when working in a fork. Re-run setup to refresh a project's generated `docs/agents` files; updating this skill does not rewrite those existing project files.
 
 ## Common questions
 

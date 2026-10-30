@@ -49,6 +49,10 @@ The report ends with a **Top recommendation** (the one it would tackle first), a
 
 Picking a candidate starts a [grilling](https://aihero.dev/skills-grilling) session over it: constraints, what sits behind the seam, which tests survive, what the deepened interface should look like. The output of that session is a decision, not a diff. From there the normal flow applies: take the decision into [to-spec](https://aihero.dev/skills-to-spec), then [to-tickets](https://aihero.dev/skills-to-tickets), then implementation directly with the agent.
 
+## Exploration context
+
+The codebase exploration subagent starts with a fresh context window and the repository/task pointers it needs. The parent keeps the discussion and candidate-selection context. This does not change the fork's Markdown-first, optional-HTML output.
+
 ## Common questions
 
 **It grilled me for an hour about one idea instead of showing me options. Can I turn that off?**

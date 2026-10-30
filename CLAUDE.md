@@ -25,4 +25,6 @@ Rejected directions get archived, not merely decided. When this fork turns down 
 
 Before syncing upstream, publishing to `origin`, or refreshing local installs, read [docs/maintaining-fork.md](./docs/maintaining-fork.md). It covers review merges, bounded diff inspection, skill/doc consistency, and validation before publication.
 
+Independent research or review subagents start with a fresh context window and receive the evidence pointers their task needs. Deliberate execution-chat forks, such as `execute-spec-in-fork`, still inherit the approved conversation; they serve a different context boundary.
+
 Use plain punctuation in repository prose, consistent with upstream: rewrite sentences with commas, colons, periods, parentheses, or conjunctions.
