@@ -54,6 +54,10 @@ Every ticket carries a `wayfinder:<type>` label. Each ticket is either **[HITL](
 
 Research is the only exception to *one ticket per session*.
 
+## Independent research context
+
+Research subagents start with a fresh context window and receive the relevant ticket and evidence pointers. This keeps the planning conversation out of their reading context; it does not alter deliberate execution-chat forks.
+
 ## Common questions
 
 **How is this different from `/grill-with-docs`? Which should I start with?**

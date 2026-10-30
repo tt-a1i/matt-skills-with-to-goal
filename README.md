@@ -10,8 +10,8 @@
 
 一组可以独立安装、按需组合的 Agent Skill。它们稳定任务合同、权限和证据，不规定模型必须用哪套思考或工程流程。
 
-[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20v1.3.1-171717?style=flat-square)](https://github.com/mattpocock/skills)
-[![Fork](https://img.shields.io/badge/fork-v1.3.1--to--goal.1-F35B2A?style=flat-square)](https://github.com/tt-a1i/matt-skills-with-to-goal)
+[![Upstream](https://img.shields.io/badge/upstream-mattpocock%2Fskills%20v1.3.2-171717?style=flat-square)](https://github.com/mattpocock/skills)
+[![Fork](https://img.shields.io/badge/fork-v1.3.2--to--goal.1-F35B2A?style=flat-square)](https://github.com/tt-a1i/matt-skills-with-to-goal)
 [![Install](https://img.shields.io/badge/install-npx%20skills-F35B2A?style=flat-square)](#安装)
 [![License](https://img.shields.io/badge/license-MIT-DCF23E?style=flat-square&labelColor=171717)](LICENSE)
 
@@ -208,9 +208,9 @@ Goal
 
 ## 来源与许可
 
-本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.3.1（同步至 2026-10-09，`49dd158`）**，并叠加自动 fork execution、to-goal 两条上下文边界流程与 roundtable 多视角决策辩论。
+本仓库基于 [mattpocock/skills](https://github.com/mattpocock/skills) **`main` v1.3.2（选择性同步至 2026-10-29，`a496f55`）**，并叠加自动 fork execution、to-goal 两条上下文边界流程与 roundtable 多视角决策辩论。
 
-当前 fork 发行版为 **`1.3.1-to-goal.1`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
+当前 fork 发行版为 **`1.3.2-to-goal.1`**：前半段表示同步的上游版本，后缀表示本仓库自己的发行序列。Claude 插件、package metadata 和安装入口均使用独立身份 `matt-skills-with-to-goal`，不会覆盖上游的 `mattpocock-skills`。
 
 - Matt 原版技能：© [Matt Pocock](https://github.com/mattpocock/skills)，MIT
 - 本仓库扩展与适配：MIT
@@ -241,3 +241,7 @@ Goal
 2026-10-26 起，通用实现、调研、诊断、设计、测试和评审方法移出默认发布；10 个旧技能及文档留在 [归档目录](skills/deprecated/README.md)。`pr`、`retro`、`writing-for-agents` 保留。`grill-me` 与 `grill-with-docs` 继续采用上游的独立入口。两个 Goal 编写入口保留分工，实际执行由 `spec-executor` 负责。
 
 插件和 `sync:local` 只分发默认集合。使用 skills.sh 时选择上面的当前清单；本次没有验证第三方安装器的归档发现行为，归档也不代表历史安装已自动卸载。
+
+### 2026-10-30：选择性同步 v1.3.2
+
+同步上游历史至 `a496f55`，纳入初始化时的仓库可达性检查、旧领域文档迁移和 tracker 模板修复。独立调研子 Agent 使用全新上下文；主动创建的执行 Fork 仍继承已批准对话。默认集合保持 23 个，已归档技能、实验技能和上游仓库运营配置不重新引入。仓库同步不刷新全局安装。
